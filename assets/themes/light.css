@@ -1,0 +1,45 @@
+/*
+ * Soplos Welcome Live 2.0 - Light Theme
+ * Light color scheme
+ */
+
+@import url("base.css");
+
+/* Light theme overrides */
+.soplos-welcome-live-window {
+    background-color: #f5f5f5;
+}
+
+.soplos-card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.soplos-welcome-title {
+    color: #2e3436;
+}
+
+.soplos-welcome-subtitle {
+    color: #555753;
+}
+
+.soplos-button-install {
+    background-image: linear-gradient(to bottom, #4a90d9, #3465a4);
+}
+
+.soplos-link-button {
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+}
+
+.soplos-link-button:hover {
+    background-color: #e8e8e8;
+}
+
+switch:checked {
+    background-color: #4a90d9;
+}
+
+.soplos-progress-bar progress {
+    background-color: #4a90d9;
+}

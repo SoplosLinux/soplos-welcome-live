@@ -1,0 +1,223 @@
+/*
+ * Soplos Welcome Live 2.0 - Base Theme
+ * Professional CSS styling for GTK3 application
+ */
+
+/* ============================================
+   WINDOW STYLES
+   ============================================ */
+
+.soplos-welcome-live-window {
+    background-color: @theme_bg_color;
+}
+
+.soplos-content {
+    padding: 10px;
+}
+
+/* ============================================
+   CARD STYLES
+   ============================================ */
+
+.soplos-card {
+    background-color: @theme_base_color;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+.soplos-button-install {
+    background-image: linear-gradient(to bottom, #4a90d9, #3465a4);
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.soplos-button-install:hover {
+    background-image: linear-gradient(to bottom, #5a9fe9, #4475b4);
+}
+
+.soplos-button-install:active {
+    background-image: linear-gradient(to bottom, #3a80c9, #2455a4);
+}
+
+.soplos-button-primary {
+    background-color: #4a90d9;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.soplos-button-primary:hover {
+    background-color: #5aa0e9;
+}
+
+.soplos-button-secondary {
+    background-color: @theme_bg_color;
+    border: 1px solid @borders;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.soplos-button-secondary:hover {
+    background-color: shade(@theme_bg_color, 0.95);
+}
+
+.soplos-button-danger {
+    background-color: #cc0000;
+    color: white;
+    border-radius: 4px;
+}
+
+.soplos-button-danger:hover {
+    background-color: #dc1010;
+}
+
+.soplos-link-button {
+    border-radius: 4px;
+    padding: 8px 12px;
+    min-height: 32px;
+}
+
+/* ============================================
+   LABELS AND TEXT
+   ============================================ */
+
+.soplos-welcome-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: @theme_fg_color;
+}
+
+.soplos-welcome-subtitle {
+    font-size: 14px;
+    color: alpha(@theme_fg_color, 0.7);
+}
+
+.soplos-status-label {
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+
+.soplos-progress-bar {
+    min-height: 8px;
+    border-radius: 4px;
+}
+
+.soplos-progress-bar progress {
+    background-color: #4a90d9;
+    border-radius: 4px;
+}
+
+/* ============================================
+   SLIDE IMAGE
+   ============================================ */
+
+.soplos-slide-image {
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* ============================================
+   SEPARATOR
+   ============================================ */
+
+.soplos-separator {
+    background-color: @borders;
+    min-height: 1px;
+    margin: 8px 0;
+}
+
+/* ============================================
+   ICON SIZES
+   ============================================ */
+
+.soplos-icon-large {
+    -gtk-icon-size: 64px;
+}
+
+.soplos-icon-medium {
+    -gtk-icon-size: 48px;
+}
+
+/* ============================================
+   SWITCH STYLING
+   ============================================ */
+
+switch {
+    border-radius: 12px;
+    min-width: 48px;
+    min-height: 24px;
+}
+
+switch:checked {
+    background-color: #4a90d9;
+}
+
+/* ============================================
+   COMBOBOX STYLING
+   ============================================ */
+
+combobox button {
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+/* ============================================
+   TREEVIEW STYLING
+   ============================================ */
+
+treeview {
+    border-radius: 4px;
+}
+
+treeview:selected {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+/* ============================================
+   DIALOG STYLING
+   ============================================ */
+
+dialog {
+    border-radius: 8px;
+}
+
+messagedialog {
+    border-radius: 8px;
+}
+
+/* ============================================
+   NOTEBOOK / TABS (if used)
+   ============================================ */
+
+notebook {
+    background-color: @theme_bg_color;
+}
+
+notebook > header {
+    background-color: shade(@theme_bg_color, 0.95);
+    border-bottom: 1px solid @borders;
+}
+
+notebook > header > tabs > tab {
+    padding: 8px 16px;
+    border-radius: 4px 4px 0 0;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: @theme_base_color;
+}

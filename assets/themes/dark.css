@@ -1,0 +1,70 @@
+/*
+ * Soplos Welcome Live 2.0 - Dark Theme
+ * Dark color scheme
+ */
+
+@import url("base.css");
+
+/* Dark theme overrides */
+.soplos-welcome-live-window {
+    background-color: #2d2d2d;
+}
+
+.soplos-card {
+    background-color: #3d3d3d;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.soplos-welcome-title {
+    color: #eeeeee;
+}
+
+.soplos-welcome-subtitle {
+    color: #b0b0b0;
+}
+
+.soplos-button-install {
+    background-image: linear-gradient(to bottom, #5a9fe9, #4a90d9);
+}
+
+.soplos-link-button {
+    background-color: #404040;
+    border: 1px solid #555555;
+    color: #e0e0e0;
+}
+
+.soplos-link-button:hover {
+    background-color: #4a4a4a;
+}
+
+switch {
+    background-color: #555555;
+}
+
+switch:checked {
+    background-color: #5a9fe9;
+}
+
+.soplos-progress-bar {
+    background-color: #404040;
+}
+
+.soplos-progress-bar progress {
+    background-color: #5a9fe9;
+}
+
+treeview {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+}
+
+treeview:selected {
+    background-color: #4a90d9;
+    color: #ffffff;
+}
+
+combobox button {
+    background-color: #404040;
+    color: #e0e0e0;
+    border: 1px solid #555555;
+}

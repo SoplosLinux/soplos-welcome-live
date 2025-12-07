@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.soplos.welcomelive</id>
+  <pkgname>soplos-welcome-live</pkgname>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <project_group>org.soplos</project_group>
+
+  <name>Soplos Welcome Live</name>
+  <name xml:lang="es">Bienvenida a Soplos Live</name>
+  <name xml:lang="fr">Bienvenue sur Soplos Live</name>
+  <name xml:lang="pt">Bem-vindo ao Soplos Live</name>
+  <name xml:lang="de">Willkommen bei Soplos Live</name>
+  <name xml:lang="it">Benvenuto su Soplos Live</name>
+  <name xml:lang="ru">Добро пожаловать в Soplos Live</name>
+  <name xml:lang="ro">Bun venit la Soplos Live</name>
+
+  <summary>Welcome application for Soplos Linux Live with CHROOT recovery and BTRFS support</summary>
+  <summary xml:lang="es">Aplicación de bienvenida para Soplos Linux Live con recuperación CHROOT y soporte BTRFS</summary>
+  <summary xml:lang="fr">Application d'accueil pour Soplos Linux Live avec récupération CHROOT et support BTRFS</summary>
+  <summary xml:lang="pt">Aplicação de boas-vindas para Soplos Linux Live com recuperação CHROOT e suporte BTRFS</summary>
+  <summary xml:lang="de">Willkommensanwendung für Soplos Linux Live mit CHROOT-Wiederherstellung und BTRFS-Unterstützung</summary>
+  <summary xml:lang="it">Applicazione di benvenuto per Soplos Linux Live con recupero CHROOT e supporto BTRFS</summary>
+  <summary xml:lang="ru">Приложение приветствия для Soplos Linux Live с восстановлением CHROOT и поддержкой BTRFS</summary>
+  <summary xml:lang="ro">Aplicație de bun venit pentru Soplos Linux Live cu recuperare CHROOT și suport BTRFS</summary>
+
+  <description>
+    <p>Soplos Welcome Live 2.0 provides a comprehensive welcome experience for Soplos Linux Live Environment. Built with the same modular architecture as Soplos Welcome 2.0, it offers universal desktop compatibility and professional system recovery tools.</p>
+    <p xml:lang="es">Soplos Welcome Live 2.0 proporciona una experiencia de bienvenida completa para el entorno Live de Soplos Linux. Construida con la misma arquitectura modular que Soplos Welcome 2.0, ofrece compatibilidad universal con escritorios y herramientas profesionales de recuperación del sistema.</p>
+    <p xml:lang="fr">Soplos Welcome Live 2.0 offre une expérience de bienvenue complète pour l'environnement Live de Soplos Linux. Construite avec la même architecture modulaire que Soplos Welcome 2.0, elle offre une compatibilité universelle avec les bureaux et des outils professionnels de récupération système.</p>
+    <ul>
+      <li>Universal desktop support: XFCE (Tyron), KDE Plasma (Tyson), GNOME (Boro)</li>
+      <li>Complete X11 and Wayland compatibility</li>
+      <li>Calamares installer integration</li>
+      <li>Advanced CHROOT recovery system with intelligent partition detection</li>
+      <li>Full BTRFS support including subvolume detection and mounting</li>
+      <li>GParted integration for professional disk management</li>
+      <li>Complete internationalization with 8 languages</li>
+      <li>GNU Gettext professional translation system</li>
+    </ul>
+  </description>
+
+  <categories>
+    <category>System</category>
+    <category>Settings</category>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>welcome</keyword>
+    <keyword>live</keyword>
+    <keyword>install</keyword>
+    <keyword>chroot</keyword>
+    <keyword>recovery</keyword>
+    <keyword>btrfs</keyword>
+    <keyword>soplos</keyword>
+    <keyword xml:lang="es">bienvenida</keyword>
+    <keyword xml:lang="es">instalar</keyword>
+    <keyword xml:lang="es">recuperación</keyword>
+  </keywords>
+
+  <launchable type="desktop-id">org.soplos.welcomelive.desktop</launchable>
+
+  <icon type="stock">org.soplos.welcomelive</icon>
+  <icon type="remote">
+    <url>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/icons/com.soplos.welcomelive.png</url>
+  </icon>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Welcome Screen with Language Selection and System Installation</caption>
+      <caption xml:lang="es">Pantalla de Bienvenida con Selección de Idioma e Instalación del Sistema</caption>
+      <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Advanced CHROOT Recovery System</caption>
+      <caption xml:lang="es">Sistema Avanzado de Recuperación CHROOT</caption>
+      <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot2.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>BTRFS Subvolume Selection</caption>
+      <caption xml:lang="es">Selección de Subvolúmenes BTRFS</caption>
+      <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot3.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Terminal with Active CHROOT Session</caption>
+      <caption xml:lang="es">Terminal con Sesión CHROOT Activa</caption>
+      <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot4.png</image>
+    </screenshot>
+  </screenshots>
+
+  <url type="homepage">https://soplos.org</url>
+  <url type="bugtracker">https://github.com/SoplosLinux/soplos-welcome-live/issues</url>
+  <url type="donation">https://www.paypal.com/paypalme/isubdes</url>
+  <url type="help">https://soplos.org</url>
+
+  <developer id="org.soplos">
+    <name>Sergi Perich</name>
+    <url type="homepage">https://soplos.org</url>
+  </developer>
+
+  <provides>
+    <binary>soplos-welcome-live</binary>
+  </provides>
+
+  <translation type="gettext">soplos-welcome-live</translation>
+
+  <releases>
+    <release version="2.0.0" date="2025-12-07">
+      <description>
+        <p>Major rewrite with modern architecture:</p>
+        <ul>
+          <li>Complete rewrite matching Soplos Welcome 2.0 architecture</li>
+          <li>Universal desktop support: XFCE, KDE Plasma, GNOME</li>
+          <li>Complete X11 and Wayland compatibility</li>
+          <li>GNU Gettext internationalization (8 languages at 100%)</li>
+          <li>Enhanced CHROOT recovery with improved partition detection</li>
+          <li>Full BTRFS subvolume support</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.1.2" date="2025-11-29">
+      <description>
+        <p>Universal disk detection in CHROOT for all hardware and VM types.</p>
+      </description>
+    </release>
+    <release version="1.1.1" date="2025-09-08">
+      <description>
+        <p>Updated welcome tab links.</p>
+      </description>
+    </release>
+    <release version="1.1.0" date="2025-08-02">
+      <description>
+        <p>Internationalization refactor and BTRFS fixes.</p>
+      </description>
+    </release>
+    <release version="1.0.0" date="2024-01-27">
+      <description>
+        <p>Initial release with basic welcome interface and CHROOT functionality.</p>
+      </description>
+    </release>
+  </releases>
+
+  <content_rating type="oars-1.1" />
+
+  <languages>
+    <lang percentage="100">es</lang>
+    <lang percentage="100">en</lang>
+    <lang percentage="100">fr</lang>
+    <lang percentage="100">pt</lang>
+    <lang percentage="100">de</lang>
+    <lang percentage="100">it</lang>
+    <lang percentage="100">ru</lang>
+    <lang percentage="100">ro</lang>
+  </languages>
+
+</component>

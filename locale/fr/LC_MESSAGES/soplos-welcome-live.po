@@ -1,0 +1,2151 @@
+# French translations for soplos-welcome package.
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-welcome package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: soplos-welcome 2.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-07 02:50+0100\n"
+"PO-Revision-Date: 2025-12-06 05:12+0100\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: Français <info@soploslinux.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: core/application.py:187 ui/main_window.py:82
+#, fuzzy
+msgid "Soplos Welcome Live"
+msgstr "Soplos Welcome"
+
+#: core/application.py:214
+msgid "About"
+msgstr "À propos"
+
+#: core/application.py:220
+msgid "Quit"
+msgstr "Quitter"
+
+#: core/application.py:267
+#, fuzzy
+msgid ""
+"\n"
+"Soplos Welcome Live 2.0 - Live ISO Welcome Application\n"
+"\n"
+"Usage: soplos-welcome-live [OPTIONS]\n"
+"\n"
+"Options:\n"
+"  -h, --help              Show this help message\n"
+"  -v, --version           Show version information\n"
+"  --lang=LANG             Set language (es, en, fr, de, pt, it, ro, ru)\n"
+"  --theme=THEME           Set theme (base, light, dark)\n"
+"  --chroot                Open chroot mode directly\n"
+"  --debug                 Enable debug mode\n"
+"\n"
+"Examples:\n"
+"  soplos-welcome-live                    # Start with auto-detected "
+"settings\n"
+"  soplos-welcome-live --lang=es          # Start in Spanish\n"
+"  soplos-welcome-live --theme=dark       # Start with dark theme\n"
+"  soplos-welcome-live --chroot           # Open chroot mode\n"
+"\n"
+"For more information, visit: https://soplos.org\n"
+msgstr ""
+"\n"
+"Soplos Welcome 2.0 - L'application de bienvenue la plus avancée au monde\n"
+"\n"
+"Utilisation : soplos-welcome [OPTIONS]\n"
+"\n"
+"Options :\n"
+"  -h, --help              Afficher ce message d'aide\n"
+"  -v, --version           Afficher les informations de version\n"
+"  --lang=LANG             Définir la langue (es, en, fr, de, pt, it, ro, "
+"ru)\n"
+"  --theme=THEME           Définir le thème (base, light, dark, gnome, kde, "
+"xfce)\n"
+"  --debug                 Activer le mode débogage\n"
+"\n"
+"Exemples :\n"
+"  soplos-welcome                    # Démarrer avec les paramètres détectés "
+"automatiquement\n"
+"  soplos-welcome --lang=es          # Démarrer en espagnol\n"
+"  soplos-welcome --theme=dark       # Démarrer avec le thème sombre\n"
+"  soplos-welcome --debug            # Démarrer en mode débogage\n"
+"\n"
+"Pour plus d'informations, visitez : https://soplos.org\n"
+
+#: core/application.py:294
+#, fuzzy, python-brace-format
+msgid ""
+"\n"
+"Soplos Welcome Live {version}\n"
+"\n"
+"Copyright (C) 2025 Sergi Perich\n"
+"This is free software; see the source for copying conditions.\n"
+"There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A "
+"PARTICULAR PURPOSE.\n"
+"\n"
+"Edition: {edition}\n"
+"Desktop Environment: {desktop_env}\n"
+"Display Protocol: {display_protocol}\n"
+"Theme: {theme}\n"
+"Language: {language}\n"
+msgstr ""
+"\n"
+"Soplos Welcome {version}\n"
+"\n"
+"Copyright (C) 2025 Sergi Perich\n"
+"Ceci est un logiciel libre ; consultez le code source pour les conditions de "
+"copie.\n"
+"Il n'y a AUCUNE garantie ; même pas de COMMERCIALISATION ou d'ADÉQUATION À "
+"UN USAGE PARTICULIER.\n"
+"\n"
+"Environnement de bureau : {desktop_env}\n"
+"Protocole d'affichage : {display_protocol}\n"
+"Thème : {theme}\n"
+"Langue : {language}\n"
+
+#: core/chroot_operations.py:68
+#, fuzzy
+msgid "Unknown Device"
+msgstr "Inconnu"
+
+#: core/chroot_operations.py:314
+msgid "Root partition (/) not specified"
+msgstr ""
+
+#: core/chroot_operations.py:347
+#, fuzzy
+msgid "System mounted successfully"
+msgstr "Opération terminée avec succès"
+
+#: core/chroot_operations.py:407
+#, fuzzy
+msgid "System was not mounted"
+msgstr "Système à jour"
+
+#: core/chroot_operations.py:429
+#, fuzzy
+msgid "System unmounted successfully"
+msgstr "Définitions mises à jour avec succès !"
+
+#: ui/chroot_window.py:30 ui/chroot_window.py:64 ui/main_window.py:283
+#, fuzzy
+msgid "System Rescue"
+msgstr "Sauvegardes système"
+
+#: ui/chroot_window.py:68
+msgid ""
+"Select a disk to mount an existing Linux installation for rescue or repair."
+msgstr ""
+
+#: ui/chroot_window.py:84 ui/chroot_window.py:212
+msgid "Device"
+msgstr ""
+
+#: ui/chroot_window.py:85 ui/chroot_window.py:212
+msgid "Size"
+msgstr ""
+
+#: ui/chroot_window.py:86
+#, fuzzy
+msgid "Model"
+msgstr "Modèle :"
+
+#: ui/chroot_window.py:98
+#, fuzzy
+msgid "Open GParted"
+msgstr "Commencer"
+
+#: ui/chroot_window.py:100
+msgid "Open GParted partition editor"
+msgstr ""
+
+#: ui/chroot_window.py:108 ui/chroot_window.py:376
+msgid "Close"
+msgstr "Fermer"
+
+#: ui/chroot_window.py:113
+msgid "Next"
+msgstr ""
+
+#: ui/chroot_window.py:129
+msgid "No Disks Found"
+msgstr ""
+
+#: ui/chroot_window.py:130
+msgid "No disk devices were found on this system."
+msgstr ""
+
+#: ui/chroot_window.py:135 ui/chroot_window.py:147 ui/chroot_window.py:170
+#: ui/chroot_window.py:341 ui/chroot_window.py:357 ui/chroot_window.py:423
+#: ui/chroot_window.py:437 ui/chroot_window.py:440 ui/main_window.py:387
+#: ui/main_window.py:421 ui/main_window.py:431
+msgid "Error"
+msgstr "Erreur"
+
+#: ui/chroot_window.py:136
+#, python-brace-format
+msgid "Error loading disks: {error}"
+msgstr ""
+
+#: ui/chroot_window.py:156
+#, fuzzy
+msgid "No Selection"
+msgstr "Sélecteur de dépôts"
+
+#: ui/chroot_window.py:157
+msgid "Please select a disk to continue."
+msgstr ""
+
+#: ui/chroot_window.py:171
+#, python-brace-format
+msgid "Error loading partitions: {error}"
+msgstr ""
+
+#: ui/chroot_window.py:178
+msgid "Select Partitions"
+msgstr ""
+
+#: ui/chroot_window.py:193
+msgid "No mountable partitions found on this disk."
+msgstr ""
+
+#: ui/chroot_window.py:202
+msgid "Assign mount points to partitions"
+msgstr ""
+
+#: ui/chroot_window.py:212
+msgid "Mount Point"
+msgstr ""
+
+#: ui/chroot_window.py:212
+#, fuzzy
+msgid "Filesystem"
+msgstr "Outils de système de fichiers"
+
+#: ui/chroot_window.py:233
+msgid "-- Not used --"
+msgstr ""
+
+#: ui/chroot_window.py:265
+msgid "Btrfs Subvolumes"
+msgstr ""
+
+#: ui/chroot_window.py:298
+msgid "subvolume"
+msgstr ""
+
+#: ui/chroot_window.py:302
+msgid "Default"
+msgstr "Défaut"
+
+#: ui/chroot_window.py:342
+msgid "You must select a partition for the root (/) mount point."
+msgstr ""
+
+#: ui/chroot_window.py:354
+msgid "Mount Failed"
+msgstr ""
+
+#: ui/chroot_window.py:366
+#, fuzzy
+msgid "System Mounted Successfully"
+msgstr "GameMode installé avec succès !"
+
+#: ui/chroot_window.py:370
+#, python-brace-format
+msgid ""
+"The system has been mounted at {mount_point}.\n"
+"\n"
+"You can now open a terminal to perform repairs."
+msgstr ""
+
+#: ui/chroot_window.py:377
+msgid "Open Terminal"
+msgstr ""
+
+#: ui/chroot_window.py:378
+msgid "Unmount"
+msgstr ""
+
+#: ui/chroot_window.py:413
+msgid "Terminal Not Found"
+msgstr ""
+
+#: ui/chroot_window.py:414
+#, python-brace-format
+msgid ""
+"Could not find a terminal emulator.\n"
+"\n"
+"To access the chroot manually, run:\n"
+"sudo arch-chroot {mount_point}"
+msgstr ""
+
+#: ui/chroot_window.py:432
+msgid "Unmounted"
+msgstr ""
+
+#: ui/chroot_window.py:433
+#, fuzzy
+msgid "The system has been unmounted successfully."
+msgstr "DaVinci Resolve a été installé avec succès."
+
+#: ui/chroot_window.py:451
+#, fuzzy
+msgid "Unmount System?"
+msgstr "Système actuel"
+
+#: ui/chroot_window.py:453
+msgid "Do you want to unmount the system before closing?"
+msgstr ""
+
+#: ui/main_window.py:161
+msgid "Welcome to Soplos Linux"
+msgstr "Bienvenue sur Soplos Linux"
+
+#: ui/main_window.py:162
+msgid "Live Session"
+msgstr ""
+
+#: ui/main_window.py:177
+#, fuzzy
+msgid "Show at startup"
+msgstr "Afficher cette application au démarrage"
+
+#: ui/main_window.py:191
+#, fuzzy
+msgid "Language"
+msgstr "Changer la langue"
+
+#: ui/main_window.py:231
+#, fuzzy
+msgid "Try Soplos Linux"
+msgstr "Bienvenue sur Soplos Linux"
+
+#: ui/main_window.py:232
+msgid "Explore the system before installing"
+msgstr ""
+
+#: ui/main_window.py:247
+msgid "Website"
+msgstr ""
+
+#: ui/main_window.py:253
+msgid "Forums"
+msgstr "Forums"
+
+#: ui/main_window.py:259
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/main_window.py:265
+msgid "Donate"
+msgstr "Faire un don"
+
+#: ui/main_window.py:278
+msgid "Exit"
+msgstr ""
+
+#: ui/main_window.py:285
+#, fuzzy
+msgid "Mount and repair an existing installation"
+msgstr "Préparation de l'installation..."
+
+#: ui/main_window.py:289
+#, fuzzy
+msgid "Install Soplos Linux"
+msgstr "Installer Liquorix"
+
+#: ui/main_window.py:324
+msgid "Change Language"
+msgstr "Changer la langue"
+
+#: ui/main_window.py:327
+#, python-brace-format
+msgid ""
+"Do you want to change the system language to {language}?\n"
+"\n"
+"This will require a session restart to take full effect."
+msgstr ""
+
+#: ui/main_window.py:343
+#, fuzzy
+msgid "Changing language..."
+msgstr "Changer la langue"
+
+#: ui/main_window.py:368
+msgid "Restart Required"
+msgstr ""
+
+#: ui/main_window.py:371
+msgid ""
+"Language settings have been updated.\n"
+"\n"
+"Do you want to restart your session now to apply all changes?"
+msgstr ""
+
+#: ui/main_window.py:384
+msgid "Partial Success"
+msgstr ""
+
+#: ui/main_window.py:415
+#, fuzzy
+msgid "Installer Not Found"
+msgstr "Installé"
+
+#: ui/main_window.py:416
+msgid ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+msgstr ""
+
+#: ui/main_window.py:432
+#, fuzzy, python-brace-format
+msgid "Could not open System Rescue: {error}"
+msgstr "Impossible d'ouvrir le site web"
+
+#~ msgid "Preferences"
+#~ msgstr "Préférences"
+
+#~ msgid "Web Browsers"
+#~ msgstr "Navigateurs Web"
+
+#~ msgid "Free and open-source web browser developed by Mozilla"
+#~ msgstr "Navigateur web libre et open-source développé par Mozilla"
+
+#~ msgid "Web browser developed by Google"
+#~ msgstr "Navigateur web développé par Google"
+
+#~ msgid "Open-source project behind Google Chrome"
+#~ msgstr "Projet open-source derrière Google Chrome"
+
+#~ msgid "Privacy-focused browser that blocks ads"
+#~ msgstr "Navigateur axé sur la confidentialité qui bloque les publicités"
+
+#~ msgid "Firefox fork focused on privacy, security and freedom"
+#~ msgstr ""
+#~ "Fork de Firefox axé sur la confidentialité, la sécurité et la liberté"
+
+#~ msgid "Lightweight, fast and secure web browser"
+#~ msgstr "Navigateur web léger, rapide et sécurisé"
+
+#~ msgid "Communication"
+#~ msgstr "Communication"
+
+#~ msgid "Free email client developed by Mozilla"
+#~ msgstr "Client de messagerie gratuit développé par Mozilla"
+
+#~ msgid "Communication app for communities and gaming"
+#~ msgstr "Application de communication pour les communautés et le jeu"
+
+#~ msgid "Fast and secure messaging app"
+#~ msgstr "Application de messagerie rapide et sécurisée"
+
+#~ msgid "Private messaging with end-to-end encryption"
+#~ msgstr "Messagerie privée avec chiffrement de bout en bout"
+
+#~ msgid "Matrix client for decentralized communication"
+#~ msgstr "Client Matrix pour la communication décentralisée"
+
+#~ msgid "Unofficial WhatsApp desktop client"
+#~ msgstr "Client de bureau non officiel pour WhatsApp"
+
+#~ msgid "Development"
+#~ msgstr "Développement"
+
+#~ msgid "Source code editor developed by Microsoft"
+#~ msgstr "Éditeur de code source développé par Microsoft"
+
+#~ msgid "Free version of Visual Studio Code without telemetry"
+#~ msgstr "Version gratuite de Visual Studio Code sans télémétrie"
+
+#~ msgid "Advanced Agentic AI Coding Assistant"
+#~ msgstr "Assistant de codage IA agentique avancé"
+
+#~ msgid "Sophisticated text editor for code and markup"
+#~ msgstr "Éditeur de texte sophistiqué pour le code et le balisage"
+
+#~ msgid "Code editor with integrated AI"
+#~ msgstr "Éditeur de code avec IA intégrée"
+
+#~ msgid "High-performance collaborative code editor"
+#~ msgstr "Éditeur de code collaboratif haute performance"
+
+#~ msgid "Lightweight and fast IDE with multi-language support"
+#~ msgstr "IDE léger et rapide avec support multilingue"
+
+#~ msgid "Advanced editor for web programmers"
+#~ msgstr "Éditeur avancé pour programmeurs web"
+
+#~ msgid "Fast and reliable FTP/SFTP client"
+#~ msgstr "Client FTP/SFTP rapide et fiable"
+
+#~ msgid "Graphics and Design"
+#~ msgstr "Graphisme et Design"
+
+#~ msgid "Advanced and free image editor"
+#~ msgstr "Éditeur d'images avancé et gratuit"
+
+#~ msgid "Professional vector graphics editor"
+#~ msgstr "Éditeur de graphismes vectoriels professionnel"
+
+#~ msgid "Complete and free 3D creation suite"
+#~ msgstr "Suite de création 3D complète et gratuite"
+
+#~ msgid "Professional digital painting program"
+#~ msgstr "Programme de peinture numérique professionnel"
+
+#~ msgid "Virtual lighttable for photography"
+#~ msgstr "Chambre noire virtuelle pour la photographie"
+
+#~ msgid "Fast and modern RAW photo editor"
+#~ msgstr "Éditeur photo RAW rapide et moderne"
+
+#~ msgid "Multimedia"
+#~ msgstr "Multimédia"
+
+#~ msgid "Universal media player"
+#~ msgstr "Lecteur multimédia universel"
+
+#~ msgid "Software for streaming and video recording"
+#~ msgstr "Logiciel de streaming et d'enregistrement vidéo"
+
+#~ msgid "Professional non-linear video editor"
+#~ msgstr "Éditeur vidéo non linéaire professionnel"
+
+#~ msgid "Free and open-source audio editor"
+#~ msgstr "Éditeur audio libre et open-source"
+
+#~ msgid "Minimalist and powerful media player"
+#~ msgstr "Lecteur multimédia minimaliste et puissant"
+
+#~ msgid "Digital audio workstation"
+#~ msgstr "Station de travail audio numérique"
+
+#~ msgid "Professional DJ software"
+#~ msgstr "Logiciel DJ professionnel"
+
+#~ msgid "Open-source media center"
+#~ msgstr "Centre multimédia open-source"
+
+#~ msgid "Easy to use video editor"
+#~ msgstr "Éditeur vidéo facile à utiliser"
+
+#~ msgid "Professional video editing (Script by Daniel Tufvesson)"
+#~ msgstr "Édition vidéo professionnelle (Script par Daniel Tufvesson)"
+
+#~ msgid "Office"
+#~ msgstr "Bureautique"
+
+#~ msgid "Complete and free office suite"
+#~ msgstr "Suite bureautique complète et gratuite"
+
+#~ msgid "Office suite compatible with Microsoft Office"
+#~ msgstr "Suite bureautique compatible avec Microsoft Office"
+
+#~ msgid "Lightweight and elegant office suite"
+#~ msgstr "Suite bureautique légère et élégante"
+
+#~ msgid "Adobe PDF reader"
+#~ msgstr "Lecteur PDF Adobe"
+
+#~ msgid "Gaming"
+#~ msgstr "Jeux"
+
+#~ msgid "Digital distribution platform for video games"
+#~ msgstr "Plateforme de distribution numérique pour jeux vidéo"
+
+#~ msgid "Unified platform for managing games on Linux"
+#~ msgstr "Plateforme unifiée pour gérer les jeux sous Linux"
+
+#~ msgid "Run Windows applications on Linux using Wine"
+#~ msgstr "Exécuter des applications Windows sous Linux avec Wine"
+
+#~ msgid "Frontend for emulators and game engines"
+#~ msgstr "Frontend pour émulateurs et moteurs de jeux"
+
+#~ msgid "Launcher for Epic, GOG and Amazon Games"
+#~ msgstr "Lanceur pour Epic, GOG et Amazon Games"
+
+#~ msgid "Toggle Theme"
+#~ msgstr "Changer le thème"
+
+#~ msgid "About Soplos Welcome"
+#~ msgstr "À propos de Soplos Welcome"
+
+#~ msgid "Ready"
+#~ msgstr "Prêt"
+
+#~ msgid "Welcome"
+#~ msgstr "Accueil"
+
+#~ msgid "Software"
+#~ msgstr "Logiciels"
+
+#~ msgid "Drivers"
+#~ msgstr "Pilotes"
+
+#~ msgid "Kernels"
+#~ msgstr "Noyaux"
+
+#~ msgid "Security"
+#~ msgstr "Sécurité"
+
+#~ msgid "Recommended"
+#~ msgstr "Recommandé"
+
+#~ msgid "Customization"
+#~ msgstr "Personnalisation"
+
+#~ msgid "Minimize"
+#~ msgstr "Réduire"
+
+#~ msgid "Restore"
+#~ msgstr "Restaurer"
+
+#~ msgid "Maximize"
+#~ msgstr "Agrandir"
+
+#~ msgid "Welcome to Soplos Linux! Get started with your new system."
+#~ msgstr "Bienvenue sur Soplos Linux ! Commencez avec votre nouveau système."
+
+#~ msgid ""
+#~ "Install and manage software packages, repositories, and software centers."
+#~ msgstr ""
+#~ "Installez et gérez des paquets logiciels, des dépôts et des logithèques."
+
+#~ msgid "Detect and install optimal hardware drivers for your system."
+#~ msgstr ""
+#~ "Détectez et installez les pilotes matériels optimaux pour votre système."
+
+#~ msgid "Customize your desktop environment, themes, and appearance."
+#~ msgstr ""
+#~ "Personnalisez votre environnement de bureau, vos thèmes et votre "
+#~ "apparence."
+
+#~ msgid "Manage system kernels and performance optimizations."
+#~ msgstr "Gérez les noyaux système et les optimisations de performance."
+
+#~ msgid "Discover recommended applications for your workflow."
+#~ msgstr "Découvrez des applications recommandées pour votre flux de travail."
+
+#~ msgid "Tab content coming soon..."
+#~ msgstr "Contenu de l'onglet bientôt disponible..."
+
+#~ msgid "Full implementation coming soon..."
+#~ msgstr "Implémentation complète bientôt disponible..."
+
+#~ msgid "System Information"
+#~ msgstr "Informations système"
+
+#~ msgid "Desktop Environment"
+#~ msgstr "Environnement de bureau"
+
+#~ msgid "Display Protocol"
+#~ msgstr "Protocole d'affichage"
+
+#~ msgid "Theme Type"
+#~ msgstr "Type de thème"
+
+#~ msgid "Current Language"
+#~ msgstr "Langue actuelle"
+
+#~ msgid "Current Theme"
+#~ msgstr "Thème actuel"
+
+#~ msgid "Install Demo Package"
+#~ msgstr "Installer le paquet de démonstration"
+
+#~ msgid "Uninstall Demo Package"
+#~ msgstr "Désinstaller le paquet de démonstration"
+
+#, python-brace-format
+#~ msgid "Ready - {desktop} on {protocol}"
+#~ msgstr "Prêt - {desktop} sur {protocol}"
+
+#~ msgid "GNOME"
+#~ msgstr "GNOME"
+
+#~ msgid "KDE Plasma"
+#~ msgstr "KDE Plasma"
+
+#~ msgid "XFCE"
+#~ msgstr "XFCE"
+
+#~ msgid "X11"
+#~ msgstr "X11"
+
+#~ msgid "Wayland"
+#~ msgstr "Wayland"
+
+#~ msgid "Working..."
+#~ msgstr "Travail en cours..."
+
+#~ msgid "The world's most advanced welcome application for Linux"
+#~ msgstr "L'application de bienvenue la plus avancée au monde pour Linux"
+
+#~ msgid "Soplos Linux Website"
+#~ msgstr "Site web de Soplos Linux"
+
+#~ msgid "🎮 Gaming Mode Activated!"
+#~ msgstr "🎮 Mode Jeu Activé !"
+
+#~ msgid "Language Changed"
+#~ msgstr "Langue changée"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Language has been changed to {language}. Please restart the application "
+#~ "for full effect."
+#~ msgstr ""
+#~ "La langue a été changée en {language}. Veuillez redémarrer l'application "
+#~ "pour un effet complet."
+
+#~ msgid "Downloading package..."
+#~ msgstr "Téléchargement du paquet..."
+
+#~ msgid "Verifying dependencies..."
+#~ msgstr "Vérification des dépendances..."
+
+#~ msgid "Installing files..."
+#~ msgstr "Installation des fichiers..."
+
+#~ msgid "Configuring application..."
+#~ msgstr "Configuration de l'application..."
+
+#~ msgid "Finalizing installation..."
+#~ msgstr "Finalisation de l'installation..."
+
+#~ msgid "Installation completed!"
+#~ msgstr "Installation terminée !"
+
+#~ msgid "✅ Installation successful"
+#~ msgstr "✅ Installation réussie"
+
+#~ msgid "Uninstalling package..."
+#~ msgstr "Désinstallation du paquet..."
+
+#~ msgid "Stopping services..."
+#~ msgstr "Arrêt des services..."
+
+#~ msgid "Removing files..."
+#~ msgstr "Suppression des fichiers..."
+
+#~ msgid "Cleaning configuration..."
+#~ msgstr "Nettoyage de la configuration..."
+
+#~ msgid "Uninstallation completed!"
+#~ msgstr "Désinstallation terminée !"
+
+#~ msgid "✅ Uninstallation successful"
+#~ msgstr "✅ Désinstallation réussie"
+
+#~ msgid "Desktop Customization"
+#~ msgstr "Personnalisation du bureau"
+
+#~ msgid "Customize your desktop environment and themes"
+#~ msgstr "Personnalisez votre environnement de bureau et vos thèmes"
+
+#~ msgid "Soplos Tools"
+#~ msgstr "Outils Soplos"
+
+#~ msgid "Theme Manager"
+#~ msgstr "Gestionnaire de thèmes"
+
+#~ msgid "Customize GTK themes, icons, cursors and XFCE panel"
+#~ msgstr "Personnalisez les thèmes GTK, icônes, curseurs et le panneau XFCE"
+
+#~ msgid "Launch Soplos Theme Manager"
+#~ msgstr "Lancer le gestionnaire de thèmes Soplos"
+
+#~ msgid "Docklike"
+#~ msgstr "Docklike"
+
+#~ msgid "Configure dock and panel plugins"
+#~ msgstr "Configurer le dock et les plugins du panneau"
+
+#~ msgid "Launch Soplos Docklike"
+#~ msgstr "Lancer Soplos Docklike"
+
+#~ msgid "GRUB Editor"
+#~ msgstr "Éditeur GRUB"
+
+#~ msgid "Edit boot menu (GRUB configuration)"
+#~ msgstr "Éditer le menu de démarrage (configuration GRUB)"
+
+#~ msgid "Launch Soplos GRUB Editor"
+#~ msgstr "Lancer l'éditeur GRUB Soplos"
+
+#~ msgid "Plymouth Manager"
+#~ msgstr "Gestionnaire Plymouth"
+
+#~ msgid "Customize boot splash screen"
+#~ msgstr "Personnaliser l'écran de démarrage"
+
+#~ msgid "Launch Soplos Plymouth Manager"
+#~ msgstr "Lancer le gestionnaire Plymouth Soplos"
+
+#~ msgid "XFCE Settings"
+#~ msgstr "Paramètres XFCE"
+
+#~ msgid "Appearance"
+#~ msgstr "Apparence"
+
+#~ msgid "Themes, icons, fonts"
+#~ msgstr "Thèmes, icônes, polices"
+
+#~ msgid "XFCE Appearance Settings"
+#~ msgstr "Paramètres d'apparence XFCE"
+
+#~ msgid "Desktop"
+#~ msgstr "Bureau"
+
+#~ msgid "Wallpapers and desktop"
+#~ msgstr "Fonds d'écran et bureau"
+
+#~ msgid "XFCE Desktop Settings"
+#~ msgstr "Paramètres du bureau XFCE"
+
+#~ msgid "Window Manager"
+#~ msgstr "Gestionnaire de fenêtres"
+
+#~ msgid "Window decorations"
+#~ msgstr "Décorations de fenêtres"
+
+#~ msgid "XFCE Window Manager Settings"
+#~ msgstr "Paramètres du gestionnaire de fenêtres XFCE"
+
+#~ msgid "Keyboard"
+#~ msgstr "Clavier"
+
+#~ msgid "Keyboard and shortcuts"
+#~ msgstr "Clavier et raccourcis"
+
+#~ msgid "XFCE Keyboard Settings"
+#~ msgstr "Paramètres clavier XFCE"
+
+#~ msgid "Mouse"
+#~ msgstr "Souris"
+
+#~ msgid "Mouse and touchpad"
+#~ msgstr "Souris et pavé tactile"
+
+#~ msgid "XFCE Mouse Settings"
+#~ msgstr "Paramètres souris XFCE"
+
+#~ msgid "Notifications"
+#~ msgstr "Notifications"
+
+#~ msgid "Notification settings"
+#~ msgstr "Paramètres de notification"
+
+#~ msgid "XFCE Notification Settings"
+#~ msgstr "Paramètres de notification XFCE"
+
+#~ msgid "Settings Editor"
+#~ msgstr "Éditeur de paramètres"
+
+#~ msgid "Advanced settings"
+#~ msgstr "Paramètres avancés"
+
+#~ msgid "XFCE Settings Editor"
+#~ msgstr "Éditeur de paramètres XFCE"
+
+#~ msgid "GNOME Settings"
+#~ msgstr "Paramètres GNOME"
+
+#~ msgid "Wallpaper"
+#~ msgstr "Fond d'écran"
+
+#~ msgid "Desktop background"
+#~ msgstr "Arrière-plan du bureau"
+
+#~ msgid "GNOME Background Settings"
+#~ msgstr "Paramètres d'arrière-plan GNOME"
+
+#~ msgid "Display"
+#~ msgstr "Affichage"
+
+#~ msgid "Monitor settings"
+#~ msgstr "Paramètres de l'écran"
+
+#~ msgid "GNOME Display Settings"
+#~ msgstr "Paramètres d'affichage GNOME"
+
+#~ msgid "Power"
+#~ msgstr "Énergie"
+
+#~ msgid "Power management"
+#~ msgstr "Gestion de l'énergie"
+
+#~ msgid "GNOME Power Settings"
+#~ msgstr "Paramètres d'énergie GNOME"
+
+#~ msgid "Sound"
+#~ msgstr "Son"
+
+#~ msgid "Sound settings"
+#~ msgstr "Paramètres du son"
+
+#~ msgid "GNOME Sound Settings"
+#~ msgstr "Paramètres du son GNOME"
+
+#~ msgid "Settings"
+#~ msgstr "Paramètres"
+
+#~ msgid "System settings"
+#~ msgstr "Paramètres système"
+
+#~ msgid "GNOME Control Center"
+#~ msgstr "Centre de contrôle GNOME"
+
+#~ msgid "Tweaks"
+#~ msgstr "Ajustements"
+
+#~ msgid "Advanced tweaks"
+#~ msgstr "Ajustements avancés"
+
+#~ msgid "GNOME Tweaks"
+#~ msgstr "Ajustements GNOME"
+
+#~ msgid "Extensions"
+#~ msgstr "Extensions"
+
+#~ msgid "Manage extensions"
+#~ msgstr "Gérer les extensions"
+
+#~ msgid "GNOME Extensions"
+#~ msgstr "Extensions GNOME"
+
+#~ msgid "dconf Editor"
+#~ msgstr "Éditeur dconf"
+
+#~ msgid "Advanced configuration"
+#~ msgstr "Configuration avancée"
+
+#~ msgid "KDE Settings"
+#~ msgstr "Paramètres KDE"
+
+#~ msgid "Look and Feel"
+#~ msgstr "Apparence"
+
+#~ msgid "Themes and appearance"
+#~ msgstr "Thèmes et apparence"
+
+#~ msgid "KDE Look and Feel Settings"
+#~ msgstr "Paramètres d'apparence KDE"
+
+#~ msgid "Login Screen"
+#~ msgstr "Écran de connexion"
+
+#~ msgid "SDDM login manager"
+#~ msgstr "Gestionnaire de connexion SDDM"
+
+#~ msgid "KDE SDDM Settings"
+#~ msgstr "Paramètres SDDM KDE"
+
+#~ msgid "Plymouth"
+#~ msgstr "Plymouth"
+
+#~ msgid "Boot splash configuration"
+#~ msgstr "Configuration de l'écran de démarrage"
+
+#~ msgid "KDE Plymouth Settings"
+#~ msgstr "Paramètres Plymouth KDE"
+
+#~ msgid "KDE Wallpaper Settings"
+#~ msgstr "Paramètres de fond d'écran KDE"
+
+#~ msgid "Icons"
+#~ msgstr "Icônes"
+
+#~ msgid "Icon theme"
+#~ msgstr "Thème d'icônes"
+
+#~ msgid "KDE Icon Settings"
+#~ msgstr "Paramètres d'icônes KDE"
+
+#~ msgid "Cursor"
+#~ msgstr "Curseur"
+
+#~ msgid "Mouse cursor style"
+#~ msgstr "Style du curseur de souris"
+
+#~ msgid "KDE Cursor Settings"
+#~ msgstr "Paramètres de curseur KDE"
+
+#~ msgid "Fonts"
+#~ msgstr "Polices"
+
+#~ msgid "System fonts"
+#~ msgstr "Polices système"
+
+#~ msgid "KDE Font Settings"
+#~ msgstr "Paramètres de polices KDE"
+
+#~ msgid "System Settings"
+#~ msgstr "Paramètres système"
+
+#~ msgid "All system settings"
+#~ msgstr "Tous les paramètres système"
+
+#~ msgid "KDE System Settings"
+#~ msgstr "Paramètres système KDE"
+
+#~ msgid "Customization tools for"
+#~ msgstr "Outils de personnalisation pour"
+
+#~ msgid "coming in future versions..."
+#~ msgstr "à venir dans les futures versions..."
+
+#~ msgid "Note: Soplos customization tools are currently available for XFCE."
+#~ msgstr ""
+#~ "Note : Les outils de personnalisation Soplos sont actuellement "
+#~ "disponibles pour XFCE."
+
+#~ msgid "Hardware Drivers"
+#~ msgstr "Pilotes matériels"
+
+#~ msgid "Install and manage graphics drivers and hardware support"
+#~ msgstr "Installez et gérez les pilotes graphiques et le support matériel"
+
+#~ msgid "Hardware Detection"
+#~ msgstr "Détection du matériel"
+
+#~ msgid "Scan Hardware"
+#~ msgstr "Analyser le matériel"
+
+#~ msgid "Automatically detect hardware and recommend drivers"
+#~ msgstr "Détecter automatiquement le matériel et recommander des pilotes"
+
+#~ msgid "NVIDIA Graphics Drivers"
+#~ msgstr "Pilotes graphiques NVIDIA"
+
+#~ msgid "NVIDIA Latest (550)"
+#~ msgstr "NVIDIA Dernier (550)"
+
+#~ msgid "Latest driver from repository (RTX/GTX 16xx and newer)"
+#~ msgstr "Dernier pilote du dépôt (RTX/GTX 16xx et plus récents)"
+
+#~ msgid "NVIDIA 470 (Legacy)"
+#~ msgstr "NVIDIA 470 (Legacy)"
+
+#~ msgid "For Kepler GPUs (GTX 600-700 series)"
+#~ msgstr "Pour GPU Kepler (séries GTX 600-700)"
+
+#~ msgid "NVIDIA 390 (Legacy)"
+#~ msgstr "NVIDIA 390 (Legacy)"
+
+#~ msgid "For Fermi GPUs (GTX 400-500 series)"
+#~ msgstr "Pour GPU Fermi (séries GTX 400-500)"
+
+#~ msgid "NVIDIA 340 (Legacy)"
+#~ msgstr "NVIDIA 340 (Legacy)"
+
+#~ msgid "For very old GPUs (8xxx, 9xxx, 2xx, 3xx series)"
+#~ msgstr "Pour très vieux GPU (séries 8xxx, 9xxx, 2xx, 3xx)"
+
+#~ msgid "Nouveau (Open Source)"
+#~ msgstr "Nouveau (Open Source)"
+
+#~ msgid "Free and open source NVIDIA driver"
+#~ msgstr "Pilote NVIDIA libre et open source"
+
+#~ msgid "DaVinci Resolve Extras"
+#~ msgstr "Extras DaVinci Resolve"
+
+#~ msgid "OpenCL and CUDA libraries for DaVinci Resolve"
+#~ msgstr "Bibliothèques OpenCL et CUDA pour DaVinci Resolve"
+
+#~ msgid "Blender CUDA Toolkit"
+#~ msgstr "Blender CUDA Toolkit"
+
+#~ msgid "CUDA toolkit for Blender GPU rendering"
+#~ msgstr "Boîte à outils CUDA pour le rendu GPU Blender"
+
+#~ msgid "AMD Graphics Drivers"
+#~ msgstr "Pilotes graphiques AMD"
+
+#~ msgid "AMD Radeon (Open Source)"
+#~ msgstr "AMD Radeon (Open Source)"
+
+#~ msgid "Free drivers for all AMD GPUs"
+#~ msgstr "Pilotes libres pour tous les GPU AMD"
+
+#~ msgid "Wi-Fi Drivers"
+#~ msgstr "Pilotes Wi-Fi"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Intel wireless cards"
+#~ msgstr "Cartes sans fil Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Realtek wireless cards"
+#~ msgstr "Cartes sans fil Realtek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "Broadcom wireless cards"
+#~ msgstr "Cartes sans fil Broadcom"
+
+#~ msgid "Other Drivers"
+#~ msgstr "Autres pilotes"
+
+#~ msgid "Printers"
+#~ msgstr "Imprimantes"
+
+#~ msgid "Printer drivers"
+#~ msgstr "Pilotes d'imprimante"
+
+#~ msgid "Bluetooth"
+#~ msgstr "Bluetooth"
+
+#~ msgid "Bluetooth support"
+#~ msgstr "Support Bluetooth"
+
+#~ msgid "Virtual Machine Tools"
+#~ msgstr "Outils machine virtuelle"
+
+#~ msgid "VMware Tools"
+#~ msgstr "VMware Tools"
+
+#~ msgid "For VMware virtual machines"
+#~ msgstr "Pour machines virtuelles VMware"
+
+#~ msgid "QEMU/KVM Tools"
+#~ msgstr "Outils QEMU/KVM"
+
+#~ msgid "For QEMU/KVM virtual machines"
+#~ msgstr "Pour machines virtuelles QEMU/KVM"
+
+#~ msgid "VirtualBox Guest"
+#~ msgstr "Invité VirtualBox"
+
+#~ msgid "For VirtualBox virtual machines"
+#~ msgstr "Pour machines virtuelles VirtualBox"
+
+#~ msgid "Processor"
+#~ msgstr "Processeur"
+
+#~ msgid "Cores:"
+#~ msgstr "Cœurs :"
+
+#~ msgid "Threads:"
+#~ msgstr "Fils (Threads) :"
+
+#~ msgid "Graphics Card"
+#~ msgstr "Carte graphique"
+
+#~ msgid "Vendor:"
+#~ msgstr "Vendeur :"
+
+#~ msgid "Type:"
+#~ msgstr "Type :"
+
+#~ msgid "Recommended driver:"
+#~ msgstr "Pilote recommandé :"
+
+#~ msgid "Install"
+#~ msgstr "Installer"
+
+#~ msgid "RAM Memory"
+#~ msgstr "Mémoire RAM"
+
+#~ msgid "Total:"
+#~ msgstr "Total :"
+
+#~ msgid "Available:"
+#~ msgstr "Disponible :"
+
+#~ msgid "Virtual Machine"
+#~ msgstr "Machine virtuelle"
+
+#~ msgid "N/A"
+#~ msgstr "N/D"
+
+#~ msgid "Recommended tools:"
+#~ msgstr "Outils recommandés :"
+
+#~ msgid "Storage"
+#~ msgstr "Stockage"
+
+#~ msgid "Network"
+#~ msgstr "Réseau"
+
+#~ msgid "Gaming Center"
+#~ msgstr "Centre de jeux"
+
+#~ msgid "Optimizations"
+#~ msgstr "Optimisations"
+
+#~ msgid "GameMode"
+#~ msgstr "GameMode"
+
+#~ msgid "Install Feral GameMode"
+#~ msgstr "Installer Feral GameMode"
+
+#~ msgid "Performance Mode"
+#~ msgstr "Mode Performance"
+
+#~ msgid "Install CPU performance script"
+#~ msgstr "Installer le script de performance CPU"
+
+#~ msgid "Gaming Sysctl"
+#~ msgstr "Gaming Sysctl"
+
+#~ msgid "Apply kernel gaming tweaks"
+#~ msgstr "Appliquer les réglages noyau pour le jeu"
+
+#~ msgid "Optimize GPU"
+#~ msgstr "Optimiser le GPU"
+
+#~ msgid "Configure GPU drivers for gaming"
+#~ msgstr "Configurer les pilotes GPU pour le jeu"
+
+#~ msgid "Disk I/O"
+#~ msgstr "E/S Disque"
+
+#~ msgid "Optimize disk schedulers"
+#~ msgstr "Optimiser les planificateurs de disque"
+
+#~ msgid "MangoHud"
+#~ msgstr "MangoHud"
+
+#~ msgid "Install FPS overlay + Goverlay"
+#~ msgstr "Installer l'overlay FPS + Goverlay"
+
+#~ msgid "Revert All"
+#~ msgstr "Tout annuler"
+
+#~ msgid "Undo all gaming optimizations"
+#~ msgstr "Annuler toutes les optimisations de jeu"
+
+#~ msgid "Gaming Wallpapers"
+#~ msgstr "Fonds d'écran Gaming"
+
+#~ msgid "Install exclusive gaming wallpapers"
+#~ msgstr "Installer des fonds d'écran de jeu exclusifs"
+
+#~ msgid "RGB Theme"
+#~ msgstr "Thème RGB"
+
+#~ msgid "Enable RGB accent colors"
+#~ msgstr "Activer les couleurs d'accentuation RGB"
+
+#~ msgid "This feature is coming soon!"
+#~ msgstr "Cette fonctionnalité arrive bientôt !"
+
+#~ msgid "Install GameMode?"
+#~ msgstr "Installer GameMode ?"
+
+#~ msgid "GameMode optimizes system performance when running games."
+#~ msgstr ""
+#~ "GameMode optimise les performances du système lors de l'exécution de jeux."
+
+#~ msgid "Packages to install:"
+#~ msgstr "Paquets à installer :"
+
+#~ msgid "Continue?"
+#~ msgstr "Continuer ?"
+
+#~ msgid "Usage:"
+#~ msgstr "Utilisation :"
+
+#~ msgid "• Steam: Add 'gamemoderun %command%' to game launch options"
+#~ msgstr ""
+#~ "• Steam : Ajoutez 'gamemoderun %command%' aux options de lancement du jeu"
+
+#~ msgid "• Lutris: Enable 'Feral GameMode' in game settings"
+#~ msgstr "• Lutris : Activez 'Feral GameMode' dans les paramètres du jeu"
+
+#~ msgid "Installation failed"
+#~ msgstr "Échec de l'installation"
+
+#~ msgid "Remove Performance Mode Script?"
+#~ msgstr "Supprimer le script Mode Performance ?"
+
+#~ msgid "This will remove the soplos-game-performance script."
+#~ msgstr "Ceci supprimera le script soplos-game-performance."
+
+#~ msgid "Performance Mode removed!"
+#~ msgstr "Mode Performance supprimé !"
+
+#~ msgid "Removal failed"
+#~ msgstr "Échec de la suppression"
+
+#~ msgid "Install Performance Mode Script?"
+#~ msgstr "Installer le script Mode Performance ?"
+
+#~ msgid ""
+#~ "This script temporarily sets CPU to 'performance' mode when launching "
+#~ "games."
+#~ msgstr ""
+#~ "Ce script définit temporairement le CPU en mode 'performance' lors du "
+#~ "lancement des jeux."
+
+#~ msgid "Requirements:"
+#~ msgstr "Prérequis :"
+
+#~ msgid ""
+#~ "The script will be installed to /usr/local/bin/soplos-game-performance"
+#~ msgstr "Le script sera installé dans /usr/local/bin/soplos-game-performance"
+
+#~ msgid "Performance Mode script installed!"
+#~ msgstr "Script Mode Performance installé !"
+
+#~ msgid ""
+#~ "• Steam: Add 'soplos-game-performance %command%' to game launch options"
+#~ msgstr ""
+#~ "• Steam : Ajoutez 'soplos-game-performance %command%' aux options de "
+#~ "lancement du jeu"
+
+#~ msgid ""
+#~ "• Lutris: Add 'soplos-game-performance' as a prefix in Lutris settings"
+#~ msgstr ""
+#~ "• Lutris : Ajoutez 'soplos-game-performance' comme préfixe dans les "
+#~ "paramètres Lutris"
+
+#~ msgid ""
+#~ "Your CPU will automatically switch to performance mode when games are "
+#~ "running."
+#~ msgstr ""
+#~ "Votre CPU passera automatiquement en mode performance lorsque les jeux "
+#~ "sont lancés."
+
+#~ msgid "Revert Gaming Sysctl Tweaks?"
+#~ msgstr "Annuler les réglages Gaming Sysctl ?"
+
+#~ msgid "This will remove the gaming kernel optimizations."
+#~ msgstr "Ceci supprimera les optimisations du noyau pour le jeu."
+
+#~ msgid "Gaming sysctl tweaks reverted!"
+#~ msgstr "Réglages Gaming sysctl annulés !"
+
+#~ msgid "Revert failed"
+#~ msgstr "Échec de l'annulation"
+
+#~ msgid "Apply Gaming Sysctl Tweaks?"
+#~ msgstr "Appliquer les réglages Gaming Sysctl ?"
+
+#~ msgid "This will optimize kernel parameters for gaming:"
+#~ msgstr "Ceci optimisera les paramètres du noyau pour le jeu :"
+
+#~ msgid "(essential for Proton/Steam)"
+#~ msgstr "(essentiel pour Proton/Steam)"
+
+#~ msgid "(prefer RAM over swap)"
+#~ msgstr "(préférer la RAM au swap)"
+
+#~ msgid "Network optimizations for online gaming"
+#~ msgstr "Optimisations réseau pour les jeux en ligne"
+
+#~ msgid "Reduced system latency"
+#~ msgstr "Latence système réduite"
+
+#~ msgid "WARNING: Disables some security features (split_lock_mitigate)"
+#~ msgstr ""
+#~ "ATTENTION : Désactive certaines fonctionnalités de sécurité "
+#~ "(split_lock_mitigate)"
+
+#~ msgid "Gaming sysctl tweaks applied!"
+#~ msgstr "Réglages Gaming sysctl appliqués !"
+
+#~ msgid "Kernel parameters optimized for gaming."
+#~ msgstr "Paramètres du noyau optimisés pour le jeu."
+
+#~ msgid "Apply failed"
+#~ msgstr "Échec de l'application"
+
+#~ msgid "GPU Detection Failed"
+#~ msgstr "Échec de la détection GPU"
+
+#~ msgid "Could not detect GPU. Please install 'pciutils' package."
+#~ msgstr ""
+#~ "Impossible de détecter le GPU. Veuillez installer le paquet 'pciutils'."
+
+#~ msgid "Unsupported GPU"
+#~ msgstr "GPU non supporté"
+
+#~ msgid "Could not detect a supported GPU (NVIDIA, AMD, or Intel)."
+#~ msgstr "Impossible de détecter un GPU supporté (NVIDIA, AMD ou Intel)."
+
+#~ msgid "GPU optimizations are only available for these vendors."
+#~ msgstr "Les optimisations GPU ne sont disponibles que pour ces vendeurs."
+
+#~ msgid "Detected GPU:"
+#~ msgstr "GPU détecté :"
+
+#~ msgid "Optimizations to apply:"
+#~ msgstr "Optimisations à appliquer :"
+
+#~ msgid ""
+#~ "These settings will be applied system-wide via environment variables."
+#~ msgstr ""
+#~ "Ces paramètres seront appliqués à l'échelle du système via des variables "
+#~ "d'environnement."
+
+#~ msgid "Optimization Failed"
+#~ msgstr "Échec de l'optimisation"
+
+#~ msgid "Revert Disk I/O Optimizations?"
+#~ msgstr "Annuler les optimisations E/S Disque ?"
+
+#~ msgid "This will remove the custom I/O scheduler rules."
+#~ msgstr "Ceci supprimera les règles personnalisées du planificateur E/S."
+
+#~ msgid "Disk I/O optimizations reverted!"
+#~ msgstr "Optimisations E/S Disque annulées !"
+
+#~ msgid "Optimize Disk I/O Schedulers?"
+#~ msgstr "Optimiser les planificateurs E/S Disque ?"
+
+#~ msgid "This will configure optimal I/O schedulers for gaming:"
+#~ msgstr "Ceci configurera les planificateurs E/S optimaux pour le jeu :"
+
+#~ msgid "(best latency)"
+#~ msgstr "(meilleure latence)"
+
+#~ msgid "(maximum performance)"
+#~ msgstr "(performance maximale)"
+
+#~ msgid "Changes take effect immediately without reboot."
+#~ msgstr "Les changements prennent effet immédiatement sans redémarrage."
+
+#~ msgid "Disk I/O Optimized!"
+#~ msgstr "E/S Disque optimisés !"
+
+#~ msgid "I/O schedulers have been optimized for gaming."
+#~ msgstr "Les planificateurs E/S ont été optimisés pour le jeu."
+
+#~ msgid "Changes are active immediately."
+#~ msgstr "Les changements sont actifs immédiatement."
+
+#~ msgid "Configuration saved to:"
+#~ msgstr "Configuration enregistrée dans :"
+
+#~ msgid "Optimization failed"
+#~ msgstr "Échec de l'optimisation"
+
+#~ msgid "Install MangoHud + Goverlay?"
+#~ msgstr "Installer MangoHud + Goverlay ?"
+
+#~ msgid ""
+#~ "MangoHud is a Vulkan/OpenGL overlay for monitoring FPS, temperatures, CPU/"
+#~ "GPU load and more."
+#~ msgstr ""
+#~ "MangoHud est un overlay Vulkan/OpenGL pour surveiller les FPS, "
+#~ "températures, charge CPU/GPU et plus."
+
+#~ msgid "MangoHud + Goverlay installed!"
+#~ msgstr "MangoHud + Goverlay installés !"
+
+#~ msgid "• Steam: Add 'mangohud %command%' to game launch options"
+#~ msgstr ""
+#~ "• Steam : Ajoutez 'mangohud %command%' aux options de lancement du jeu"
+
+#~ msgid "• Configure via Goverlay application"
+#~ msgstr "• Configurez via l'application Goverlay"
+
+#~ msgid "• Toggle in-game with Shift+F12"
+#~ msgstr "• Basculez en jeu avec Shift+F12"
+
+#~ msgid "Revert ALL Gaming Optimizations?"
+#~ msgstr "Annuler TOUTES les optimisations de jeu ?"
+
+#~ msgid ""
+#~ "This will remove:\n"
+#~ "• Gaming sysctl tweaks\n"
+#~ "• GPU optimizations\n"
+#~ "• Disk I/O optimizations\n"
+#~ "• Performance Mode script\n"
+#~ "\n"
+#~ "GameMode and MangoHud will remain installed.\n"
+#~ "\n"
+#~ "Continue?"
+#~ msgstr ""
+#~ "Ceci supprimera :\n"
+#~ "• Réglages Gaming sysctl\n"
+#~ "• Optimisations GPU\n"
+#~ "• Optimisations E/S disque\n"
+#~ "• Script Mode Performance\n"
+#~ "\n"
+#~ "GameMode et MangoHud resteront installés.\n"
+#~ "\n"
+#~ "Continuer ?"
+
+#~ msgid "Optimizations reverted!"
+#~ msgstr "Optimisations annulées !"
+
+#~ msgid "All gaming tweaks have been removed."
+#~ msgstr "Tous les réglages de jeu ont été supprimés."
+
+#~ msgid "No optimizations found"
+#~ msgstr "Aucune optimisation trouvée"
+
+#~ msgid "No gaming optimizations are currently applied."
+#~ msgstr "Aucune optimisation de jeu n'est actuellement appliquée."
+
+#~ msgid "Install Gaming Wallpapers?"
+#~ msgstr "Installer les fonds d'écran Gaming ?"
+
+#~ msgid "This will install exclusive gaming wallpapers for"
+#~ msgstr "Ceci installera des fonds d'écran de jeu exclusifs pour"
+
+#~ msgid "Destination:"
+#~ msgstr "Destination :"
+
+#~ msgid "Wallpapers have been installed to:"
+#~ msgstr "Les fonds d'écran ont été installés dans :"
+
+#~ msgid "Symlinks created in:"
+#~ msgstr "Liens symboliques créés dans :"
+
+#~ msgid "You can now select them from your wallpaper settings."
+#~ msgstr ""
+#~ "Vous pouvez maintenant les sélectionner depuis vos paramètres de fond "
+#~ "d'écran."
+
+#~ msgid "Gaming wallpapers installed successfully!"
+#~ msgstr "Fonds d'écran Gaming installés avec succès !"
+
+#~ msgid "Archive not found"
+#~ msgstr "Archive non trouvée"
+
+#~ msgid "Unexpected error"
+#~ msgstr "Erreur inattendue"
+
+#~ msgid "Launchers"
+#~ msgstr "Lanceurs"
+
+#~ msgid "Flatpak"
+#~ msgstr "Flatpak"
+
+#~ msgid "Official Package"
+#~ msgstr "Paquet officiel"
+
+#~ msgid "RGB Theme Deactivated"
+#~ msgstr "Thème RGB désactivé"
+
+#~ msgid "The RGB gaming theme has been disabled."
+#~ msgstr "Le thème de jeu RGB a été désactivé."
+
+#~ msgid "RGB Theme Activated! 🎮"
+#~ msgstr "Thème RGB activé ! 🎮"
+
+#~ msgid "Gaming RGB theme applied!"
+#~ msgstr "Thème de jeu RGB appliqué !"
+
+#~ msgid "Features:"
+#~ msgstr "Fonctionnalités :"
+
+#~ msgid "Neon red accents"
+#~ msgstr "Accents rouge néon"
+
+#~ msgid "Dark optimized interface"
+#~ msgstr "Interface sombre optimisée"
+
+#~ msgid "Click 'RGB Theme' again to deactivate"
+#~ msgstr "Cliquez nouveau sur 'Thème RGB' pour désactiver"
+
+#~ msgid "Error Activating RGB Theme"
+#~ msgstr "Erreur lors de l'activation du thème RGB"
+
+#~ msgid "Kernel Management"
+#~ msgstr "Gestion du noyau"
+
+#~ msgid "CPU Microcode Updates"
+#~ msgstr "Mises à jour du microcode CPU"
+
+#~ msgid "Security and performance firmware updates for your CPU."
+#~ msgstr "Mises à jour de sécurité et de performance pour votre CPU."
+
+#~ msgid ""
+#~ "Warning: Liquorix kernel is NOT compatible with proprietary NVIDIA "
+#~ "drivers."
+#~ msgstr ""
+#~ "Avertissement : Le noyau Liquorix n'est PAS compatible avec les pilotes "
+#~ "propriétaires NVIDIA."
+
+#~ msgid "Available Kernels"
+#~ msgstr "Noyaux disponibles"
+
+#~ msgid ""
+#~ "Manage your system kernels. You can install optimized kernels for better "
+#~ "performance or latency."
+#~ msgstr ""
+#~ "Gérez les noyaux de votre système. Vous pouvez installer des noyaux "
+#~ "optimisés pour de meilleures performances ou une meilleure latence."
+
+#~ msgid "Liquorix Kernel"
+#~ msgstr "Noyau Liquorix"
+
+#~ msgid ""
+#~ "Optimized for interactive systems and gaming. High responsiveness and low "
+#~ "latency."
+#~ msgstr ""
+#~ "Optimisé pour les systèmes interactifs et le jeu. Haute réactivité et "
+#~ "faible latence."
+
+#~ msgid "XanMod Kernel Variants"
+#~ msgstr "Variantes du noyau XanMod"
+
+#~ msgid "High performance kernel with advanced optimizations."
+#~ msgstr "Noyau haute performance avec optimisations avancées."
+
+#~ msgid "Choose the variant that matches your hardware:"
+#~ msgstr "Choisissez la variante correspondant à votre matériel :"
+
+#~ msgid "x64v3 - Standard"
+#~ msgstr "x64v3 - Standard"
+
+#~ msgid ""
+#~ "For CPUs from 2015+ (Intel Haswell, AMD Zen and newer). AVX2 "
+#~ "optimizations."
+#~ msgstr ""
+#~ "Pour les CPU de 2015+ (Intel Haswell, AMD Zen et plus récents). "
+#~ "Optimisations AVX2."
+
+#~ msgid "x64v4 - Advanced"
+#~ msgstr "x64v4 - Avancé"
+
+#~ msgid "For very recent CPUs (Intel 12th gen+, AMD Zen 4+). AVX-512 support."
+#~ msgstr ""
+#~ "Pour les CPU très récents (Intel 12e gén+, AMD Zen 4+). Support AVX-512."
+
+#~ msgid "EDGE - Experimental"
+#~ msgstr "EDGE - Expérimental"
+
+#~ msgid "Not recommended for production"
+#~ msgstr "Non recommandé pour la production"
+
+#~ msgid "Latest experimental features. May be unstable. For testing only."
+#~ msgstr ""
+#~ "Dernières fonctionnalités expérimentales. Peut être instable. Pour tests "
+#~ "uniquement."
+
+#~ msgid "LTS - Long Term Support"
+#~ msgstr "LTS - Support à long terme"
+
+#~ msgid "Most stable"
+#~ msgstr "Le plus stable"
+
+#~ msgid "Long-term support, conservative updates. Best for stability."
+#~ msgstr ""
+#~ "Support à long terme, mises à jour conservatrices. Le mieux pour la "
+#~ "stabilité."
+
+#~ msgid "System Maintenance"
+#~ msgstr "Maintenance système"
+
+#~ msgid "Tools to keep your system clean and updated."
+#~ msgstr "Outils pour garder votre système propre et à jour."
+
+#~ msgid "Clean Old Kernels"
+#~ msgstr "Nettoyer les anciens noyaux"
+
+#~ msgid "Remove old unused kernels to free up space"
+#~ msgstr "Supprimer les anciens noyaux inutilisés pour libérer de l'espace"
+
+#~ msgid "Update GRUB"
+#~ msgstr "Mettre à jour GRUB"
+
+#~ msgid "Regenerate GRUB configuration file"
+#~ msgstr "Régénérer le fichier de configuration GRUB"
+
+#~ msgid "Standard Kernel"
+#~ msgstr "Noyau standard"
+
+#~ msgid "XanMod Kernel"
+#~ msgstr "Noyau XanMod"
+
+#~ msgid "Not detected"
+#~ msgstr "Non détecté"
+
+#~ msgid "weeks"
+#~ msgstr "semaines"
+
+#~ msgid "days"
+#~ msgstr "jours"
+
+#~ msgid "hours"
+#~ msgstr "heures"
+
+#~ msgid "minutes"
+#~ msgstr "minutes"
+
+#~ msgid "Current Kernel"
+#~ msgstr "Noyau actuel"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Architecture"
+#~ msgstr "Architecture"
+
+#~ msgid "Uptime"
+#~ msgstr "Temps d'activité"
+
+#~ msgid "Uninstall Liquorix"
+#~ msgstr "Désinstaller Liquorix"
+
+#~ msgid "In Use"
+#~ msgstr "En cours d'utilisation"
+
+#~ msgid "Liquorix is not compatible with NVIDIA drivers"
+#~ msgstr "Liquorix n'est pas compatible avec les pilotes NVIDIA"
+
+#~ msgid "Incompatible with NVIDIA"
+#~ msgstr "Incompatible avec NVIDIA"
+
+#~ msgid "CPU vendor not detected"
+#~ msgstr "Vendeur CPU non détecté"
+
+#~ msgid "Uninstall"
+#~ msgstr "Désinstaller"
+
+#~ msgid "Installing Liquorix Kernel..."
+#~ msgstr "Installation du noyau Liquorix..."
+
+#~ msgid "Installation complete."
+#~ msgstr "Installation terminée."
+
+#~ msgid "Installing XanMod"
+#~ msgstr "Installation de XanMod"
+
+#~ msgid "Uninstalling Liquorix Kernel..."
+#~ msgstr "Désinstallation du noyau Liquorix..."
+
+#~ msgid "Uninstallation complete."
+#~ msgstr "Désinstallation terminée."
+
+#~ msgid "Uninstalling XanMod"
+#~ msgstr "Désinstallation de XanMod"
+
+#~ msgid "Kernel in Use"
+#~ msgstr "Noyau en cours d'utilisation"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Cannot uninstall {0} because it is currently running. Please boot into "
+#~ "another kernel first."
+#~ msgstr ""
+#~ "Impossible de désinstaller {0} car il est en cours d'exécution. Veuillez "
+#~ "redémarrer sur un autre noyau d'abord."
+
+#~ msgid "Checking for old kernels..."
+#~ msgstr "Recherche des anciens noyaux..."
+
+#~ msgid "No old kernels to remove."
+#~ msgstr "Aucun ancien noyau à supprimer."
+
+#~ msgid "Removing old kernels..."
+#~ msgstr "Suppression des anciens noyaux..."
+
+#~ msgid "Updating GRUB..."
+#~ msgstr "Mise à jour de GRUB..."
+
+#~ msgid "Cleanup complete."
+#~ msgstr "Nettoyage terminé."
+
+#~ msgid "GRUB update complete."
+#~ msgstr "Mise à jour de GRUB terminée."
+
+#~ msgid "Installing"
+#~ msgstr "Installation"
+
+#~ msgid "A system reboot is recommended to apply microcode updates."
+#~ msgstr ""
+#~ "Un redémarrage est recommandé pour appliquer les mises à jour de "
+#~ "microcode."
+
+#~ msgid "Uninstalling"
+#~ msgstr "Désinstallation"
+
+#~ msgid "Recommended for You"
+#~ msgstr "Recommandé pour vous"
+
+#~ msgid "Curated applications based on your desktop environment"
+#~ msgstr "Applications sélectionnées selon votre environnement de bureau"
+
+#~ msgid "Multiple Selection"
+#~ msgstr "Sélection multiple"
+
+#~ msgid "Search programs..."
+#~ msgstr "Rechercher des programmes..."
+
+#~ msgid "Select All"
+#~ msgstr "Tout sélectionner"
+
+#~ msgid "Deselect All"
+#~ msgstr "Tout désélectionner"
+
+#~ msgid "0 programs selected"
+#~ msgstr "0 programmes sélectionnés"
+
+#~ msgid "Install Selected"
+#~ msgstr "Installer la sélection"
+
+#~ msgid "No results found for"
+#~ msgstr "Aucun résultat trouvé pour"
+
+#~ msgid "Processing..."
+#~ msgstr "Traitement..."
+
+#~ msgid "Normal Mode"
+#~ msgstr "Mode normal"
+
+#~ msgid "{} programs selected"
+#~ msgstr "{} programmes sélectionnés"
+
+#~ msgid "1 program selected"
+#~ msgstr "1 programme sélectionné"
+
+#~ msgid "Install {} selected programs?"
+#~ msgstr "Installer les {} programmes sélectionnés ?"
+
+#~ msgid "Downloading"
+#~ msgstr "Téléchargement"
+
+#~ msgid "Download failed for"
+#~ msgstr "Échec du téléchargement pour"
+
+#~ msgid "Installing all .deb packages..."
+#~ msgstr "Installation de tous les paquets .deb..."
+
+#~ msgid "All .deb packages installed successfully"
+#~ msgstr "Tous les paquets .deb installés avec succès"
+
+#~ msgid "Batch Installation Complete"
+#~ msgstr "Installation par lot terminée"
+
+#~ msgid "All selected programs have been installed."
+#~ msgstr "Tous les programmes sélectionnés ont été installés."
+
+#~ msgid "DaVinci Resolve Installation"
+#~ msgstr "Installation de DaVinci Resolve"
+
+#~ msgid ""
+#~ "DaVinci Resolve requires manual download due to licensing.\n"
+#~ "\n"
+#~ "1. Go to blackmagicdesign.com and download the Linux version (ZIP).\n"
+#~ "2. Click OK to select the downloaded file.\n"
+#~ "3. We will convert it to a Debian package and install it."
+#~ msgstr ""
+#~ "DaVinci Resolve nécessite un téléchargement manuel en raison de la "
+#~ "licence.\n"
+#~ "\n"
+#~ "1. Allez sur blackmagicdesign.com et téléchargez la version Linux (ZIP).\n"
+#~ "2. Cliquez sur OK pour sélectionner le fichier téléchargé.\n"
+#~ "3. Nous le convertirons en paquet Debian et l'installerons."
+
+#~ msgid "DaVinci Resolve Installer"
+#~ msgstr "Installateur DaVinci Resolve"
+
+#~ msgid "Select DaVinci Resolve Installer"
+#~ msgstr "Sélectionner l'installateur DaVinci Resolve"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Select"
+#~ msgstr "Sélectionner"
+
+#~ msgid "Installation Complete"
+#~ msgstr "Installation terminée"
+
+#~ msgid "Security &amp; System Protection"
+#~ msgstr "Sécurité et protection système"
+
+#~ msgid "Protect your system with backups, firewall, and security tools"
+#~ msgstr ""
+#~ "Protégez votre système avec des sauvegardes, un pare-feu et des outils de "
+#~ "sécurité"
+
+#~ msgid ""
+#~ "Creates automatic system snapshots. Protects your configuration and "
+#~ "allows easy restoration."
+#~ msgstr ""
+#~ "Crée des instantanés système automatiques. Protège votre configuration et "
+#~ "permet une restauration facile."
+
+#~ msgid "Simple backups of personal files with encryption support."
+#~ msgstr ""
+#~ "Sauvegardes simples de fichiers personnels avec support du chiffrement."
+
+#~ msgid "Firewall Protection"
+#~ msgstr "Protection pare-feu"
+
+#~ msgid "Recommended for Desktop"
+#~ msgstr "Recommandé pour le bureau"
+
+#~ msgid ""
+#~ "Simple graphical interface for UFW firewall. Control network traffic "
+#~ "easily."
+#~ msgstr ""
+#~ "Interface graphique simple pour le pare-feu UFW. Contrôlez facilement le "
+#~ "trafic réseau."
+
+#~ msgid "Firewall Status"
+#~ msgstr "État du pare-feu"
+
+#~ msgid "Only for BTRFS"
+#~ msgstr "Uniquement pour BTRFS"
+
+#~ msgid "Advanced management of BTRFS subvolumes and snapshots."
+#~ msgstr "Gestion avancée des sous-volumes et instantanés BTRFS."
+
+#~ msgid "BTRFS Assistant is not compatible."
+#~ msgstr "BTRFS Assistant n'est pas compatible."
+
+#~ msgid "Antivirus & Malware"
+#~ msgstr "Antivirus et logiciels malveillants"
+
+#~ msgid ""
+#~ "Graphical interface for ClamAV. Scan your system against viruses and "
+#~ "malware."
+#~ msgstr ""
+#~ "Interface graphique pour ClamAV. Analysez votre système contre les virus "
+#~ "et logiciels malveillants."
+
+#~ msgid "Advanced"
+#~ msgstr "Avancé"
+
+#~ msgid "Command-line tool to detect rootkits and system threats."
+#~ msgstr ""
+#~ "Outil en ligne de commande pour détecter les rootkits et menaces système."
+
+#~ msgid "Open GUFW"
+#~ msgstr "Ouvrir GUFW"
+
+#~ msgid "Not available on"
+#~ msgstr "Non disponible sur"
+
+#~ msgid "Configure"
+#~ msgstr "Configurer"
+
+#~ msgid "Scan System"
+#~ msgstr "Analyser le système"
+
+#~ msgid "Update Definitions"
+#~ msgstr "Mettre à jour les définitions"
+
+#~ msgid "Active"
+#~ msgstr "Actif"
+
+#~ msgid "Deactivate"
+#~ msgstr "Désactiver"
+
+#~ msgid "Inactive"
+#~ msgstr "Inactif"
+
+#~ msgid "Activate"
+#~ msgstr "Activer"
+
+#~ msgid "Updating virus definitions..."
+#~ msgstr "Mise à jour des définitions de virus..."
+
+#~ msgid "Scanning system for rootkits..."
+#~ msgstr "Analyse du système pour les rootkits..."
+
+#~ msgid "Scan complete."
+#~ msgstr "Analyse terminée."
+
+#~ msgid "Update"
+#~ msgstr "Mettre à jour"
+
+#~ msgid "Upgrade"
+#~ msgstr "Mise à niveau"
+
+#~ msgid "Synaptic"
+#~ msgstr "Synaptic"
+
+#~ msgid "Gdebi"
+#~ msgstr "Gdebi"
+
+#~ msgid "GNOME Software"
+#~ msgstr "Logiciels GNOME"
+
+#~ msgid "Snap"
+#~ msgstr "Snap"
+
+#~ msgid "Open"
+#~ msgstr "Ouvrir"
+
+#~ msgid "Add Flathub"
+#~ msgstr "Ajouter Flathub"
+
+#~ msgid "Clean System"
+#~ msgstr "Nettoyer le système"
+
+#~ msgid "Soplos Repository Manager"
+#~ msgstr "Gestionnaire de dépôts Soplos"
+
+#~ msgid ""
+#~ "Manage repositories and modern software sources integrated with GNOME "
+#~ "Software."
+#~ msgstr ""
+#~ "Gérez les dépôts et les sources logicielles modernes intégrées à "
+#~ "Logiciels GNOME."
+
+#~ msgid "Launch Repository Manager"
+#~ msgstr "Lancer le gestionnaire de dépôts"
+
+#~ msgid "No packages available to update at this time."
+#~ msgstr "Aucun paquet disponible pour la mise à jour pour le moment."
+
+#~ msgid "Available Updates"
+#~ msgstr "Mises à jour disponibles"
+
+#~ msgid "Update All"
+#~ msgstr "Tout mettre à jour"
+
+#~ msgid "updates available"
+#~ msgstr "mises à jour disponibles"
+
+#~ msgid "Software Management"
+#~ msgstr "Gestion des logiciels"
+
+#~ msgid "Loading software management for"
+#~ msgstr "Chargement du gestionnaire software pour"
+
+#~ msgid "Desktop-specific software interface will be available soon."
+#~ msgstr ""
+#~ "L'interface logicielle spécifique au bureau sera bientôt disponible."
+
+#~ msgid "Snap to Whisker Menu"
+#~ msgstr "Snap vers le menu Whisker"
+
+#~ msgid ""
+#~ "Manage additional repositories and software sources for your Soplos "
+#~ "system."
+#~ msgstr ""
+#~ "Gérez des dépôts supplémentaires et des sources logicielles pour votre "
+#~ "système Soplos."
+
+#~ msgid "Your gateway to the Soplos ecosystem"
+#~ msgstr "Votre porte d'entrée vers l'écosystème Soplos"
+
+#~ msgid ""
+#~ "Thank you for choosing Soplos Linux! This application will help you get "
+#~ "started with your new system."
+#~ msgstr ""
+#~ "Merci d'avoir choisi Soplos Linux ! Cette application vous aidera à "
+#~ "démarrer avec votre nouveau système."
+
+#~ msgid "Use the tabs above to:"
+#~ msgstr "Utilisez les onglets ci-dessus pour :"
+
+#~ msgid "• Install essential software"
+#~ msgstr "• Installer les logiciels essentiels"
+
+#~ msgid "• Configure system drivers"
+#~ msgstr "• Configurer les pilotes système"
+
+#~ msgid "• Customize your desktop"
+#~ msgstr "• Personnaliser votre bureau"
+
+#~ msgid "• Manage system kernels"
+#~ msgstr "• Gérer les noyaux système"
+
+#~ msgid "• View recommended applications"
+#~ msgstr "• Voir les applications recommandées"
+
+#~ msgid "Web"
+#~ msgstr "Web"
+
+#~ msgid "Check your internet connection and try again."
+#~ msgstr "Vérifiez votre connexion Internet et réessayez."
+
+#~ msgid "Could not open forum"
+#~ msgstr "Impossible d'ouvrir le forum"
+
+#~ msgid "Could not open wiki"
+#~ msgstr "Impossible d'ouvrir le wiki"
+
+#~ msgid "Could not open donation page"
+#~ msgstr "Impossible d'ouvrir la page de don"
+
+#~ msgid "Error enabling autostart"
+#~ msgstr "Erreur lors de l'activation du démarrage automatique"
+
+#~ msgid "Could not create autostart file."
+#~ msgstr "Impossible de créer le fichier de démarrage automatique."
+
+#~ msgid "Error disabling autostart"
+#~ msgstr "Erreur lors de la désactivation du démarrage automatique"
+
+#~ msgid "Could not remove autostart file."
+#~ msgstr "Impossible de supprimer le fichier de démarrage automatique."
+
+#~ msgid "Starting..."
+#~ msgstr "Démarrage..."
+
+#~ msgid "Unpacking"
+#~ msgstr "Dépaquetage"
+
+#~ msgid "Configuring"
+#~ msgstr "Configuration"
+
+#~ msgid "Dedicated"
+#~ msgstr "Dédié"
+
+#~ msgid "Dedicated/Integrated"
+#~ msgstr "Dédié/Intégré"
+
+#~ msgid "Integrated"
+#~ msgstr "Intégré"
+
+#~ msgid "Disk"
+#~ msgstr "Disque"
+
+#~ msgid "Wi-Fi"
+#~ msgstr "Wi-Fi"
+
+#~ msgid "Ethernet"
+#~ msgstr "Ethernet"
+
+#~ msgid "Other"
+#~ msgstr "Autre"
+
+#~ msgid "Connected"
+#~ msgstr "Connecté"
+
+#~ msgid "Disconnected"
+#~ msgstr "Déconnecté"
+
+#~ msgid "Detecting CPU..."
+#~ msgstr "Détection du CPU..."
+
+#~ msgid "Detecting memory..."
+#~ msgstr "Détection de la mémoire..."
+
+#~ msgid "Detecting GPU..."
+#~ msgstr "Détection du GPU..."
+
+#~ msgid "Detecting virtual machine..."
+#~ msgstr "Détection de la machine virtuelle..."
+
+#~ msgid "Detecting storage..."
+#~ msgstr "Détection du stockage..."
+
+#~ msgid "Detecting network..."
+#~ msgstr "Détection du réseau..."
+
+#~ msgid "Scan completed"
+#~ msgstr "Analyse terminée"
+
+#~ msgid "Advanced IDE with zero gravity"
+#~ msgstr "IDE avancé avec gravité zéro"
+
+#~ msgid "Installation complete"
+#~ msgstr "Installation terminée"

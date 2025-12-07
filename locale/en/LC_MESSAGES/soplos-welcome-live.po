@@ -1,0 +1,208 @@
+# English translation for Soplos Welcome Live
+# Copyright (C) 2024 Soplos Linux
+# This file is distributed under the GPL-3.0+ license.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: soplos-welcome-live 2.0.0\n"
+"Report-Msgid-Bugs-To: info@soploslinux.com\n"
+"POT-Creation-Date: 2024-12-07 12:00+0000\n"
+"PO-Revision-Date: 2024-12-07 12:00+0000\n"
+"Last-Translator: Soplos Team <info@soploslinux.com>\n"
+"Language-Team: English <en@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Soplos Welcome Live"
+msgstr "Soplos Welcome Live"
+
+msgid "Welcome to Soplos Linux"
+msgstr "Welcome to Soplos Linux"
+
+msgid "Live Session"
+msgstr "Live Session"
+
+msgid "Show at startup"
+msgstr "Show at startup"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Try Soplos Linux"
+msgstr "Try Soplos Linux"
+
+msgid "Explore the system before installing"
+msgstr "Explore the system before installing"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Forums"
+msgstr "Forums"
+
+msgid "Wiki"
+msgstr "Wiki"
+
+msgid "Donate"
+msgstr "Donate"
+
+msgid "Exit"
+msgstr "Exit"
+
+msgid "System Rescue"
+msgstr "System Rescue"
+
+msgid "Mount and repair an existing installation"
+msgstr "Mount and repair an existing installation"
+
+msgid "Install Soplos Linux"
+msgstr "Install Soplos Linux"
+
+msgid "Change Language"
+msgstr "Change Language"
+
+msgid "Do you want to change the system language to {language}?\n\nThis will require a session restart to take full effect."
+msgstr "Do you want to change the system language to {language}?\n\nThis will require a session restart to take full effect."
+
+msgid "Changing language..."
+msgstr "Changing language..."
+
+msgid "Restart Required"
+msgstr "Restart Required"
+
+msgid "Language settings have been updated.\n\nDo you want to restart your session now to apply all changes?"
+msgstr "Language settings have been updated.\n\nDo you want to restart your session now to apply all changes?"
+
+msgid "Partial Success"
+msgstr "Partial Success"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Installer Not Found"
+msgstr "Installer Not Found"
+
+msgid "The Calamares installer could not be found.\nPlease install it or run the installation manually."
+msgstr "The Calamares installer could not be found.\nPlease install it or run the installation manually."
+
+msgid "Could not open System Rescue: {error}"
+msgstr "Could not open System Rescue: {error}"
+
+msgid "Select a disk to mount an existing Linux installation for rescue or repair."
+msgstr "Select a disk to mount an existing Linux installation for rescue or repair."
+
+msgid "Device"
+msgstr "Device"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Unknown Device"
+msgstr "Unknown Device"
+
+msgid "Open GParted"
+msgstr "Open GParted"
+
+msgid "Open GParted partition editor"
+msgstr "Open GParted partition editor"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "No Disks Found"
+msgstr "No Disks Found"
+
+msgid "No disk devices were found on this system."
+msgstr "No disk devices were found on this system."
+
+msgid "No Selection"
+msgstr "No Selection"
+
+msgid "Please select a disk to continue."
+msgstr "Please select a disk to continue."
+
+msgid "Error loading partitions: {error}"
+msgstr "Error loading partitions: {error}"
+
+msgid "Select Partitions"
+msgstr "Select Partitions"
+
+msgid "No mountable partitions found on this disk."
+msgstr "No mountable partitions found on this disk."
+
+msgid "Assign mount points to partitions"
+msgstr "Assign mount points to partitions"
+
+msgid "Mount Point"
+msgstr "Mount Point"
+
+msgid "Filesystem"
+msgstr "Filesystem"
+
+msgid "-- Not used --"
+msgstr "-- Not used --"
+
+msgid "Btrfs Subvolumes"
+msgstr "Btrfs Subvolumes"
+
+msgid "subvolume"
+msgstr "subvolume"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "You must select a partition for the root (/) mount point."
+msgstr "You must select a partition for the root (/) mount point."
+
+msgid "Mount Failed"
+msgstr "Mount Failed"
+
+msgid "System Mounted Successfully"
+msgstr "System Mounted Successfully"
+
+msgid "The system has been mounted at {mount_point}.\n\nYou can now open a terminal to perform repairs."
+msgstr "The system has been mounted at {mount_point}.\n\nYou can now open a terminal to perform repairs."
+
+msgid "Open Terminal"
+msgstr "Open Terminal"
+
+msgid "Unmount"
+msgstr "Unmount"
+
+msgid "Terminal Not Found"
+msgstr "Terminal Not Found"
+
+msgid "Could not find a terminal emulator.\n\nTo access the chroot manually, run:\nsudo arch-chroot {mount_point}"
+msgstr "Could not find a terminal emulator.\n\nTo access the chroot manually, run:\nsudo arch-chroot {mount_point}"
+
+msgid "Unmounted"
+msgstr "Unmounted"
+
+msgid "The system has been unmounted successfully."
+msgstr "The system has been unmounted successfully."
+
+msgid "Unmount System?"
+msgstr "Unmount System?"
+
+msgid "Do you want to unmount the system before closing?"
+msgstr "Do you want to unmount the system before closing?"
+
+msgid "Root partition (/) not specified"
+msgstr "Root partition (/) not specified"
+
+msgid "System mounted successfully"
+msgstr "System mounted successfully"
+
+msgid "System was not mounted"
+msgstr "System was not mounted"
+
+msgid "System unmounted successfully"
+msgstr "System unmounted successfully"
