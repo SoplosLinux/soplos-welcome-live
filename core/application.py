@@ -201,22 +201,34 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
         # Set up application menu (if needed)
         self._setup_application_menu()
     
+    def _setup_actions(self):
+        """Setup application actions and accelerators."""
+        # Quit action (Global)
+        quit_action = Gio.SimpleAction.new('quit', None)
+        quit_action.connect('activate', self._on_quit)
+        self.add_action(quit_action)
+        self.set_accels_for_action('app.quit', ['<Primary>q'])
+        
+        # Preferences action (Global)
+        preferences_action = Gio.SimpleAction.new('preferences', None)
+        preferences_action.connect('activate', self._on_preferences)
+        self.add_action(preferences_action)
+
+        # About action (Global)
+        about_action = Gio.SimpleAction.new('about', None)
+        about_action.connect('activate', self._on_about)
+        self.add_action(about_action)
+
     def _setup_application_menu(self):
         """Setup application menu for GNOME integration."""
+        # Initialize actions first
+        self._setup_actions()
+        
         if self.environment_detector and self.environment_detector.desktop_environment.value == 'gnome':
             # Create application menu for GNOME
             menu = Gio.Menu()
-            
-            # About action
-            about_action = Gio.SimpleAction.new('about', None)
-            about_action.connect('activate', self._on_about)
-            self.add_action(about_action)
+            menu.append(_('Preferences'), 'app.preferences')
             menu.append(_('About'), 'app.about')
-            
-            # Quit action
-            quit_action = Gio.SimpleAction.new('quit', None)
-            quit_action.connect('activate', self._on_quit)
-            self.add_action(quit_action)
             menu.append(_('Quit'), 'app.quit')
             
             self.set_app_menu(menu)
@@ -243,6 +255,10 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
             traceback.print_exc()
             self.quit()
     
+    def _on_preferences(self, action, parameter):
+        """Handle preferences action."""
+        # TODO: Implement preferences dialog if needed for Live environment
+        print("Preferences action triggered - Not implemented")
     def _on_about(self, action, parameter):
         """Handle about action."""
         if self.main_window and hasattr(self.main_window, 'show_about_dialog'):

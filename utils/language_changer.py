@@ -1,23 +1,24 @@
 """
 Language changer for Soplos Welcome Live.
-Handles live language switching with desktop-specific implementations.
+Based on the WORKING legacy implementations from Tyson/Tyron.
 
-Supports:
-- XFCE (Tyron): Uses numlockx and xfconf for X11
-- KDE Plasma (Tyson): Uses kwriteconfig5/6 and plasma-apply-locale
-- GNOME (Boro): Uses dconf/gsettings
+Flow:
+1. Create ONE bash script with ALL system changes
+2. Execute it with ONE sudo call
+3. Apply user-level settings (no sudo)
+4. Migrate XDG directories
+5. Restart display manager
 """
 
 import os
 import subprocess
-import json
-import time
 import shutil
+import time
+import xml.etree.ElementTree as ET
 from pathlib import Path
-from typing import Optional, Tuple, List, Callable
+from typing import Optional, Tuple, Callable
 from enum import Enum
 
-# Import environment detector
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -25,404 +26,445 @@ from core.environment import get_environment_detector, DesktopEnvironment, Displ
 
 
 class LanguageChangeResult(Enum):
-    """Result of a language change operation."""
     SUCCESS = "success"
-    PARTIAL = "partial"  # Some settings changed but not all
+    PARTIAL = "partial"
     FAILED = "failed"
-    RESTART_REQUIRED = "restart_required"
 
 
 class LanguageChanger:
-    """
-    Handles live language switching with desktop-specific implementations.
-    """
+    """Language changer based on working legacy implementations."""
     
-    # Keyboard layout mapping
     KEYBOARD_LAYOUTS = {
-        'es': {'layout': 'es', 'variant': ''},
-        'en': {'layout': 'us', 'variant': ''},
-        'fr': {'layout': 'fr', 'variant': ''},
-        'de': {'layout': 'de', 'variant': ''},
-        'pt': {'layout': 'pt', 'variant': ''},
-        'it': {'layout': 'it', 'variant': ''},
-        'ro': {'layout': 'ro', 'variant': ''},
-        'ru': {'layout': 'ru', 'variant': ''}
+        'es': 'es', 'en': 'us', 'fr': 'fr', 'de': 'de',
+        'pt': 'pt', 'it': 'it', 'ro': 'ro', 'ru': 'ru'
     }
     
-    # Locale mapping
     LOCALE_CODES = {
-        'es': 'es_ES.UTF-8',
-        'en': 'en_US.UTF-8',
-        'fr': 'fr_FR.UTF-8',
-        'de': 'de_DE.UTF-8',
-        'pt': 'pt_PT.UTF-8',
-        'it': 'it_IT.UTF-8',
-        'ro': 'ro_RO.UTF-8',
-        'ru': 'ru_RU.UTF-8'
+        'es': 'es_ES.UTF-8', 'en': 'en_US.UTF-8', 'fr': 'fr_FR.UTF-8',
+        'de': 'de_DE.UTF-8', 'pt': 'pt_PT.UTF-8', 'it': 'it_IT.UTF-8',
+        'ro': 'ro_RO.UTF-8', 'ru': 'ru_RU.UTF-8'
     }
     
     def __init__(self):
-        """Initialize the language changer."""
         self.env_detector = get_environment_detector()
         self.env_detector.detect_all()
-        
-        # Detect desktop environment
         self.desktop = self.env_detector.desktop_environment
         self.display = self.env_detector.display_protocol
-        
-        # Get edition name
         self.edition = self.env_detector.get_edition_name()
-        
-        print(f"LanguageChanger initialized for {self.edition} ({self.desktop.value}/{self.display.value})")
     
-    def change_language(self, lang_code: str, callback: Optional[Callable] = None) -> Tuple[LanguageChangeResult, str]:
-        """
-        Change the system language.
-        
-        Args:
-            lang_code: Language code (e.g., 'es', 'en', 'fr')
-            callback: Optional callback for progress updates
-            
-        Returns:
-            Tuple of (result, message)
-        """
+    def change_language(self, lang_code: str) -> Tuple[LanguageChangeResult, str]:
+        """Change language - NO confirmations, just do it and restart."""
         if lang_code not in self.LOCALE_CODES:
             return (LanguageChangeResult.FAILED, f"Unsupported language: {lang_code}")
         
-        locale_code = self.LOCALE_CODES[lang_code]
-        keyboard = self.KEYBOARD_LAYOUTS.get(lang_code, {'layout': 'us', 'variant': ''})
+        locale = self.LOCALE_CODES[lang_code]
+        layout = self.KEYBOARD_LAYOUTS.get(lang_code, 'us')
+        username = os.environ.get('USER', 'liveuser')
         
-        # Route to appropriate handler based on desktop environment
-        if self.desktop == DesktopEnvironment.XFCE:
-            return self._change_language_xfce(lang_code, locale_code, keyboard, callback)
-        elif self.desktop == DesktopEnvironment.KDE:
-            return self._change_language_kde(lang_code, locale_code, keyboard, callback)
+        try:
+            # 1. Configure system locale (ONE sudo call)
+            self._configure_system_locale(locale, layout, username)
+            
+            # 2. Apply user-level settings (no sudo)
+            self._apply_user_settings(lang_code, locale, layout)
+            
+            # 3. Migrate XDG directories
+            self._migrate_xdg_directories(locale)
+            
+            # 4. GTK bookmarks for GNOME
+            if self.desktop == DesktopEnvironment.GNOME:
+                self._update_gtk_bookmarks()
+            
+            # 5. Restart display manager immediately
+            self._restart_display_manager()
+            
+            return (LanguageChangeResult.SUCCESS, "")
+            
+        except Exception as e:
+            return (LanguageChangeResult.FAILED, str(e))
+    
+    def _configure_system_locale(self, locale: str, layout: str, username: str):
+        """Configure system locale with ONE sudo call - copied from Tyson legacy."""
+        
+        # Determine DM-specific config
+        dm_config = ""
+        if self.desktop == DesktopEnvironment.KDE:
+            dm_config = f'''
+# SDDM configuration
+if [ -d "/etc/sddm.conf.d" ]; then
+    echo "[X11]" > /etc/sddm.conf.d/keyboard.conf
+    echo "ServerArguments=-layout {layout}" >> /etc/sddm.conf.d/keyboard.conf
+    echo "[General]" > /etc/sddm.conf.d/locale.conf
+    echo "Language={locale}" >> /etc/sddm.conf.d/locale.conf
+fi
+'''
         elif self.desktop == DesktopEnvironment.GNOME:
-            return self._change_language_gnome(lang_code, locale_code, keyboard, callback)
-        else:
-            return self._change_language_generic(lang_code, locale_code, keyboard, callback)
-    
-    def _change_language_xfce(self, lang_code: str, locale_code: str, keyboard: dict, 
-                               callback: Optional[Callable] = None) -> Tuple[LanguageChangeResult, str]:
-        """
-        Change language for XFCE (Tyron edition).
-        Uses xfconf-query and numlockx for X11.
-        """
-        results = []
+            dm_config = f'''
+# GDM/AccountsService configuration
+if [ -f /var/lib/AccountsService/users/{username} ]; then
+    if grep -q "^Language=" /var/lib/AccountsService/users/{username}; then
+        sed -i "s/^Language=.*/Language={locale}/" /var/lib/AccountsService/users/{username}
+    else
+        echo "Language={locale}" >> /var/lib/AccountsService/users/{username}
+    fi
+fi
+'''
+        elif self.desktop == DesktopEnvironment.XFCE:
+            dm_config = f'''
+# LightDM configuration
+if [ -f /etc/lightdm/lightdm.conf ]; then
+    sed -i "s/^#*greeter-locale=.*/greeter-locale={locale}/" /etc/lightdm/lightdm.conf 2>/dev/null || true
+fi
+'''
         
-        try:
-            if callback:
-                callback("Changing XFCE language settings...")
-            
-            # 1. Update locale environment files
-            self._update_locale_files(locale_code)
-            results.append(("locale_files", True))
-            
-            # 2. Change keyboard layout using xfconf (XFCE specific)
-            if self.display == DisplayProtocol.X11:
-                try:
-                    # Set keyboard layout via xfconf
-                    subprocess.run([
-                        'xfconf-query', '-c', 'keyboard-layout', 
-                        '-p', '/Default/XkbLayout', '-s', keyboard['layout']
-                    ], capture_output=True, timeout=10)
-                    
-                    # Also set via setxkbmap for immediate effect
-                    cmd = ['setxkbmap', keyboard['layout']]
-                    if keyboard['variant']:
-                        cmd.extend(['-variant', keyboard['variant']])
-                    subprocess.run(cmd, capture_output=True, timeout=10)
-                    
-                    results.append(("keyboard", True))
-                except Exception as e:
-                    print(f"Keyboard layout change warning: {e}")
-                    results.append(("keyboard", False))
-            
-            # 3. Handle NumLockX (XFCE/X11 specific)
-            if self.display == DisplayProtocol.X11:
-                self._handle_numlockx()
-                results.append(("numlockx", True))
-            
-            # 4. Update XFCE session locale
-            try:
-                # Update LANG in xfce4-session
-                xfce_session_conf = Path.home() / ".config" / "xfce4" / "xfconf" / "xfce-perchannel-xml" / "xfce4-session.xml"
-                if xfce_session_conf.parent.exists():
-                    # This requires session restart to take effect
-                    pass
-                results.append(("xfce_session", True))
-            except Exception as e:
-                results.append(("xfce_session", False))
-            
-            # Check results
-            failed = [r[0] for r in results if not r[1]]
-            if not failed:
-                return (LanguageChangeResult.RESTART_REQUIRED, 
-                        f"Language changed to {lang_code}. Session restart required for full effect.")
-            elif len(failed) < len(results):
-                return (LanguageChangeResult.PARTIAL, 
-                        f"Language partially changed. Failed: {', '.join(failed)}")
-            else:
-                return (LanguageChangeResult.FAILED, "Failed to change language settings.")
-                
-        except Exception as e:
-            return (LanguageChangeResult.FAILED, f"Error changing XFCE language: {e}")
-    
-    def _change_language_kde(self, lang_code: str, locale_code: str, keyboard: dict,
-                              callback: Optional[Callable] = None) -> Tuple[LanguageChangeResult, str]:
-        """
-        Change language for KDE Plasma (Tyson edition).
-        Uses kwriteconfig5/6 and plasma-apply-* commands.
-        """
-        results = []
+        script = f'''#!/bin/bash
+# System locale configuration - ALL in one script
+
+# 1. /etc/locale.conf
+cat > /etc/locale.conf << EOF
+LANG={locale}
+LC_ADDRESS={locale}
+LC_IDENTIFICATION={locale}
+LC_MEASUREMENT={locale}
+LC_MONETARY={locale}
+LC_NAME={locale}
+LC_NUMERIC={locale}
+LC_PAPER={locale}
+LC_TELEPHONE={locale}
+LC_TIME={locale}
+EOF
+
+# 2. /etc/default/locale
+cat > /etc/default/locale << EOF
+LANG={locale}
+LANGUAGE={locale.split('_')[0]}
+LC_ALL={locale}
+EOF
+
+# 3. /etc/environment
+cat > /etc/environment << EOF
+LANG={locale}
+LANGUAGE={locale.split('_')[0]}
+EOF
+
+# 4. Generate locale
+locale-gen {locale} 2>/dev/null || true
+
+# 5. localectl
+localectl set-locale LANG={locale} 2>/dev/null || true
+localectl set-x11-keymap {layout} 2>/dev/null || true
+
+# 6. Wayland keyboard config
+mkdir -p /etc/xdg
+echo "XKBLAYOUT={layout}" > /etc/xdg/keyboard
+
+# 7. Console keyboard
+echo "KEYMAP={layout}" > /etc/vconsole.conf 2>/dev/null || true
+
+# 8. X11 keyboard config
+mkdir -p /etc/X11/xorg.conf.d
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
+Section "InputClass"
+    Identifier "system-keyboard"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "{layout}"
+EndSection
+EOF
+
+{dm_config}
+
+echo "System locale configured"
+'''
         
-        try:
-            if callback:
-                callback("Changing KDE Plasma language settings...")
-            
-            # 1. Update locale environment files
-            self._update_locale_files(locale_code)
-            results.append(("locale_files", True))
-            
-            # 2. Detect KDE version and use appropriate tools
-            kwrite_cmd = self._get_kwriteconfig_command()
-            
-            # 3. Update kdeglobals
-            try:
-                # Set LANG in kdeglobals
-                subprocess.run([
-                    kwrite_cmd, '--file', 'kdeglobals', 
-                    '--group', 'Locale', '--key', 'Language', lang_code
-                ], capture_output=True, timeout=10)
-                
-                # Set formats locale
-                subprocess.run([
-                    kwrite_cmd, '--file', 'plasma-localerc',
-                    '--group', 'Formats', '--key', 'LANG', locale_code
-                ], capture_output=True, timeout=10)
-                
-                # Set language in plasma-localerc
-                for key in ['LC_NUMERIC', 'LC_TIME', 'LC_MONETARY', 'LC_MEASUREMENT', 'LC_COLLATE']:
-                    subprocess.run([
-                        kwrite_cmd, '--file', 'plasma-localerc',
-                        '--group', 'Formats', '--key', key, locale_code
-                    ], capture_output=True, timeout=10)
-                
-                results.append(("kdeglobals", True))
-            except Exception as e:
-                print(f"KDE config warning: {e}")
-                results.append(("kdeglobals", False))
-            
-            # 4. Change keyboard layout
-            try:
-                # Try plasma-apply-keyboard for Plasma 6
-                result = subprocess.run([
-                    'plasma-apply-keyboard', keyboard['layout']
-                ], capture_output=True, timeout=10)
-                
-                if result.returncode != 0:
-                    # Fallback to kwriteconfig
-                    subprocess.run([
-                        kwrite_cmd, '--file', 'kxkbrc',
-                        '--group', 'Layout', '--key', 'LayoutList', keyboard['layout']
-                    ], capture_output=True, timeout=10)
-                
-                results.append(("keyboard", True))
-            except Exception as e:
-                print(f"Keyboard layout change warning: {e}")
-                results.append(("keyboard", False))
-            
-            # 5. Update session locale for Wayland
-            if self.display == DisplayProtocol.WAYLAND:
-                self._update_wayland_session_locale(locale_code)
-                results.append(("wayland_session", True))
-            
-            # Check results
-            failed = [r[0] for r in results if not r[1]]
-            if not failed:
-                return (LanguageChangeResult.RESTART_REQUIRED,
-                        f"Language changed to {lang_code}. Please restart your session for full effect.")
-            elif len(failed) < len(results):
-                return (LanguageChangeResult.PARTIAL,
-                        f"Language partially changed. Failed: {', '.join(failed)}")
-            else:
-                return (LanguageChangeResult.FAILED, "Failed to change language settings.")
-                
-        except Exception as e:
-            return (LanguageChangeResult.FAILED, f"Error changing KDE language: {e}")
-    
-    def _change_language_gnome(self, lang_code: str, locale_code: str, keyboard: dict,
-                                callback: Optional[Callable] = None) -> Tuple[LanguageChangeResult, str]:
-        """
-        Change language for GNOME (Boro edition).
-        Uses dconf/gsettings.
-        """
-        results = []
+        script_path = '/tmp/configure_system_locale.sh'
+        with open(script_path, 'w') as f:
+            f.write(script)
+        os.chmod(script_path, 0o755)
         
-        try:
-            if callback:
-                callback("Changing GNOME language settings...")
-            
-            # 1. Update locale environment files
-            self._update_locale_files(locale_code)
-            results.append(("locale_files", True))
-            
-            # 2. Update GNOME locale settings via dconf/gsettings
-            try:
-                # Set system locale
-                subprocess.run([
-                    'gsettings', 'set', 'org.gnome.system.locale', 'region', locale_code
-                ], capture_output=True, timeout=10)
-                
-                # Set input sources (keyboard layout)
-                keyboard_source = f"[('xkb', '{keyboard['layout']}')]"
-                subprocess.run([
-                    'gsettings', 'set', 'org.gnome.desktop.input-sources', 'sources', keyboard_source
-                ], capture_output=True, timeout=10)
-                
-                results.append(("gsettings", True))
-            except Exception as e:
-                print(f"GNOME gsettings warning: {e}")
-                results.append(("gsettings", False))
-            
-            # 3. Use dconf directly for more settings
-            try:
-                # Update locale via dconf
-                dconf_commands = [
-                    f"/system/locale/region '{locale_code}'",
-                    f"/org/gnome/desktop/input-sources/sources [('xkb', '{keyboard['layout']}')]"
-                ]
-                
-                for dconf_cmd in dconf_commands:
-                    key, value = dconf_cmd.split(' ', 1)
-                    subprocess.run([
-                        'dconf', 'write', key, value
-                    ], capture_output=True, timeout=10)
-                
-                results.append(("dconf", True))
-            except Exception as e:
-                print(f"GNOME dconf warning: {e}")
-                results.append(("dconf", False))
-            
-            # 4. Update AccountsService locale (system-wide for login screen)
-            self._update_accountsservice_locale(locale_code, lang_code)
-            results.append(("accountsservice", True))
-            
-            # 5. Handle Wayland-specific settings
-            if self.display == DisplayProtocol.WAYLAND:
-                self._update_wayland_session_locale(locale_code)
-                results.append(("wayland_session", True))
-            
-            # Check results
-            failed = [r[0] for r in results if not r[1]]
-            if not failed:
-                return (LanguageChangeResult.RESTART_REQUIRED,
-                        f"Language changed to {lang_code}. Please restart your session for full effect.")
-            elif len(failed) < len(results):
-                return (LanguageChangeResult.PARTIAL,
-                        f"Language partially changed. Failed: {', '.join(failed)}")
-            else:
-                return (LanguageChangeResult.FAILED, "Failed to change language settings.")
-                
-        except Exception as e:
-            return (LanguageChangeResult.FAILED, f"Error changing GNOME language: {e}")
+        # ONE sudo call
+        subprocess.run(['sudo', '/bin/bash', script_path], check=True, timeout=60)
     
-    def _change_language_generic(self, lang_code: str, locale_code: str, keyboard: dict,
-                                  callback: Optional[Callable] = None) -> Tuple[LanguageChangeResult, str]:
-        """Generic language change for unknown desktops."""
-        try:
-            self._update_locale_files(locale_code)
-            return (LanguageChangeResult.RESTART_REQUIRED,
-                    f"Basic locale files updated to {lang_code}. Restart session for effect.")
-        except Exception as e:
-            return (LanguageChangeResult.FAILED, f"Error: {e}")
+    def _apply_user_settings(self, lang_code: str, locale: str, layout: str):
+        """Apply user-level settings (no sudo needed)."""
+        
+        # Update environment
+        os.environ['LANG'] = locale
+        os.environ['LC_ALL'] = locale
+        os.environ['LANGUAGE'] = lang_code
+        
+        if self.desktop == DesktopEnvironment.KDE:
+            # KDE user settings
+            kwrite = 'kwriteconfig6' if shutil.which('kwriteconfig6') else 'kwriteconfig5'
+            subprocess.run([kwrite, '--file', 'plasma-localerc', '--group', 'Translations',
+                          '--key', 'LANGUAGE', lang_code], check=False)
+            subprocess.run([kwrite, '--file', 'plasma-localerc', '--group', 'Formats',
+                          '--key', 'LANG', locale], check=False)
+            subprocess.run([kwrite, '--file', 'kxkbrc', '--group', 'Layout',
+                          '--key', 'LayoutList', layout], check=False)
+            subprocess.run([kwrite, '--file', 'kxkbrc', '--group', 'Layout',
+                          '--key', 'Use', 'true'], check=False)
+            subprocess.run(['qdbus', 'org.kde.keyboard', '/Layouts', 'reset'], check=False)
+            
+        elif self.desktop == DesktopEnvironment.GNOME:
+            # GNOME user settings
+            subprocess.run(['gsettings', 'set', 'org.gnome.system.locale', 'region', locale], check=False)
+            subprocess.run(['gsettings', 'set', 'org.gnome.desktop.input-sources', 'sources',
+                          f"[('xkb', '{layout}')]"], check=False)
+            
+        elif self.desktop == DesktopEnvironment.XFCE:
+            # XFCE user settings
+            subprocess.run(['xfconf-query', '-c', 'keyboard-layout', '-p', '/Default/XkbLayout',
+                          '-s', layout], check=False)
+        
+        # Try setxkbmap (works on X11)
+        subprocess.run(['setxkbmap', layout], check=False, timeout=5)
     
-    def _update_locale_files(self, locale_code: str):
-        """Update locale configuration files."""
+    def _migrate_xdg_directories(self, locale: str):
+        """Migrate XDG user directories."""
         home = Path.home()
+        user_dirs_file = home / '.config' / 'user-dirs.dirs'
         
-        # Update ~/.config/locale.conf
-        locale_conf = home / ".config" / "locale.conf"
-        locale_conf.parent.mkdir(parents=True, exist_ok=True)
+        def parse_dirs(file_path):
+            dirs = {}
+            if file_path.exists():
+                with open(file_path, 'r') as f:
+                    for line in f:
+                        if line.startswith('XDG_') and '=' in line:
+                            key, value = line.strip().split('=', 1)
+                            # Handle both "$HOME/Path" and "/home/user/Path" formats
+                            clean_value = value.strip('"')
+                            if clean_value.startswith('$HOME/'):
+                                path = clean_value.replace('$HOME/', '')
+                                dirs[key] = home / path
+                            elif clean_value.startswith('/'):
+                                dirs[key] = Path(clean_value)
+                            else:
+                                # Relative path fallback
+                                dirs[key] = home / clean_value
+            return dirs
+
+        # Get old dirs BEFORE update
+        old_dirs = parse_dirs(user_dirs_file)
         
-        locale_content = f"""LANG={locale_code}
-LC_NUMERIC={locale_code}
-LC_TIME={locale_code}
-LC_MONETARY={locale_code}
-LC_PAPER={locale_code}
-LC_MEASUREMENT={locale_code}
-LC_NAME={locale_code}
-LC_ADDRESS={locale_code}
-LC_TELEPHONE={locale_code}
-LC_IDENTIFICATION={locale_code}
-"""
-        with open(locale_conf, 'w') as f:
-            f.write(locale_content)
+        # Save explicit reference to old Desktop for Calamares icon fallback
+        old_desktop = old_dirs.get('XDG_DESKTOP_DIR', home / 'Desktop')
         
-        # Update ~/.pam_environment (for some systems)
-        pam_env = home / ".pam_environment"
-        pam_content = f"""LANG={locale_code}
-LANGUAGE={locale_code.split('.')[0]}
-"""
-        with open(pam_env, 'w') as f:
-            f.write(pam_content)
+        # Force update with new locale
+        env = os.environ.copy()
+        env['LANG'] = locale
+        env['LC_ALL'] = locale
+        try:
+            subprocess.run(['xdg-user-dirs-update', '--force'], env=env, check=False, timeout=30)
+        except Exception as e:
+            print(f"XDG update error: {e}")
         
-        # Update current environment
-        os.environ['LANG'] = locale_code
-        os.environ['LANGUAGE'] = locale_code.split('_')[0]
-    
-    def _handle_numlockx(self):
-        """Handle NumLockX for XFCE/X11."""
-        # Check if numlockx is available
-        if shutil.which('numlockx'):
+        # Get new dirs AFTER update
+        new_dirs = parse_dirs(user_dirs_file)
+        
+        # Migrate content
+        for key, old_path in old_dirs.items():
+            # Find corresponding new path
+            new_path = new_dirs.get(key)
+            
+            if not new_path or old_path == new_path or not old_path.exists():
+                continue
+            
+            # Create new directory if needed
+            if not new_path.exists():
+                try:
+                    new_path.mkdir(parents=True, exist_ok=True)
+                except: pass
+            
+            # Move content
+            if new_path.exists():
+                for item in old_path.iterdir():
+                    dest = new_path / item.name
+                    if not dest.exists():
+                        try:
+                            shutil.move(str(item), str(dest))
+                            print(f"Moved {item.name} to {dest}")
+                        except Exception as e:
+                            print(f"Failed to move {item}: {e}")
+                
+                # Setup specific symlink/files for Desktop
+                if key == 'XDG_DESKTOP_DIR':
+                    # List of desktop files to explicitly move if generic move failed or they are special
+                    desktop_files = [
+                        'calamares-install-soplos.desktop',
+                        'home.desktop',
+                        'trash.desktop'
+                    ]
+                    
+                    for desktop_filename in desktop_files:
+                        old_file = old_path / desktop_filename
+                        new_file = new_path / desktop_filename
+                        
+                        if old_file.exists() and not new_file.exists():
+                             try:
+                                 shutil.move(str(old_file), str(new_file))
+                                 print(f"Moved {desktop_filename} to {new_path}")
+                             except Exception as e:
+                                 print(f"Failed to move {desktop_filename}: {e}")
+
+                # Try to remove old dir if empty
+                try:
+                    if not any(old_path.iterdir()):
+                        old_path.rmdir()
+                except:
+                    pass
+        
+        # Update KDE/Plasma configuration if detected
+        if self.desktop == DesktopEnvironment.KDE:
             try:
-                # Turn on numlock (common preference)
-                subprocess.run(['numlockx', 'on'], capture_output=True, timeout=5)
-            except Exception:
-                pass
+                # Update Dolphin HomeUrl
+                kwrite = 'kwriteconfig6' if shutil.which('kwriteconfig6') else 'kwriteconfig5'
+                subprocess.run([
+                    kwrite, '--file', 'dolphinrc',
+                    '--group', 'General', '--key', 'HomeUrl',
+                    f'file://{home}'
+                ], check=False)
+                
+                # Update Plasma Desktop view URL
+                # Use XDG_DESKTOP_DIR from new_dirs or fallback to 'Desktop' in user's home
+                desktop_path = new_dirs.get('XDG_DESKTOP_DIR', home / 'Desktop')
+                
+                subprocess.run([
+                    kwrite, '--file', 'plasma-org.kde.plasma.desktop-appletsrc',
+                    '--group', 'Containments', '--group', '1', '--group', 'General',
+                    '--key', 'url', f'file://{desktop_path}'
+                ], check=False)
+                
+                # Update Dolphin bookmarks (user-places.xbel)
+                self._update_kde_bookmarks(home, new_dirs)
+                
+                # Force refresh of Plasma Shell
+                subprocess.run(['qdbus', 'org.kde.plasmashell', '/PlasmaShell', 
+                               'org.kde.PlasmaShell.evaluateScript', 
+                               'refreshCurrentShell()'], check=False)
+            except Exception as e:
+                print(f"Error updating KDE references: {e}")
     
-    def _get_kwriteconfig_command(self) -> str:
-        """Get the appropriate kwriteconfig command for the KDE version."""
-        # Try kwriteconfig6 first (Plasma 6)
-        if shutil.which('kwriteconfig6'):
-            return 'kwriteconfig6'
-        elif shutil.which('kwriteconfig5'):
-            return 'kwriteconfig5'
-        else:
-            return 'kwriteconfig'
+    def _update_kde_bookmarks(self, home, new_dirs):
+        """Update Dolphin bookmarks (user-places.xbel)."""
+        try:
+            xbel_path = home / '.local' / 'share' / 'user-places.xbel'
+            if not xbel_path.exists():
+                return
+
+            tree = ET.parse(xbel_path)
+            root = tree.getroot()
+            
+            # Map of generic English XDG names to their XDG keys
+            # This allows us to identify standard folders even if path is custom
+            xdg_map = {
+                'Downloads': 'XDG_DOWNLOAD_DIR',
+                'Documents': 'XDG_DOCUMENTS_DIR',
+                'Music': 'XDG_MUSIC_DIR',
+                'Pictures': 'XDG_PICTURES_DIR',
+                'Videos': 'XDG_VIDEOS_DIR'
+            }
+            
+            changed = False
+            for bookmark in root.findall('bookmark'):
+                href = bookmark.get('href', '')
+                
+                # Try to identify if this bookmark corresponds to a known XDG dir
+                target_key = None
+                for eng_name, key in xdg_map.items():
+                    # Check if current href ends with standard English name OR current localized name
+                    # But simpler: check if it matches OLD XDG path? 
+                    # We don't have old XDG path map here easily available inside this loop context 
+                    # unless we pass it. 
+                    # Better strategy: Check if the bookmark points to a folder that IS an XDG folder.
+                    
+                    # Since we moved the folders, the old href might be invalid or valid but old name.
+                    # We rely on the fact that we know the NEW path from 'new_dirs'.
+                    pass
+
+                # Strategy 2: Iterate over new_dirs and find relevant bookmarks by checking content/metadata? 
+                # No, too complex. 
+                # Strategy 3: Just look for standard folder names in href (English) and update them.
+                # KDE Live ISO starts in English typically.
+                
+                for eng_name, key in xdg_map.items():
+                    # Construct old english path
+                    old_eng_path = f"file://{home}/{eng_name}"
+                    
+                    # If bookmark points to old english path
+                    if href == old_eng_path:
+                        new_path = new_dirs.get(key)
+                        if new_path:
+                            # Update href
+                            bookmark.set('href', f"file://{new_path}")
+                            
+                            # Update title
+                            title_elem = bookmark.find('title')
+                            if title_elem is not None:
+                                title_elem.text = new_path.name
+                            
+                            changed = True
+                            print(f"Updated Dolphin bookmark: {eng_name} -> {new_path.name}")
+            
+            if changed:
+                tree.write(xbel_path, encoding='UTF-8', xml_declaration=True)
+                
+        except Exception as e:
+            print(f"Error updating Dolphin bookmarks: {e}")
     
-    def _update_wayland_session_locale(self, locale_code: str):
-        """Update locale for Wayland sessions."""
-        # Update environment.d for systemd user session
-        env_dir = Path.home() / ".config" / "environment.d"
-        env_dir.mkdir(parents=True, exist_ok=True)
+    def _update_gtk_bookmarks(self):
+        """Update GTK bookmarks for GNOME."""
+        try:
+            from utils.update_gtk_bookmarks import update_gtk_bookmarks
+            update_gtk_bookmarks()
+        except:
+            pass
+    
+    def _restart_display_manager(self):
+        """Restart the display manager safely."""
+        # Force sync to disk to prevent config read errors
+        subprocess.run(['sync'], check=False)
+        time.sleep(1)
         
-        env_file = env_dir / "locale.conf"
-        with open(env_file, 'w') as f:
-            f.write(f"LANG={locale_code}\n")
-    
-    def _update_accountsservice_locale(self, locale_code: str, lang_code: str):
-        """Update AccountsService locale (requires root or polkit)."""
-        # This typically requires elevated privileges
-        # For live session, we skip this or use pkexec
-        pass
-    
-    def get_current_locale(self) -> str:
-        """Get the current system locale."""
-        return os.environ.get('LANG', 'en_US.UTF-8')
+        # Try generic alias first (Works on most systemd distros)
+        dm_service = 'display-manager.service'
+        
+        # If specific override needed (though display-manager should handle it)
+        # We can fallback to detected names if the alias fails?
+        # But for now, let's try the alias as primary.
+        
+        print(f"Restarting {dm_service}...")
+        try:
+            subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True, timeout=30)
+        except subprocess.CalledProcessError:
+            # Fallback to hardcoded names if alias fails
+            dm_map = {
+                DesktopEnvironment.XFCE: 'lightdm',
+                DesktopEnvironment.KDE: 'sddm',
+                DesktopEnvironment.GNOME: 'gdm3', # Try gdm3 first
+            }
+            dm = dm_map.get(self.desktop, 'gdm3')
+            
+            # Double check for GNOME: gdm vs gdm3
+            if self.desktop == DesktopEnvironment.GNOME:
+                # Check if gdm exists
+                try:
+                    subprocess.run(['systemctl', 'status', 'gdm'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    dm = 'gdm'
+                except:
+                    dm = 'gdm3'
+            
+            print(f"Fallback restart: {dm}...")
+            subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
     
     def get_current_language_code(self) -> str:
-        """Get the current language code."""
-        locale = self.get_current_locale()
-        return locale.split('_')[0] if '_' in locale else locale.split('.')[0]
+        locale = os.environ.get('LANG', 'en_US.UTF-8')
+        return locale.split('_')[0] if '_' in locale else 'en'
 
 
-# Global singleton
+# Singleton
 _language_changer: Optional[LanguageChanger] = None
 
-
 def get_language_changer() -> LanguageChanger:
-    """Get or create the global language changer instance."""
     global _language_changer
     if _language_changer is None:
         _language_changer = LanguageChanger()

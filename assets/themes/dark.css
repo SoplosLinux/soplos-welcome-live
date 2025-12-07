@@ -1,70 +1,267 @@
-/*
- * Soplos Welcome Live 2.0 - Dark Theme
- * Dark color scheme
- */
+/* Dark Theme for Soplos Welcome - GTK3 CSS - Refined */
 
-@import url("base.css");
+/* Define Soplos brand colors */
+@define-color soplos_orange #ff8800;
+@define-color soplos_orange_hover #ff9922;
+@define-color soplos_dark_bg #2b2b2b;
+@define-color soplos_darker_bg #1e1e1e;
+@define-color soplos_light_text #ffffff;
+@define-color soplos_border #3c3c3c;
+@define-color soplos_error #e74c3c;
 
-/* Dark theme overrides */
-.soplos-welcome-live-window {
-    background-color: #2d2d2d;
+/* Override theme colors globally */
+@define-color theme_bg_color @soplos_dark_bg;
+@define-color theme_fg_color @soplos_light_text;
+@define-color theme_base_color @soplos_darker_bg;
+@define-color theme_selected_bg_color @soplos_orange;
+@define-color theme_selected_fg_color #000000;
+@define-color borders @soplos_border;
+
+/* ==========================================================================
+   CRITICAL: SWITCH STYLING 
+   Uses class selector (.soplos-welcome-live-window) for max reliability.
+   Forces slim dimensions (44x22) to fix "fat" look.
+   ========================================================================== */
+
+.soplos-welcome-live-window switch {
+    background-color: #333333;
+    border: 1px solid @soplos_border;
+    border-radius: 11px;
+    min-width: 44px;
+    min-height: 22px;
+    padding: 0;
+    margin-right: 0;
+    margin-left: 0;
+    outline: none;
+    -gtk-outline-radius: 11px;
 }
 
+.soplos-welcome-live-window switch:checked {
+    background-color: @soplos_orange;
+    border-color: @soplos_orange;
+}
+
+.soplos-welcome-live-window switch slider {
+    min-width: 20px;
+    min-height: 20px;
+    margin: 1px;
+    margin-bottom: -1px;
+    padding: 0;
+    background-color: #eeeeee;
+    border-radius: 50%;
+}
+
+/* ==========================================================================
+   END CRITICAL SECTION
+   ========================================================================== */
+
+/* Application Window */
+window {
+    background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
+}
+
+/* Dialog Styling */
+dialog,
+messagedialog {
+    background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
+}
+
+dialog .background,
+messagedialog .background {
+    background-color: @soplos_dark_bg;
+}
+
+dialog box,
+messagedialog box {
+    background-color: @soplos_dark_bg;
+}
+
+.dialog-action-area {
+    background-color: @soplos_darker_bg;
+    border-top: 1px solid @soplos_border;
+}
+
+/* HeaderBar Styling - Simplified to avoid parser trap */
+headerbar,
+headerbar:backdrop,
+.titlebar,
+.titlebar:backdrop {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+    border-bottom: 1px solid @soplos_border;
+    box-shadow: none;
+    min-height: 46px;
+}
+
+/* Generic button in headerbar */
+headerbar button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: @soplos_light_text;
+    padding: 6px;
+}
+
+headerbar button:hover {
+    background-color: #444444;
+}
+
+/* Notebook (Tabs) Styling */
+notebook {
+    background-color: @soplos_darker_bg;
+    border: 1px solid @soplos_border;
+}
+
+notebook header {
+    background-color: @soplos_darker_bg;
+    border: none;
+    box-shadow: none;
+}
+
+notebook header tabs {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tab Styling */
+notebook header tab {
+    background-color: #1a1a1a;
+    color: #cccccc;
+    border: 1px solid @soplos_border;
+    border-bottom: none;
+    margin: 0 2px 0 0;
+    padding: 8px 20px;
+    border-radius: 4px 4px 0 0;
+    box-shadow: none;
+    outline: none;
+}
+
+notebook header tab:hover {
+    background-color: #333333;
+    color: @soplos_light_text;
+    box-shadow: none;
+}
+
+notebook header tab:checked {
+    background-color: @soplos_dark_bg;
+    color: @soplos_orange;
+    border-top: 3px solid @soplos_orange;
+    border-left: 1px solid @soplos_border;
+    border-right: 1px solid @soplos_border;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+/* Content Area */
+notebook stack {
+    background-color: @soplos_dark_bg;
+    border: 1px solid @soplos_border;
+    border-top: none;
+}
+
+/* Card Styling */
 .soplos-card {
-    background-color: #3d3d3d;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: @soplos_darker_bg;
+    border: 1px solid @soplos_border;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.soplos-welcome-title {
-    color: #eeeeee;
+.soplos-card:hover {
+    border-color: @soplos_orange;
 }
 
-.soplos-welcome-subtitle {
-    color: #b0b0b0;
+/* Standard Buttons */
+button {
+    background-image: none;
+    background-color: #333333;
+    color: @soplos_light_text;
+    border: 1px solid @soplos_border;
+    border-radius: 4px;
+    padding: 8px 16px;
+    box-shadow: none;
+    text-shadow: none;
 }
 
-.soplos-button-install {
-    background-image: linear-gradient(to bottom, #5a9fe9, #4a90d9);
+button:hover {
+    background-color: #444444;
+    border-color: @soplos_orange;
+    color: @soplos_light_text;
 }
 
-.soplos-link-button {
-    background-color: #404040;
-    border: 1px solid #555555;
-    color: #e0e0e0;
+button:active {
+    background-color: @soplos_orange;
+    color: #000000;
 }
 
-.soplos-link-button:hover {
-    background-color: #4a4a4a;
+button.suggested-action {
+    background-color: @soplos_orange;
+    color: #000000;
+    border: 1px solid @soplos_orange_hover;
+    font-weight: bold;
 }
 
-switch {
-    background-color: #555555;
+button.suggested-action:hover {
+    background-color: @soplos_orange_hover;
+    border-color: @soplos_orange_hover;
 }
 
-switch:checked {
-    background-color: #5a9fe9;
-}
-
-.soplos-progress-bar {
-    background-color: #404040;
-}
-
-.soplos-progress-bar progress {
-    background-color: #5a9fe9;
-}
-
-treeview {
-    background-color: #3d3d3d;
-    color: #e0e0e0;
-}
-
-treeview:selected {
-    background-color: #4a90d9;
+button.destructive-action {
+    background-color: @soplos_error;
     color: #ffffff;
+    border: 1px solid #c0392b;
 }
 
-combobox button {
-    background-color: #404040;
-    color: #e0e0e0;
-    border: 1px solid #555555;
+button.destructive-action:hover {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+/* Labels */
+label {
+    color: @soplos_light_text;
+    text-shadow: none;
+}
+
+/* Progress Bar */
+progressbar trough {
+    background-color: @soplos_darker_bg;
+    border: 1px solid @soplos_border;
+    border-radius: 4px;
+}
+
+progressbar progress {
+    background-color: @soplos_orange;
+    border-radius: 4px;
+    border: none;
+}
+
+/* Entry */
+entry {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+    border: 1px solid @soplos_border;
+    box-shadow: none;
+}
+
+entry:focus {
+    border-color: @soplos_orange;
+    box-shadow: none;
+}
+
+/* Global resets */
+*:selected {
+    background-color: @soplos_orange;
+    color: #000000;
+}
+
+* {
+    outline-color: alpha(@soplos_orange, 0.5);
+    outline-style: none;
 }

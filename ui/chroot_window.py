@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.i18n_manager import _
 from core.chroot_operations import SystemOperations
+from ui import CSS_CLASSES
 
 
 class ChRootWindow(Gtk.Window):
@@ -61,7 +62,8 @@ class ChRootWindow(Gtk.Window):
         
         # Title
         title_label = Gtk.Label()
-        title_label.set_markup(f"<span size='large' weight='bold'>{_('System Rescue')}</span>")
+        title_label.set_text(_('System Rescue'))
+        title_label.get_style_context().add_class(CSS_CLASSES['dialog_title'])
         main_box.pack_start(title_label, False, False, 5)
         
         # Description
@@ -199,7 +201,8 @@ class ChRootWindow(Gtk.Window):
         
         # Header
         header_label = Gtk.Label()
-        header_label.set_markup(f"<b>{_('Assign mount points to partitions')}</b>")
+        header_label.set_text(_('Assign mount points to partitions'))
+        header_label.get_style_context().add_class(CSS_CLASSES['features_header'])
         box.pack_start(header_label, False, False, 0)
         
         # Partition grid
@@ -212,7 +215,8 @@ class ChRootWindow(Gtk.Window):
         headers = [_("Mount Point"), _("Device"), _("Size"), _("Filesystem")]
         for i, header in enumerate(headers):
             label = Gtk.Label()
-            label.set_markup(f"<b>{header}</b>")
+            label.set_text(header)
+            label.get_style_context().add_class(CSS_CLASSES['features_header'])
             label.set_halign(Gtk.Align.START)
             grid.attach(label, i, 0, 1, 1)
         
@@ -262,7 +266,8 @@ class ChRootWindow(Gtk.Window):
         box.pack_start(self.btrfs_section, False, False, 10)
         
         btrfs_label = Gtk.Label()
-        btrfs_label.set_markup(f"<b>{_('Btrfs Subvolumes')}</b>")
+        btrfs_label.set_text(_('Btrfs Subvolumes'))
+        btrfs_label.get_style_context().add_class(CSS_CLASSES['features_header'])
         self.btrfs_section.pack_start(btrfs_label, False, False, 0)
         
         box.show_all()

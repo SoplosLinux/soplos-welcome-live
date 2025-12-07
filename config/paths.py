@@ -21,6 +21,7 @@ CONFIG_DIR = BASE_DIR / "config"
 UI_DIR = BASE_DIR / "ui"
 UTILS_DIR = BASE_DIR / "utils"
 CORE_DIR = BASE_DIR / "core"
+SCRIPTS_DIR = BASE_DIR / "scripts"
 
 # Icon paths
 LOGO_PATH = ICONS_DIR / "org.soplos.welcomelive.png"

@@ -63,7 +63,7 @@
 
   <icon type="stock">org.soplos.welcomelive</icon>
   <icon type="remote">
-    <url>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/icons/com.soplos.welcomelive.png</url>
+    <url>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/icons/org.soplos.welcomelive.png</url>
   </icon>
 
   <screenshots>

@@ -37,5 +37,7 @@ CSS_CLASSES = {
     'welcome_title': 'soplos-welcome-title',
     'welcome_subtitle': 'soplos-welcome-subtitle',
     'slide_image': 'soplos-slide-image',
-    'link_button': 'soplos-link-button'
+    'link_button': 'soplos-link-button',
+    'features_header': 'features-header',
+    'dialog_title': 'dialog-title'
 }
