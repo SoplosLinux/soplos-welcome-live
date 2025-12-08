@@ -194,11 +194,60 @@ class DisplayManager:
             output = subprocess.check_output(['kscreen-doctor', '-j'], universal_newlines=True)
             data = json.loads(output)
             for out in data.get('outputs', []):
-                if out.get('connected'):
-                    # Look for current mode
+                if not out.get('connected'):
+                    continue
+
+                # 1) Preferred: explicit currentModeId on the output (common in many kscreen versions)
+                current_mode_id = out.get('currentModeId') or out.get('current_mode') or out.get('currentMode')
+                if current_mode_id is not None:
                     for mode in out.get('modes', []):
-                        if mode.get('current'):
-                            size = mode.get('size')
+                        mid = mode.get('id')
+                        if mid is None:
+                            continue
+                        try:
+                            if str(mid) == str(current_mode_id):
+                                size = mode.get('size')
+                                if size:
+                                    return f"{size['width']}x{size['height']}"
+                        except Exception:
+                            continue
+
+                # 2) Secondary: look for a mode flagged as current/active/preferred
+                for mode in out.get('modes', []):
+                    if mode.get('current') or mode.get('active') or mode.get('preferred'):
+                        size = mode.get('size')
+                        if size:
+                            return f"{size['width']}x{size['height']}"
+
+                # 3) Some outputs embed a simple 'mode' dict with width/height
+                mode_obj = out.get('mode') or out.get('current')
+                if isinstance(mode_obj, dict):
+                    w = None
+                    h = None
+                    if 'width' in mode_obj and 'height' in mode_obj:
+                        w = mode_obj.get('width')
+                        h = mode_obj.get('height')
+                    else:
+                        size = mode_obj.get('size') if isinstance(mode_obj.get('size'), dict) else None
+                        if size:
+                            w = size.get('width')
+                            h = size.get('height')
+                    if w and h:
+                        return f"{w}x{h}"
+
+                # 4) Fallback: prefer a 'preferred' mode, otherwise try to infer
+                preferred = next((m for m in out.get('modes', []) if m.get('preferred')), None)
+                if preferred:
+                    size = preferred.get('size')
+                    if size:
+                        return f"{size['width']}x{size['height']}"
+
+                # 5) Last resort: pick the first mode that looks valid (avoid always picking the largest)
+                modes = out.get('modes', [])
+                if modes:
+                    for mode in modes:
+                        size = mode.get('size')
+                        if size and size.get('width') and size.get('height'):
                             return f"{size['width']}x{size['height']}"
         except Exception:
             pass
