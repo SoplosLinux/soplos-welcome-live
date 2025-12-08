@@ -17,51 +17,13 @@
 @define-color theme_selected_fg_color #000000;
 @define-color borders @soplos_border;
 
-/* ==========================================================================
-   CRITICAL: SWITCH STYLING 
-   Uses class selector (.soplos-welcome-live-window) for max reliability.
-   Forces slim dimensions (44x22) to fix "fat" look.
-   ========================================================================== */
-
-.soplos-welcome-live-window switch {
-    background-color: #333333;
-    border: 1px solid @soplos_border;
-    border-radius: 11px;
-    min-width: 44px;
-    min-height: 22px;
-    padding: 0;
-    margin-right: 0;
-    margin-left: 0;
-    outline: none;
-    -gtk-outline-radius: 11px;
-}
-
-.soplos-welcome-live-window switch:checked {
-    background-color: @soplos_orange;
-    border-color: @soplos_orange;
-}
-
-.soplos-welcome-live-window switch slider {
-    min-width: 20px;
-    min-height: 20px;
-    margin: 1px;
-    margin-bottom: -1px;
-    padding: 0;
-    background-color: #eeeeee;
-    border-radius: 50%;
-}
-
-/* ==========================================================================
-   END CRITICAL SECTION
-   ========================================================================== */
-
 /* Application Window */
 window {
     background-color: @soplos_dark_bg;
     color: @soplos_light_text;
 }
 
-/* Dialog Styling */
+/* Dialog Styling - Fix for KDE Plasma white dialogs */
 dialog,
 messagedialog {
     background-color: @soplos_dark_bg;
@@ -71,10 +33,11 @@ messagedialog {
 dialog .background,
 messagedialog .background {
     background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
 }
 
-dialog box,
-messagedialog box {
+dialog>box,
+messagedialog>box {
     background-color: @soplos_dark_bg;
 }
 
@@ -83,7 +46,55 @@ messagedialog box {
     border-top: 1px solid @soplos_border;
 }
 
-/* HeaderBar Styling - Simplified to avoid parser trap */
+.dialog-content-area {
+    background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
+}
+
+/* FileChooserDialog Styling - Fix for white background in KDE Plasma */
+filechooserdialog,
+filechooser {
+    background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
+}
+
+filechooser .background {
+    background-color: @soplos_dark_bg;
+}
+
+filechooser placessidebar {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+}
+
+filechooser placessidebar row {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+}
+
+filechooser placessidebar row:selected {
+    background-color: @soplos_orange;
+    color: @soplos_light_text;
+}
+
+filechooser pathbar {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+}
+
+filechooser treeview,
+filechooser treeview.view {
+    background-color: @soplos_dark_bg;
+    color: @soplos_light_text;
+}
+
+filechooser entry {
+    background-color: @soplos_darker_bg;
+    color: @soplos_light_text;
+    border-color: @soplos_border;
+}
+
+/* HeaderBar Styling - Fix for "horrible" buttons */
 headerbar,
 headerbar:backdrop,
 .titlebar,
@@ -95,32 +106,38 @@ headerbar:backdrop,
     min-height: 46px;
 }
 
-/* Generic button in headerbar */
-headerbar button {
-    background-color: transparent;
+headerbar button.titlebutton {
+    color: @soplos_light_text;
+    background: transparent;
     border: none;
     box-shadow: none;
-    color: @soplos_light_text;
     padding: 6px;
+    border-radius: 4px;
 }
 
-headerbar button:hover {
+headerbar button.titlebutton:hover {
     background-color: #444444;
+    color: @soplos_light_text;
 }
 
-/* Notebook (Tabs) Styling */
+headerbar button.titlebutton.close:hover {
+    background-color: @soplos_error;
+    color: white;
+}
+
+/* Notebook (Tabs) Styling - Aggressive Overrides */
 notebook {
     background-color: @soplos_darker_bg;
     border: 1px solid @soplos_border;
 }
 
-notebook header {
+notebook>header {
     background-color: @soplos_darker_bg;
     border: none;
     box-shadow: none;
 }
 
-notebook header tabs {
+notebook>header tabs {
     background-color: transparent;
     border: none;
     margin: 0;
@@ -128,7 +145,7 @@ notebook header tabs {
 }
 
 /* Tab Styling */
-notebook header tab {
+notebook>header tab {
     background-color: #1a1a1a;
     color: #cccccc;
     border: 1px solid @soplos_border;
@@ -140,44 +157,40 @@ notebook header tab {
     outline: none;
 }
 
-notebook header tab:hover {
+/* Hover State */
+notebook>header tab:hover {
     background-color: #333333;
     color: @soplos_light_text;
     box-shadow: none;
 }
 
-notebook header tab:checked {
+/* Checked/Active State - Force Orange Border */
+notebook>header tab:checked {
     background-color: @soplos_dark_bg;
     color: @soplos_orange;
     border-top: 3px solid @soplos_orange;
+    /* Top highlight */
     border-left: 1px solid @soplos_border;
     border-right: 1px solid @soplos_border;
     border-bottom: none;
     box-shadow: none;
 }
 
+/* Remove any focus rings or outlines */
+notebook>header tab:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 /* Content Area */
-notebook stack {
+notebook>stack {
     background-color: @soplos_dark_bg;
     border: 1px solid @soplos_border;
     border-top: none;
+    /* Seamless connection with tabs */
 }
 
-/* Card Styling */
-.soplos-card {
-    background-color: @soplos_darker_bg;
-    border: 1px solid @soplos_border;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.soplos-card:hover {
-    border-color: @soplos_orange;
-}
-
-/* Standard Buttons */
+/* Buttons */
 button {
     background-image: none;
     background-color: #333333;
@@ -200,6 +213,7 @@ button:active {
     color: #000000;
 }
 
+/* Suggested Action (Orange) */
 button.suggested-action {
     background-color: @soplos_orange;
     color: #000000;
@@ -212,6 +226,7 @@ button.suggested-action:hover {
     border-color: @soplos_orange_hover;
 }
 
+/* Destructive Action (Red) */
 button.destructive-action {
     background-color: @soplos_error;
     color: #ffffff;
@@ -242,6 +257,22 @@ progressbar progress {
     border: none;
 }
 
+/* Switch */
+switch {
+    background-color: #333333;
+    border: 1px solid @soplos_border;
+    border-radius: 12px;
+}
+
+switch:checked {
+    background-color: @soplos_orange;
+    border-color: @soplos_orange;
+}
+
+switch slider {
+    background-color: #eeeeee;
+}
+
 /* Entry */
 entry {
     background-color: @soplos_darker_bg;
@@ -255,12 +286,18 @@ entry:focus {
     box-shadow: none;
 }
 
-/* Global resets */
+/* Scrolled Window */
+scrolledwindow viewport {
+    background-color: @soplos_dark_bg;
+}
+
+/* Fix for blue lines in some themes */
 *:selected {
     background-color: @soplos_orange;
     color: #000000;
 }
 
+/* Remove focus dotted lines */
 * {
     outline-color: alpha(@soplos_orange, 0.5);
     outline-style: none;

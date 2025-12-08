@@ -2,7 +2,7 @@
 /* This file contains only neutral base styles that work across all themes */
 
 /* Application Window */
-.soplos-welcome-live-window {
+.soplos-welcome-window {
     background-color: @theme_bg_color;
     color: @theme_fg_color;
 }
@@ -141,49 +141,6 @@ progressbar {
 separator {
     background-color: @borders;
     margin: 10px 0;
-}
-
-/* Default switch styling (can be overridden by dark/light theme files) */
-switch {
-    background-color: @theme_base_color;
-    border: 1px solid @borders;
-    border-radius: 12px;
-}
-
-switch:checked {
-    background-color: @theme_selected_bg_color;
-    border-color: @theme_selected_bg_color;
-}
-
-switch slider {
-    background-color: @theme_fg_color;
-}
-
-/* Very specific rule for the main window switches to guarantee override */
-#main-window switch {
-    width: 44px;
-    height: 22px;
-    padding: 1px;
-    border-radius: 12px;
-    background-color: @theme_base_color;
-    border: 1px solid @borders;
-    box-sizing: border-box;
-    vertical-align: middle;
-}
-
-#main-window switch slider {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    padding: 0;
-    background-color: @theme_fg_color;
-    border-radius: 50%;
-    transition: transform 140ms ease;
-    transform: translateX(0px);
-}
-
-#main-window switch:checked slider {
-    transform: translateX(22px);
 }
 
 /* Welcome Screen Specific */

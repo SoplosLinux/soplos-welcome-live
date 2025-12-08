@@ -80,7 +80,14 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # Apply CSS class and ID for specificity
         self.get_style_context().add_class(CSS_CLASSES['window'])
+        # Also add legacy class used by Soplos Welcome themes so CSS from
+        # the original Welcome (2.0) applies without requiring CSS edits.
+        self.get_style_context().add_class('soplos-welcome-window')
         self.set_name("main-window")
+
+        # Note: previously we added a USER-priority CSS provider here
+        # to normalize switches. Removed to let the system theme fully
+        # control switch appearance (per user request).
         
         # Window icon
         self._set_window_icon()
@@ -90,17 +97,17 @@ class MainWindow(Gtk.ApplicationWindow):
     
     def _create_header_bar(self):
         """
-        Create custom HeaderBar to match Welcome 2.0 style.
-        Only used on GNOME to allow CSD integration.
-        On XFCE/KDE, we rely on native Server-Side Decorations (SSD).
+        Create HeaderBar similar to the previous (pre-patch) behavior.
+        Only creates a CSD on GNOME; otherwise uses native decorations.
         """
-        # Check environment - only use CSD on GNOME
-        is_gnome = False
-        # Only create HeaderBar if we are on GNOME
         # Debug detection
-        print(f"HeaderBar check: Detected Desktop = {self.desktop.value}")
-        
-        if self.desktop.value != 'gnome':
+        try:
+            print(f"HeaderBar check: Detected Desktop = {self.desktop.value}")
+        except Exception:
+            print("HeaderBar check: desktop unknown")
+
+        # Only create HeaderBar if we are on GNOME
+        if (self.desktop and getattr(self.desktop, 'value', None)) != 'gnome':
             print("Using native window decorations (SSD)")
             return
 
@@ -108,24 +115,24 @@ class MainWindow(Gtk.ApplicationWindow):
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         # Force decoration layout on GNOME to ensure buttons appear
-        header.set_decoration_layout("menu:minimize,maximize,close")
+        # Use simple standard layout: buttons on the right
+        header.set_decoration_layout(":minimize,maximize,close")
         header.set_title(_("Soplos Welcome Live"))
-        
+
         # Apply strict styling class
         header.get_style_context().add_class('titlebar')
-        
+
         self.set_titlebar(header)
         self.header = header
-        
-        # Connect signals
+
         # Connect signals
         self.connect('delete-event', self._on_delete_event)
         self.connect('key-press-event', self._on_key_press)
-        
+
         # Ensure window can take focus immediately
         self.set_can_focus(True)
         self.set_focus_visible(False)
-        
+
         print("Main window created successfully")
     
     def _set_window_icon(self):
@@ -150,6 +157,10 @@ class MainWindow(Gtk.ApplicationWindow):
         self.main_box.get_style_context().add_class(CSS_CLASSES['content'])
         self.add(self.main_box)
         
+        # Main body frame to separate content from footer (like Welcome 2.0 Notebook)
+        body_frame = Gtk.Frame()
+        self.main_box.pack_start(body_frame, True, True, 0)
+        
         # Content box - centered (no scroll, tighter spacing)
         content_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         content_box.set_valign(Gtk.Align.CENTER)
@@ -158,7 +169,8 @@ class MainWindow(Gtk.ApplicationWindow):
         content_box.set_margin_bottom(10)
         content_box.set_margin_start(30)
         content_box.set_margin_end(30)
-        self.main_box.pack_start(content_box, True, True, 0)
+        
+        body_frame.add(content_box)
         
         # Logo - centered and large
         self._create_logo(content_box)
@@ -168,6 +180,7 @@ class MainWindow(Gtk.ApplicationWindow):
         title_label.set_text(_('Welcome to Soplos Linux'))
         title_label.get_style_context().add_class(CSS_CLASSES['welcome_title'])
         title_label.set_justify(Gtk.Justification.CENTER)
+        title_label.set_halign(Gtk.Align.CENTER)
         content_box.pack_start(title_label, False, False, 0)
         
         # Subtitle
@@ -175,6 +188,7 @@ class MainWindow(Gtk.ApplicationWindow):
         subtitle_label.set_text(f"{_('Live Session')} - {self.edition_name}")
         subtitle_label.get_style_context().add_class(CSS_CLASSES['welcome_subtitle'])
         subtitle_label.set_justify(Gtk.Justification.CENTER)
+        subtitle_label.set_halign(Gtk.Align.CENTER)
         content_box.pack_start(subtitle_label, False, False, 0)
         
         # Description
@@ -183,6 +197,7 @@ class MainWindow(Gtk.ApplicationWindow):
         desc_label.set_line_wrap(True)
         desc_label.set_max_width_chars(70)
         desc_label.set_justify(Gtk.Justification.CENTER)
+        desc_label.set_halign(Gtk.Align.CENTER)
         desc_label.set_margin_top(10)
         content_box.pack_start(desc_label, False, False, 0)
         
@@ -264,25 +279,23 @@ class MainWindow(Gtk.ApplicationWindow):
         """Create features list with icons like Welcome 2.0."""
         # Frame for features
         features_frame = Gtk.Frame()
+        features_frame.set_label(_("Available options:"))
+        features_frame.set_label_align(0.5, 0.5)
         features_frame.set_margin_top(15)
         features_frame.set_margin_bottom(10)
-        features_frame.set_margin_bottom(10)
-        # features_frame.get_style_context().add_class(CSS_CLASSES['card']) # Removed to match Welcome 2.0 style
+        # Using flat style if available or relying on theme
         parent.pack_start(features_frame, False, False, 0)
         
-        features_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        features_box.set_margin_top(15)
-        features_box.set_margin_bottom(15)
-        features_box.set_margin_start(20)
-        features_box.set_margin_end(20)
-        features_frame.add(features_box)
-        
-        # Header
-        header_label = Gtk.Label()
-        header_label.set_text(_('Available options:'))
-        header_label.get_style_context().add_class(CSS_CLASSES['features_header'])
-        header_label.set_halign(Gtk.Align.START)
-        features_box.pack_start(header_label, False, False, 0)
+        # Features Grid
+        grid = Gtk.Grid()
+        grid.set_column_spacing(15)
+        grid.set_row_spacing(10)
+        grid.set_margin_top(10)
+        grid.set_margin_bottom(10)
+        grid.set_margin_start(20)
+        grid.set_margin_end(20)
+        grid.set_halign(Gtk.Align.CENTER)
+        features_frame.add(grid)
         
         # Features
         features = [
@@ -295,18 +308,18 @@ class MainWindow(Gtk.ApplicationWindow):
         if self._is_tyron():
             features.append(("input-keyboard", _("Toggle NumLock for keyboards")))
         
-        for icon_name, text in features:
-            row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=12)
-            row.set_margin_start(10)
-            
+        for i, (icon_name, text) in enumerate(features):
+            # Icon
             icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.LARGE_TOOLBAR)
-            row.pack_start(icon, False, False, 0)
+            icon.set_halign(Gtk.Align.CENTER)
+            icon.set_valign(Gtk.Align.CENTER)
+            grid.attach(icon, 0, i, 1, 1)
             
+            # Label
             label = Gtk.Label(label=f"• {text}")
             label.set_halign(Gtk.Align.START)
-            row.pack_start(label, False, False, 0)
-            
-            features_box.pack_start(row, False, False, 0)
+            label.set_valign(Gtk.Align.CENTER)
+            grid.attach(label, 1, i, 1, 1)
     
     def _create_action_buttons(self, parent):
         """Create main action buttons."""
@@ -438,6 +451,13 @@ class MainWindow(Gtk.ApplicationWindow):
         self.autostart_switch = Gtk.Switch()
         self.autostart_switch.set_active(self.autostart_manager.is_enabled())
         self.autostart_switch.connect("notify::active", self._on_autostart_toggled)
+        # Debug: print style context info for switch
+        try:
+            sc = self.autostart_switch.get_style_context()
+            classes = sc.list_classes()
+            print(f"[DEBUG] autostart_switch name={self.autostart_switch.get_name()} classes={classes}")
+        except Exception:
+            pass
         autostart_box.pack_start(self.autostart_switch, False, False, 0)
         settings_box.pack_start(autostart_box, False, False, 0)
         
@@ -456,6 +476,13 @@ class MainWindow(Gtk.ApplicationWindow):
             self.numlock_switch.set_active(self.numlock_manager.is_enabled())
             self.numlock_switch.set_tooltip_text(_("Enable/disable NumLock activation in installed system"))
             self.numlock_switch.connect("notify::active", self._on_numlock_toggled)
+            # Debug: print style context info for numlock switch
+            try:
+                sc2 = self.numlock_switch.get_style_context()
+                classes2 = sc2.list_classes()
+                print(f"[DEBUG] numlock_switch name={self.numlock_switch.get_name()} classes={classes2}")
+            except Exception:
+                pass
             numlock_box.pack_start(self.numlock_switch, False, False, 0)
             settings_box.pack_start(numlock_box, False, False, 0)
     

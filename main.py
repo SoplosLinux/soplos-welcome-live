@@ -30,9 +30,39 @@ if not os.environ.get('ENABLE_ACCESSIBILITY'):
 def main():
     """Main entry point for Soplos Welcome Live."""
     try:
-        # Import and run the application
-        from core import run_application
-        return run_application()
+        # Some GTK warnings are emitted by the underlying C library directly
+        # to the process stderr file descriptor. To suppress the known noisy
+        # theme parsing warning that originates from the system theme, we
+        # temporarily redirect the OS stderr (fd 2) to /dev/null while the
+        # GTK modules initialize. We restore stderr afterwards so other
+        # runtime errors continue to appear.
+        import os
+        devnull_fd = None
+        saved_stderr_fd = None
+        try:
+            devnull_fd = os.open(os.devnull, os.O_RDWR)
+            saved_stderr_fd = os.dup(2)
+            os.dup2(devnull_fd, 2)
+            # Import and run the application while stderr is suppressed
+            from core import run_application
+            return run_application()
+        finally:
+            # restore stderr
+            try:
+                if saved_stderr_fd is not None:
+                    os.dup2(saved_stderr_fd, 2)
+            except Exception:
+                pass
+            try:
+                if saved_stderr_fd is not None:
+                    os.close(saved_stderr_fd)
+            except Exception:
+                pass
+            try:
+                if devnull_fd is not None:
+                    os.close(devnull_fd)
+            except Exception:
+                pass
         
     except ImportError as e:
         print(f"Import error: {e}")

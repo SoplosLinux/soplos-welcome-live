@@ -1,5 +1,5 @@
 """
-Theme management system for Soplos Welcome Live.
+Theme management system for Soplos Welcome.
 Handles CSS theme loading, application, and dynamic theme switching.
 """
 
@@ -45,14 +45,12 @@ class ThemeManager:
         
         # Add to default screen
         screen = Gdk.Screen.get_default()
-        if screen:
-            settings = Gtk.Settings.get_default()
-            # settings.set_property("gtk-theme-name", "Adwaita")  # REMOVED: Respect system theme
-            Gtk.StyleContext.add_provider_for_screen(
-                screen, 
-                self.css_provider, 
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
+        style_context = Gtk.StyleContext()
+        style_context.add_provider_for_screen(
+            screen, 
+            self.css_provider, 
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
     
     def get_available_themes(self) -> List[str]:
         """
@@ -138,7 +136,7 @@ class ThemeManager:
             # This ensures standard dialogs (like FileChooser) inherit the dark style
             settings = Gtk.Settings.get_default()
             if settings:
-                is_dark = 'dark' in theme_name or theme_name == 'base' # base is often dark by default in soplos
+                is_dark = 'dark' in theme_name or theme_name == 'base' # base is dark by default
                 settings.set_property("gtk-application-prefer-dark-theme", is_dark)
             
             print(f"Successfully loaded theme: {theme_name}")
@@ -183,39 +181,14 @@ class ThemeManager:
             self.css_provider.load_from_data(css_content.encode('utf-8'))
         except Exception as e:
             print(f"Error adding custom CSS: {e}")
-            
-    def toggle_dark_mode(self) -> str:
-        """
-        Toggle between light and dark themes.
-        
-        Returns:
-            Name of the newly applied theme
-        """
-        current = self.current_theme or 'light'
-        
-        if 'dark' in current:
-            new_theme = current.replace('dark', 'light')
-        elif 'light' in current:
-            new_theme = current.replace('light', 'dark')
-        else:
-             # Default fallback toggle
-            new_theme = 'dark'
-            
-        # Check if the new theme exists, fallback to simple 'light' or 'dark'
-        if new_theme not in self.get_available_themes():
-            new_theme = 'dark' if 'light' in current else 'light'
-        
-        self.load_theme(new_theme)
-        return new_theme
-
+    
     def _create_base_theme(self):
         """Create a basic base theme if it doesn't exist."""
-        # Note: Using soplos-welcome-live-window class name
         base_theme_content = """
-/* Base Theme for Soplos Welcome Live */
+/* Base Theme for Soplos Welcome */
 
 /* Application Window */
-.soplos-welcome-live-window {
+.soplos-welcome-window {
     background-color: @theme_bg_color;
     color: @theme_fg_color;
 }
@@ -227,10 +200,32 @@ class ThemeManager:
     border-radius: 8px;
 }
 
+/* Tabs */
+.soplos-tab {
+    padding: 10px 20px;
+    border-radius: 6px 6px 0 0;
+    background-color: @theme_bg_color;
+    border: 1px solid @borders;
+    border-bottom: none;
+}
+
+.soplos-tab:checked {
+    background-color: @theme_base_color;
+    color: @theme_selected_fg_color;
+}
+
 /* Buttons */
 .soplos-button-install {
     background-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: 1px solid @borders;
+}
+
+.soplos-button-uninstall {
+    background-color: @error_color;
+    color: white;
     border-radius: 6px;
     padding: 8px 16px;
     border: 1px solid @borders;
@@ -243,14 +238,6 @@ class ThemeManager:
     padding: 10px 20px;
     border: 1px solid @borders;
     font-weight: bold;
-}
-
-.soplos-button-secondary {
-    background-color: transparent;
-    color: @theme_fg_color;
-    border: 1px solid @borders;
-    border-radius: 4px;
-    padding: 8px 16px;
 }
 
 /* Cards and Containers */
@@ -282,6 +269,10 @@ class ThemeManager:
     -gtk-icon-size: 32px;
 }
 
+.soplos-icon-small {
+    -gtk-icon-size: 16px;
+}
+
 /* Separators */
 .soplos-separator {
     background-color: @borders;
@@ -302,15 +293,43 @@ class ThemeManager:
     margin-bottom: 20px;
 }
 
-.features-header {
-    font-weight: bold;
+/* Software Tab Specific */
+.soplos-software-grid {
+    padding: 10px;
 }
 
-/* Link Buttons */
-.soplos-link-button {
+.soplos-software-item {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: @theme_base_color;
+    border: 1px solid @borders;
+    margin: 4px;
+}
+
+.soplos-software-item:hover {
+    background-color: @theme_selected_bg_color;
+    color: @theme_selected_fg_color;
+}
+
+/* Hardware Tab Specific */
+.soplos-hardware-info {
+    font-family: monospace;
+    background-color: @theme_base_color;
+    border: 1px solid @borders;
     border-radius: 4px;
-    padding: 8px 12px;
-    min-height: 32px;
+    padding: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .soplos-content {
+        padding: 10px;
+    }
+    
+    .soplos-card {
+        margin: 4px;
+        padding: 12px;
+    }
 }
 """
         
@@ -324,9 +343,8 @@ class ThemeManager:
     
     def create_dark_theme(self):
         """Create a dark theme variant."""
-        # Intentionally kept robust
         dark_theme_content = """
-/* Dark Theme for Soplos Welcome Live */
+/* Dark Theme for Soplos Welcome */
 @import url('base.css');
 
 /* Override colors for dark theme */
@@ -339,20 +357,21 @@ class ThemeManager:
 @define-color error_color #e74c3c;
 
 /* Dark-specific adjustments */
-.soplos-welcome-live-window {
+.soplos-welcome-window {
     background-color: #2b2b2b;
     color: #ffffff;
 }
 
 .soplos-card {
-    background-color: #1e1e1e;
+    background-color: #3c3c3c;
     border-color: #555555;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-dialog, messagedialog {
-    background-color: #2b2b2b;
-    color: #ffffff;
+.soplos-hardware-info {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    border-color: #555555;
 }
 """
         
@@ -367,7 +386,7 @@ dialog, messagedialog {
     def create_light_theme(self):
         """Create a light theme variant."""
         light_theme_content = """
-/* Light Theme for Soplos Welcome Live */
+/* Light Theme for Soplos Welcome */
 @import url('base.css');
 
 /* Override colors for light theme */
@@ -380,7 +399,7 @@ dialog, messagedialog {
 @define-color error_color #e74c3c;
 
 /* Light-specific adjustments */
-.soplos-welcome-live-window {
+.soplos-welcome-window {
     background-color: #f5f5f5;
     color: #2c3e50;
 }
@@ -389,6 +408,12 @@ dialog, messagedialog {
     background-color: #ffffff;
     border-color: #e0e0e0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.soplos-hardware-info {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    border-color: #e0e0e0;
 }
 """
         
@@ -415,7 +440,6 @@ dialog, messagedialog {
 # Global theme manager instance
 _theme_manager = None
 
-
 def get_theme_manager(assets_path: str = None) -> ThemeManager:
     """
     Returns the global theme manager instance.
@@ -434,7 +458,6 @@ def get_theme_manager(assets_path: str = None) -> ThemeManager:
             assets_path = current_dir / 'assets'
         _theme_manager = ThemeManager(str(assets_path))
     return _theme_manager
-
 
 def initialize_theming(assets_path: str = None) -> str:
     """

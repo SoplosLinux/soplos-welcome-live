@@ -171,7 +171,34 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
     def _initialize_theming(self):
         """Initialize the theming system."""
         try:
-            loaded_theme = initialize_theming(str(self.assets_path))
+            # Temporarily filter stderr to suppress known GTK parser warnings
+            # coming from the system theme (e.g. "Junk at end of value for color").
+            # We only mute that specific line during theming initialization so
+            # the rest of stderr remains visible.
+            import sys
+
+            class _StderrFilter:
+                def __init__(self, orig):
+                    self._orig = orig
+                def write(self, data):
+                    try:
+                        if 'Junk at end of value for color' in data:
+                            return
+                    except Exception:
+                        pass
+                    self._orig.write(data)
+                def flush(self):
+                    try:
+                        self._orig.flush()
+                    except Exception:
+                        pass
+
+            orig_err = sys.stderr
+            try:
+                sys.stderr = _StderrFilter(orig_err)
+                loaded_theme = initialize_theming(str(self.assets_path))
+            finally:
+                sys.stderr = orig_err
             self.theme_manager = get_theme_manager()
             
             print(f"Theme loaded: {loaded_theme}")
