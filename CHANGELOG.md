@@ -36,6 +36,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - GParted integration for disk management
 - Robust filesystem validation
 
+### 🩹 Patch - 2025-12-08
+- Normalized application switch styling across desktop themes (fixed oval/stretch issue in Live images)
+- Applied focused CSS overrides and ensured application CSS has USER priority so widgets render consistently
+- Prepared updated screenshots for the welcome flow (replace legacy images before packaging)
+
 ---
 
 ## [1.1.2] - 2025-11-29

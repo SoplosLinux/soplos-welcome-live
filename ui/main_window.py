@@ -97,30 +97,38 @@ class MainWindow(Gtk.ApplicationWindow):
     
     def _create_header_bar(self):
         """
-        Create HeaderBar similar to the previous (pre-patch) behavior.
-        Only creates a CSD on GNOME; otherwise uses native decorations.
+        Create HeaderBar (CSD) for GNOME, but use native decorations (SSD) 
+        for XFCE and KDE to avoid double headers or missing controls.
         """
-        # Debug detection
+        # Detect environment safely
+        desktop_env = 'unknown'
         try:
-            print(f"HeaderBar check: Detected Desktop = {self.desktop.value}")
-        except Exception:
-            print("HeaderBar check: desktop unknown")
+             if self.desktop:
+                desktop_env = getattr(self.desktop, 'value', str(self.desktop)).lower()
+        except:
+            pass
+            
+        print(f"HeaderBar check: Detected Desktop = {desktop_env}")
 
-        # Only create HeaderBar if we are on GNOME
-        if (self.desktop and getattr(self.desktop, 'value', None)) != 'gnome':
-            print("Using native window decorations (SSD)")
+        # XFCE and KDE/Plasma work best with native window decorations (SSD)
+        if desktop_env in ['xfce', 'kde', 'plasma']:
+            print("Using native window decorations (SSD) for compatibility")
             return
 
-        print("Creating Client-Side Decorations (CSD) for GNOME")
+        # For GNOME and others, use Client-Side Decorations (CSD)
+        print("Creating Client-Side Decorations (CSD)")
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
-        # Force decoration layout on GNOME to ensure buttons appear
-        # Use simple standard layout: buttons on the right
-        header.set_decoration_layout(":minimize,maximize,close")
         header.set_title(_("Soplos Welcome Live"))
+        
+        # Explicit decoration layout to ensure controls are visible
+        header.set_decoration_layout("menu:minimize,maximize,close")
 
         # Apply strict styling class
         header.get_style_context().add_class('titlebar')
+        
+        # CRITICAL: Show the header bar to ensure it renders
+        header.show_all()
 
         self.set_titlebar(header)
         self.header = header
@@ -133,7 +141,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.set_can_focus(True)
         self.set_focus_visible(False)
 
-        print("Main window created successfully")
+        print("Main window created successfully with HeaderBar")
     
     def _set_window_icon(self):
         """Set the window icon."""
@@ -451,6 +459,12 @@ class MainWindow(Gtk.ApplicationWindow):
         self.autostart_switch = Gtk.Switch()
         self.autostart_switch.set_active(self.autostart_manager.is_enabled())
         self.autostart_switch.connect("notify::active", self._on_autostart_toggled)
+        # Force a compact size and center alignment to avoid vertical stretching
+        try:
+            self.autostart_switch.set_size_request(36, 22)
+            self.autostart_switch.set_valign(Gtk.Align.CENTER)
+        except Exception:
+            pass
         # Debug: print style context info for switch
         try:
             sc = self.autostart_switch.get_style_context()
@@ -476,6 +490,11 @@ class MainWindow(Gtk.ApplicationWindow):
             self.numlock_switch.set_active(self.numlock_manager.is_enabled())
             self.numlock_switch.set_tooltip_text(_("Enable/disable NumLock activation in installed system"))
             self.numlock_switch.connect("notify::active", self._on_numlock_toggled)
+            try:
+                self.numlock_switch.set_size_request(36, 22)
+                self.numlock_switch.set_valign(Gtk.Align.CENTER)
+            except Exception:
+                pass
             # Debug: print style context info for numlock switch
             try:
                 sc2 = self.numlock_switch.get_style_context()
@@ -485,6 +504,11 @@ class MainWindow(Gtk.ApplicationWindow):
                 pass
             numlock_box.pack_start(self.numlock_switch, False, False, 0)
             settings_box.pack_start(numlock_box, False, False, 0)
+        # Schedule a one-time diagnostic print of switch allocations and styles
+        try:
+            GLib.idle_add(self._debug_print_switches)
+        except Exception:
+            pass
     
     def _create_status_bar(self, parent):
         """Create status bar at the bottom."""
@@ -510,6 +534,57 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # Right: Version
         version_label = Gtk.Label(label=f"Soplos Welcome Live v{__version__}")
+
+    def _debug_print_switches(self):
+        """Diagnostic: print allocation and style info for switches."""
+        try:
+            def info(widget, name):
+                alloc = widget.get_allocation()
+                sc = widget.get_style_context()
+                classes = sc.list_classes() if sc else []
+                hexpand = widget.get_hexpand() if hasattr(widget, 'get_hexpand') else None
+                vexpand = widget.get_vexpand() if hasattr(widget, 'get_vexpand') else None
+                print(f"[DIAG] {name}: allocation=({alloc.x},{alloc.y},{alloc.width},{alloc.height}) hexpand={hexpand} vexpand={vexpand} classes={classes}")
+
+            try:
+                info(self.autostart_switch, 'autostart_switch')
+            except Exception as e:
+                print(f"[DIAG] autostart_switch missing: {e}")
+
+            try:
+                parent = self.autostart_switch.get_parent()
+                alloc = parent.get_allocation()
+                print(f"[DIAG] autostart_parent: allocation=({alloc.x},{alloc.y},{alloc.width},{alloc.height})")
+            except Exception:
+                pass
+
+            try:
+                info(self.numlock_switch, 'numlock_switch')
+            except Exception as e:
+                print(f"[DIAG] numlock_switch missing: {e}")
+
+            try:
+                parent2 = self.numlock_switch.get_parent()
+                alloc2 = parent2.get_allocation()
+                print(f"[DIAG] numlock_parent: allocation=({alloc2.x},{alloc2.y},{alloc2.width},{alloc2.height})")
+            except Exception:
+                pass
+
+            # Also print settings_box allocation if present
+            try:
+                sb = getattr(self, 'settings_box', None)
+                if sb is None:
+                    # try to find by name - fall back to walking children
+                    print("[DIAG] settings_box not directly available")
+                else:
+                    a = sb.get_allocation()
+                    print(f"[DIAG] settings_box: allocation=({a.x},{a.y},{a.width},{a.height})")
+            except Exception:
+                pass
+
+        except Exception as e:
+            print(f"[DIAG] Error in _debug_print_switches: {e}")
+        return False
         version_label.set_halign(Gtk.Align.END)
         version_label.get_style_context().add_class('dim-label')
         status_box.pack_end(version_label, False, False, 0)

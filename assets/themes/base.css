@@ -1,3 +1,4 @@
+
 /* Base Theme for Soplos Welcome - GTK3 Compatible */
 /* This file contains only neutral base styles that work across all themes */
 
@@ -20,7 +21,7 @@ notebook {
     background-color: @theme_base_color;
 }
 
-notebook>stack {
+notebook > stack {
     background-color: @theme_base_color;
     border-top: 1px solid @borders;
 }
@@ -117,6 +118,29 @@ button.destructive-action {
     font-size: 14px;
 }
 
+/* Override: normalize switch geometry for Soplos Welcome Live
+   Ensures switches stay compact and round inside the application window.
+*/
+.soplos-welcome-window switch {
+    min-width: 36px;
+    min-height: 18px;
+    padding: 0;
+    margin: 0;
+    border-radius: 12px;
+    background-clip: padding-box;
+}
+
+.soplos-welcome-window switch slider {
+    min-width: 14px;
+    min-height: 14px;
+    margin: 2px;
+    border-radius: 12px;
+}
+
+.soplos-welcome-window switch:checked {
+    border-radius: 12px;
+}
+
 progressbar {
     border-radius: 4px;
 }
@@ -206,25 +230,22 @@ frame {
     background-color: @theme_base_color;
 }
 
-frame>border {
+frame > border {
     border: none;
 }
 
 /* Lists and trees */
-list,
-treeview {
+list, treeview {
     background-color: @theme_base_color;
     color: @theme_fg_color;
 }
 
-list row:hover,
-treeview:hover {
+list row:hover, treeview:hover {
     background-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
 }
 
-list row:selected,
-treeview:selected {
+list row:selected, treeview:selected {
     background-color: @theme_selected_bg_color;
     color: @theme_selected_fg_color;
 }
@@ -268,3 +289,4 @@ treeview:selected {
 .soplos-button-accent:hover {
     background-color: alpha(@error_color, 0.1);
 }
+

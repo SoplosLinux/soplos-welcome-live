@@ -102,6 +102,11 @@ Contact: info@soploslinux.com
 - **GNU Gettext**: Professional internationalization (8 languages)
 - **Improved CHROOT**: Enhanced partition detection and BTRFS support
 
+#### Patch - 2025-12-08
+- Fixed: normalized `Gtk.Switch` styling in Live so switches render consistently across desktop themes (removed oval/stretch issue)
+- Added focused CSS overrides and set application CSS priority to ensure theme rules apply correctly
+- Updated screenshots prepared for the welcome flow (replace legacy captures before packaging)
+
 ### v1.1.2 (2025-11-29)
 - Universal disk detection in CHROOT (all hardware/VM types)
 - Fixed indentation errors in core modules

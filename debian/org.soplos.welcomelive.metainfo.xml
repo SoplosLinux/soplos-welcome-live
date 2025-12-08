@@ -117,6 +117,14 @@
           <li>Enhanced CHROOT recovery with improved partition detection</li>
           <li>Full BTRFS subvolume support</li>
         </ul>
+        <p>Patch (2025-12-08): Fixed application switch styling so widgets render consistently across desktop themes; added focused CSS overrides and prepared updated screenshots for the welcome flow.</p>
+        <p xml:lang="es">Parche (2025-12-08): Corregido el estilo de los interruptores de la aplicación para que los widgets se muestren de forma coherente en todos los temas de escritorio; añadidos overrides CSS focalizados y preparadas capturas actualizadas del flujo de bienvenida.</p>
+        <p xml:lang="fr">Correctif (2025-12-08): Correction du style des commutateurs de l'application afin que les widgets s'affichent de manière cohérente sur tous les thèmes de bureau ; ajouts d'overrides CSS ciblés et captures d'écran mises à jour préparées pour le flux d'accueil.</p>
+        <p xml:lang="pt">Patch (2025-12-08): Corrigido o estilo dos interruptores da aplicação para que os widgets sejam renderizados de forma consistente em todos os temas de ambiente de trabalho; adicionados overrides CSS e preparadas capturas atualizadas do fluxo de boas-vindas.</p>
+        <p xml:lang="de">Patch (2025-12-08): Fehler im Stil der Anwendungsschalter behoben, sodass Widgets in verschiedenen Desktop-Themen konsistent dargestellt werden; gezielte CSS-Overrides hinzugefügt und aktualisierte Screenshots für den Willkommensablauf vorbereitet.</p>
+        <p xml:lang="it">Patch (2025-12-08): Corretto lo stile degli interruttori dell'applicazione in modo che i widget vengano visualizzati in modo coerente tra i temi del desktop; aggiunti override CSS mirati e preparati screenshot aggiornati per il flusso di benvenuto.</p>
+        <p xml:lang="ru">Патч (2025-12-08): Исправлен стиль переключателей приложения, теперь виджеты отображаются одинаково во всех темах рабочего стола; добавлены целевые CSS-правки и подготовлены обновленные скриншоты приветственного интерфейса.</p>
+        <p xml:lang="ro">Patch (2025-12-08): Corectat stilul comutatoarelor aplicației astfel încât widget-urile să se afișeze în mod consecvent în toate temele desktop; adăugate override-uri CSS focalizate și pregătite capturi de ecran actualizate pentru fluxul de bun venit.</p>
       </description>
     </release>
     <release version="1.1.2" date="2025-11-29">

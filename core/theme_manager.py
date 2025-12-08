@@ -47,9 +47,9 @@ class ThemeManager:
         screen = Gdk.Screen.get_default()
         style_context = Gtk.StyleContext()
         style_context.add_provider_for_screen(
-            screen, 
-            self.css_provider, 
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            screen,
+            self.css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_USER
         )
     
     def get_available_themes(self) -> List[str]:
@@ -181,6 +181,7 @@ class ThemeManager:
             self.css_provider.load_from_data(css_content.encode('utf-8'))
         except Exception as e:
             print(f"Error adding custom CSS: {e}")
+
     
     def _create_base_theme(self):
         """Create a basic base theme if it doesn't exist."""
