@@ -183,17 +183,17 @@ class MainWindow(Gtk.ApplicationWindow):
         # Logo - centered and large
         self._create_logo(content_box)
         
-        # Title
+        # Title (use markup to match Welcome 2.0 sizing)
         title_label = Gtk.Label()
-        title_label.set_text(_('Welcome to Soplos Linux'))
+        title_label.set_markup(f'<span size="20000" weight="bold">{_("Welcome to Soplos Linux")}</span>')
         title_label.get_style_context().add_class(CSS_CLASSES['welcome_title'])
         title_label.set_justify(Gtk.Justification.CENTER)
         title_label.set_halign(Gtk.Align.CENTER)
         content_box.pack_start(title_label, False, False, 0)
         
-        # Subtitle
+        # Subtitle (match Welcome 2.0 markup sizing)
         subtitle_label = Gtk.Label()
-        subtitle_label.set_text(f"{_('Live Session')} - {self.edition_name}")
+        subtitle_label.set_markup(f'<span size="12000">{_('Live Session')} - {self.edition_name}</span>')
         subtitle_label.get_style_context().add_class(CSS_CLASSES['welcome_subtitle'])
         subtitle_label.set_justify(Gtk.Justification.CENTER)
         subtitle_label.set_halign(Gtk.Align.CENTER)
