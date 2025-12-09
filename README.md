@@ -108,7 +108,9 @@ Contact: info@soploslinux.com
 - Updated screenshots prepared for the welcome flow (replace legacy captures before packaging)
 
 #### Patch - 2025-12-09
-- Removed KDE bookmark remapping logic from the language changer. The language switcher now deletes the user's `~/.local/share/user-places.xbel` before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies behavior in live images and avoids incorrect localized paths. (No backups are created; intended behavior for live environments, documented as 2.0 preproduction.)
+- GNOME / Wayland display improvements:
+	- Improved detection and setting of resolutions on GNOME Wayland (GDK-first detection with a robust D-Bus fallback).
+	- Avoids incorrect virtual/guest modes at startup, chooses best available refresh rate, and applies temporary monitor changes suitable for Live ISO usage.
 
 ### v1.1.2 (2025-11-29)
 - Universal disk detection in CHROOT (all hardware/VM types)

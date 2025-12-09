@@ -43,6 +43,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### 🩹 Patch - 2025-12-09
 - Removed KDE bookmark remapping logic from the language changer; the language switcher now deletes `~/.local/share/user-places.xbel` before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies behavior in live images and avoids incorrect localized paths. (No backups; intended for live environments, documented as 2.0 preproduction.)
+ - GNOME/Wayland display fixes:
+	 - Robust GNOME Wayland resolution handling: improved D-Bus parsing of `GetCurrentState` with defensive unpacking and selection of logical monitors.
+	 - Added GDK-first fallback to reliably detect the actual screen geometry at startup (avoids incorrect VM/guest mode detection such as `RHT`).
+	 - Safer `ApplyMonitorsConfig` usage: pass empty property maps for monitor props to satisfy D-Bus signatures, increased D-Bus timeout to 5s, and prefer temporary apply method in Live ISOs.
+	 - Selects best refresh rate when multiple modes match the requested resolution; improved error handling and debug logging.
 
 ---
 

@@ -281,23 +281,33 @@ class DisplayManager:
             # data = (serial, monitors, logical_monitors, properties)
             data = result.unpack()
             monitors = data[1]
-            
+
+            def extract_modes_from_monitor(mon):
+                if not isinstance(mon, (list, tuple)):
+                    return []
+                if len(mon) > 8 and isinstance(mon[8], (list, tuple)):
+                    return mon[8]
+                for item in mon:
+                    if isinstance(item, (list, tuple)) and item:
+                        first = item[0]
+                        if isinstance(first, (list, tuple)) and len(first) >= 3:
+                            try:
+                                int(first[1]); int(first[2])
+                                return item
+                            except Exception:
+                                continue
+                return []
+
             for monitor in monitors:
-                # monitor structure: (connector_info, modes, props)
-                # modes is standard at index 8 inside the struct if strictly parsed?
-                # Actually, GVariant unpacking is recursive.
-                # Monitor struct: (u, ii, u, b, b, b) is NOT it. That's Logical Monitor or something?
-                # Let's check documentation signature for GetCurrentState:
-                # Returns: (serial, monitors, logical_monitors, properties)
-                # monitors: a(u,s,s,s,s,s,s,a{sv},[(u,u,d,u,b,b,b)],a{sv},a{sv})
-                # The modes list is the 9th element (index 8) -> [(u,u,d,u,b,b,b)]
-                # Mode struct: (id, width, height, rate, preferred, supported_scales, properties)
-                
-                modes = monitor[8]
+                modes = extract_modes_from_monitor(monitor)
                 for mode in modes:
-                    width = mode[1]
-                    height = mode[2]
-                    res_list.append(f"{width}x{height}")
+                    try:
+                        if len(mode) > 2:
+                            width = int(mode[1])
+                            height = int(mode[2])
+                            res_list.append(f"{width}x{height}")
+                    except Exception:
+                        continue
                     
         except Exception as e:
             print(f"GNOME DBus detection failed: {e}")
@@ -307,15 +317,156 @@ class DisplayManager:
         return res_list
 
     def _get_gnome_current_resolution(self) -> Optional[str]:
-        """Get current resolution via DBus."""
-        # Getting the *active* resolution from DBus is complex because 'GetCurrentState'
-        # returns all supported modes but doesn't explicitly flag the active one in a simple way
-        # without parsing the LogicalMonitor layout which uses screen coordinates.
-        # For a live ISO welcome screen, defaulting to automatic selection is acceptable.
+        """Get current resolution via GDK first, then DBus as fallback.
+
+        For Live ISO UX we prefer the actual geometry the user sees (GDK).
+        If GDK fails, fall back to the DBus parsing logic (modes, preferred, first).
+        """
+        # FIRST: GDK (reliable for what's actually displayed)
+        try:
+            from gi.repository import Gdk
+            display = Gdk.Display.get_default()
+            if display:
+                monitor = display.get_primary_monitor() or display.get_monitor(0)
+                if monitor:
+                    geometry = monitor.get_geometry()
+                    # get_scale_factor exists on Gdk.Monitor in many versions
+                    try:
+                        scale = monitor.get_scale_factor()
+                    except Exception:
+                        scale = 1
+                    width = int(geometry.width * scale)
+                    height = int(geometry.height * scale)
+                    print(f"[DEBUG] GDK reports actual resolution: {width}x{height}")
+                    return f"{width}x{height}"
+        except Exception as e:
+            print(f"[DEBUG] GDK detection failed: {e}")
+
+        # FALLBACK: DBus parsing (existing logic)
+        try:
+            bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
+
+            result = bus.call_sync(
+                "org.gnome.Mutter.DisplayConfig",
+                "/org/gnome/Mutter/DisplayConfig",
+                "org.gnome.Mutter.DisplayConfig",
+                "GetCurrentState",
+                None, None, Gio.DBusCallFlags.NONE, -1, None
+            )
+
+            data = result.unpack()
+            if not data or len(data) < 3:
+                print("GNOME GetCurrentState returned unexpected structure")
+                return None
+
+            monitors = data[1] if len(data) > 1 else []
+            logical_monitors = data[2] if len(data) > 2 else []
+
+            for logical_mon in logical_monitors:
+                try:
+                    if not isinstance(logical_mon, (list, tuple)) or len(logical_mon) < 6:
+                        continue
+
+                    monitors_config = logical_mon[5]
+                    if not monitors_config:
+                        continue
+
+                    mon_config = monitors_config[0]
+                    if not isinstance(mon_config, (list, tuple)) or len(mon_config) < 2:
+                        continue
+
+                    connector_name = str(mon_config[0])
+                    current_mode_id = mon_config[1]
+
+                    def find_monitor_by_connector(monitors_list, name):
+                        for mm in monitors_list:
+                            try:
+                                candidate = None
+                                if isinstance(mm, (list, tuple)) and len(mm) > 0:
+                                    head = mm[0]
+                                    if isinstance(head, (list, tuple)) and len(head) > 0:
+                                        candidate = head[0]
+                                    else:
+                                        candidate = head
+                                if candidate is None:
+                                    continue
+                                if str(candidate) == str(name):
+                                    return mm
+                            except Exception:
+                                continue
+                        return None
+
+                    target = find_monitor_by_connector(monitors, connector_name)
+                    if not target:
+                        continue
+
+                    def extract_modes_from_monitor(mon):
+                        if not isinstance(mon, (list, tuple)):
+                            return []
+                        if len(mon) > 8 and isinstance(mon[8], (list, tuple)):
+                            return mon[8]
+                        for item in mon:
+                            if isinstance(item, (list, tuple)) and item:
+                                first = item[0]
+                                if isinstance(first, (list, tuple)) and len(first) >= 3:
+                                    try:
+                                        int(first[1]); int(first[2])
+                                        return item
+                                    except Exception:
+                                        continue
+                        return []
+
+                    modes = extract_modes_from_monitor(target)
+
+                    # 1) Try mode by ID
+                    for mode in modes:
+                        try:
+                            if len(mode) > 0 and str(mode[0]) == str(current_mode_id):
+                                if len(mode) > 2:
+                                    width = int(mode[1])
+                                    height = int(mode[2])
+                                    print(f"[DEBUG] Found current resolution by mode ID: {width}x{height}")
+                                    return f"{width}x{height}"
+                        except Exception:
+                            continue
+
+                    # 2) Fallback: preferred mode
+                    print(f"[DEBUG] Mode ID '{current_mode_id}' not found, trying preferred/first mode")
+                    for mode in modes:
+                        try:
+                            if len(mode) > 4 and mode[4]:
+                                width = int(mode[1])
+                                height = int(mode[2])
+                                print(f"[DEBUG] Using preferred mode: {width}x{height}")
+                                return f"{width}x{height}"
+                        except Exception:
+                            continue
+
+                    # 3) Fallback: first available mode
+                    if modes and len(modes) > 0:
+                        try:
+                            first_mode = modes[0]
+                            if len(first_mode) > 2:
+                                width = int(first_mode[1])
+                                height = int(first_mode[2])
+                                print(f"[DEBUG] Using first available mode: {width}x{height}")
+                                return f"{width}x{height}"
+                        except Exception:
+                            pass
+
+                except (IndexError, TypeError) as e:
+                    print(f"[DEBUG] Error parsing logical monitor: {e}")
+                    continue
+
+        except Exception as e:
+            print(f"[DEBUG] GNOME current resolution detection (DBus) failed: {e}")
+            import traceback
+            traceback.print_exc()
+
         return None
 
     def _set_gnome_resolution(self, resolution: str) -> bool:
-        """Set resolution via DBus ApplyMonitorsConfig preserving existing layout."""
+        """Set resolution via DBus ApplyMonitorsConfig."""
         try:
             w, h = map(int, resolution.split('x'))
             bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
@@ -328,101 +479,150 @@ class DisplayManager:
                 "GetCurrentState",
                 None, None, Gio.DBusCallFlags.NONE, -1, None
             )
+            
             data = state.unpack()
             serial = data[0]
-            monitors = data[1] # list of ((connector, vendor, ...), [modes], properties)
-            logical_monitors = data[2] # list of (x, y, scale, transform, primary, [monitors_config])
+            monitors = data[1]
+            logical_monitors = data[2]
             
-            # We will modify 'logical_monitors' directly to preserve layout
             new_logical_monitors = []
-            
-            # We need to find the TARGET MODE ID for the requested resolution
-            # We assume we are applying this to the 'current' or 'primary' monitor if unclear,
-            # or we check which monitor supports this mode.
-            
-            # Strategy: Iterate through existing logical monitors.
-            # For each, check if its underlying monitor supports the requested WxH.
-            # If so, update the mode_id. If not, keep as is.
-            
             valid_change_made = False
             
             for logical_mon in logical_monitors:
-                x, y, scale, transform, primary, monitors_config = logical_mon
+                # Unpack with error handling
+                try:
+                    x = int(logical_mon[0])
+                    y = int(logical_mon[1])
+                    scale = float(logical_mon[2])
+                    transform = int(logical_mon[3])
+                    primary = bool(logical_mon[4])
+                    monitors_config = logical_mon[5]
+                except (IndexError, TypeError, ValueError) as e:
+                    print(f"Error unpacking logical monitor: {e}")
+                    continue
                 
                 new_monitors_config = []
                 
                 for mon_config in monitors_config:
-                    connector_name = mon_config[0]
-                    current_mode_id = mon_config[1]
-                    mon_props = mon_config[2]
+                    try:
+                        connector_name = str(mon_config[0])
+                        current_mode_id = str(mon_config[1])
+                        # Do not forward the original GVariant properties directly; use empty dict
+                        mon_props = {}
+                    except (IndexError, TypeError) as e:
+                        print(f"Error unpacking monitor config: {e}")
+                        continue
                     
-                    # Find the physical monitor definition for this connector
+                    # Find the physical monitor for this connector
                     target_monitor = None
                     for m in monitors:
-                        if m[0][0] == connector_name:
-                            target_monitor = m
-                            break
+                        try:
+                            if str(m[0][0]) == connector_name:
+                                target_monitor = m
+                                break
+                        except (IndexError, TypeError):
+                            continue
                     
                     if target_monitor:
-                        modes = target_monitor[8]
-                        # Look for requested resolution in this monitor's modes
-                        found_mode_id = None
-                        for mode in modes:
-                             # mode: (id, w, h, rate, ...)
-                             if int(mode[1]) == w and int(mode[2]) == h:
-                                 found_mode_id = mode[0]
-                                 break
-                        
-                        if found_mode_id:
-                            # Update to new mode!
-                            print(f"DEBUG: Changing {connector_name} to {found_mode_id} ({w}x{h})")
-                            new_monitors_config.append((connector_name, found_mode_id, mon_props))
-                            valid_change_made = True
-                        else:
-                            # Keep existing mode
-                            new_monitors_config.append(mon_config)
-                    else:
-                         new_monitors_config.append(mon_config)
+                        try:
+                            # Extract modes defensively (modes might be at index 8 or nested differently)
+                            def extract_modes_from_monitor(mon):
+                                if not isinstance(mon, (list, tuple)):
+                                    return []
+                                if len(mon) > 8 and isinstance(mon[8], (list, tuple)):
+                                    return mon[8]
+                                for item in mon:
+                                    if isinstance(item, (list, tuple)) and item:
+                                        first = item[0]
+                                        if isinstance(first, (list, tuple)) and len(first) >= 3:
+                                            try:
+                                                int(first[1]); int(first[2])
+                                                return item
+                                            except Exception:
+                                                continue
+                                return []
 
-                # Append this logical monitor (maybe modified) to new list
-                # Ensure types are strict for DBus (d for scale)
-                new_logical_monitors.append((
-                    int(x), int(y), float(scale), int(transform), bool(primary), new_monitors_config
-                ))
+                            modes = extract_modes_from_monitor(target_monitor)
+                            found_mode_id = None
+                            best_refresh = 0.0
+
+                            # Find mode with requested resolution (prefer highest refresh rate)
+                            for mode in modes:
+                                try:
+                                    if not isinstance(mode, (list, tuple)) or len(mode) < 3:
+                                        continue
+                                    mode_id = str(mode[0])
+                                    mode_w = int(mode[1])
+                                    mode_h = int(mode[2])
+                                    # Some mode tuples may not have refresh at index 3
+                                    try:
+                                        mode_refresh = float(mode[3]) if len(mode) > 3 else 0.0
+                                    except Exception:
+                                        mode_refresh = 0.0
+
+                                    if mode_w == w and mode_h == h:
+                                        if mode_refresh >= best_refresh:
+                                            found_mode_id = mode_id
+                                            best_refresh = mode_refresh
+                                except Exception:
+                                    continue
+                            
+                            if found_mode_id:
+                                print(f"Changing {connector_name} from mode {current_mode_id} to {found_mode_id} ({w}x{h}@{best_refresh}Hz)")
+                                new_monitors_config.append((connector_name, found_mode_id, mon_props))
+                                valid_change_made = True
+                            else:
+                                # Keep existing mode if resolution not found
+                                new_monitors_config.append((connector_name, current_mode_id, mon_props))
+                        except (IndexError, TypeError, ValueError) as e:
+                            print(f"Error processing modes: {e}")
+                            new_monitors_config.append((connector_name, current_mode_id, mon_props))
+                    else:
+                        # Monitor not found, keep as is
+                        new_monitors_config.append((connector_name, current_mode_id, mon_props))
+                
+                # Add this logical monitor to the new configuration
+                new_logical_monitors.append((x, y, scale, transform, primary, new_monitors_config))
             
-            if valid_change_made:
-                # Parameters: (serial, method, logical_monitors, properties)
-                params = GLib.Variant(
-                    "(uua(iiduba(ssa{sv}))a{sv})",
-                    (
-                        int(serial), 
-                        int(2), # 2 = Temporary
-                        new_logical_monitors, 
-                        {}
-                    )
-                )
-                
-                print(f"DEBUG: Applying configuration: {new_logical_monitors}")
-                
-                bus.call_sync(
-                    "org.gnome.Mutter.DisplayConfig",
-                    "/org/gnome/Mutter/DisplayConfig",
-                    "org.gnome.Mutter.DisplayConfig",
-                    "ApplyMonitorsConfig",
-                    params,
-                    None,
-                    Gio.DBusCallFlags.NONE,
-                    -1,
-                    None
-                )
-                return True
-            else:
-                print("DEBUG: Resolution not found supported for active monitors.")
+            if not valid_change_made:
+                print(f"Resolution {resolution} not found in available modes")
                 return False
-                
+            
+            # Build the ApplyMonitorsConfig parameters
+            # Signature: (serial, method, logical_monitors, properties)
+            # method: 0=verify, 1=temporary, 2=persistent
+            params = GLib.Variant(
+                "(uua(iiduba(ssa{sv}))a{sv})",
+                (
+                    serial,
+                    1,  # 1 = Temporary (use 2 for persistent)
+                    new_logical_monitors,
+                    {}  # Empty properties dict
+                )
+            )
+            
+            print(f"Applying GNOME resolution configuration...")
+            
+            result = bus.call_sync(
+                "org.gnome.Mutter.DisplayConfig",
+                "/org/gnome/Mutter/DisplayConfig",
+                "org.gnome.Mutter.DisplayConfig",
+                "ApplyMonitorsConfig",
+                params,
+                None,
+                Gio.DBusCallFlags.NONE,
+                5000,  # 5 second timeout
+                None
+            )
+            
+            print(f"Resolution changed successfully to {resolution}")
+            return True
+            
+        except GLib.Error as e:
+            print(f"GLib/DBus error: {e.message}")
+            return False
         except Exception as e:
             print(f"GNOME resolution set failed: {e}")
             import traceback
             traceback.print_exc()
-            
-        return False
+            return False

@@ -49,132 +49,41 @@
   <requires>
     <id>python3</id>
     <id>python3-gi</id>
-    <id>gir1.2-gtk-3.0</id>
+    <id>python3-pyqt5</id>
+    <id>gtk3</id>
     <id>gparted</id>
     <id>btrfs-progs</id>
-    <id>python3-psutil</id>
   </requires>
 
-  <releases>
-      <release version="2.0.0" date="2025-12-07">
-        <description>
-          <p>Major rewrite with modern architecture:</p>
-          <ul>
-            <li>Complete rewrite matching Soplos Welcome 2.0 architecture</li>
-            <li>Universal desktop support: XFCE, KDE Plasma, GNOME</li>
-            <li>Complete X11 and Wayland compatibility</li>
-            <li>GNU Gettext internationalization (8 languages at 100%)</li>
-            <li>Enhanced CHROOT recovery with improved partition detection</li>
-            <li>Full BTRFS subvolume support</li>
-          </ul>
-          <p>Patch (2025-12-09): Removed KDE bookmark remapping logic; the language changer now deletes the user's <code>~/.local/share/user-places.xbel</code> before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies live image behaviour and avoids incorrect localized paths. (No backups; intended for live environments.)</p>
-          <p xml:lang="es">Parche (2025-12-09): Eliminada la lógica de remapeo de marcadores de KDE; el cambiador de idioma ahora borra <code>~/.local/share/user-places.xbel</code> antes de reiniciar la sesión para que KDE/Dolphin regenere los marcadores localizados. Esto simplifica el comportamiento en la imagen live y evita rutas localizadas incorrectas. (Sin copias de seguridad; previsto para entornos live.)</p>
-          <p xml:lang="fr">Correctif (2025-12-09) : Suppression de la logique de remappage des favoris KDE ; le changeur de langue supprime désormais <code>~/.local/share/user-places.xbel</code> avant de redémarrer la session afin que KDE/Dolphin régénère les favoris localisés. Cela simplifie le comportement de l'image live et évite des chemins localisés incorrects. (Aucune sauvegarde ; prévu pour les environnements live.)</p>
-          <p xml:lang="pt">Patch (2025-12-09): Removida a lógica de remapeamento dos favoritos do KDE; o trocador de idioma agora exclui <code>~/.local/share/user-places.xbel</code> antes de reiniciar a sessão para que o KDE/Dolphin regenere os favoritos localizados. Isto simplifica o comportamento da imagem live e evita caminhos localizados incorretos. (Sem backups; destinado a ambientes live.)</p>
-          <p xml:lang="de">Patch (2025-12-09): Entfernte KDE-Lesezeichen-Remapping-Logik; der Sprachwechsler löscht nun <code>~/.local/share/user-places.xbel</code> vor dem Neustart der Sitzung, damit KDE/Dolphin lokalisierte Lesezeichen neu erzeugt. Dies vereinfacht das Verhalten des Live-Images und verhindert falsche lokalisierte Pfade. (Keine Backups; vorgesehen für Live-Umgebungen.)</p>
-          <p xml:lang="it">Patch (2025-12-09): Rimossa la logica di remappatura dei segnalibri di KDE; il cambio lingua ora elimina <code>~/.local/share/user-places.xbel</code> prima di riavviare la sessione in modo che KDE/Dolphin rigeneri i segnalibri localizzati. Questo semplifica il comportamento dell'immagine live ed evita percorsi localizzati errati. (Nessun backup; previsto per ambienti live.)</p>
-          <p xml:lang="ru">Патч (2025-12-09): Удалена логика переназначения закладок KDE; сменщик языка теперь удаляет <code>~/.local/share/user-places.xbel</code> перед перезапуском сессии, чтобы KDE/Dolphin регенерировал локализованные закладки. Это упрощает поведение live-образа и предотвращает неверные локализованные пути. (Без резервных копий; предназначено для live-сред.)</p>
-          <p xml:lang="ro">Patch (2025-12-09): Eliminată logica de remapare a semnelor de carte KDE; schimbătorul de limbă șterge acum <code>~/.local/share/user-places.xbel</code> înainte de a reporni sesiunea, astfel încât KDE/Dolphin să regenereze semnele de carte localizate. Aceasta simplifică comportamentul imaginii live și evită căi localizate incorecte. (Fără backup-uri; destinat mediilor live.)</p>
-        <p>Patch (2025-12-08): Fixed application switch styling so widgets render consistently across desktop themes; added focused CSS overrides and prepared updated screenshots for the welcome flow.</p>
-        <p xml:lang="es">Parche (2025-12-08): Corregido el estilo de los interruptores de la aplicación para que los widgets se muestren de forma coherente en todos los temas de escritorio; añadidos overrides CSS focalizados y preparadas capturas actualizadas del flujo de bienvenida.</p>
-        <p xml:lang="fr">Correctif (2025-12-08) : Correction du style des commutateurs de l'application afin que les widgets s'affichent de manière cohérente sur tous les thèmes de bureau ; ajouts d'overrides CSS ciblés et captures d'écran mises à jour préparées pour le flux d'accueil.</p>
-        <p xml:lang="pt">Patch (2025-12-08): Corrigido o estilo dos interruptores da aplicação para que os widgets sejam renderizados de forma consistente em todos os temas de ambiente de trabalho; adicionados overrides CSS e preparadas capturas atualizadas do fluxo de boas-vindas.</p>
-        <p xml:lang="de">Patch (2025-12-08): Fehler im Stil der Anwendungsschalter behoben, sodass Widgets in verschiedenen Desktop-Themen konsistent dargestellt werden; gezielte CSS-Overrides hinzugefügt und aktualisierte Screenshots für den Willkommensablauf vorbereitet.</p>
-        <p xml:lang="it">Patch (2025-12-08): Corretto lo stile degli interruttori dell'applicazione in modo che i widget vengano visualizzati in modo coerente tra i temi del desktop; aggiunti override CSS mirati e preparati screenshot aggiornati per il flusso di benvenuto.</p>
-        <p xml:lang="ru">Патч (2025-12-08): Исправлен стиль переключателей приложения, теперь виджеты отображаются одинаково во всех темах рабочего стола; добавлены целевые CSS-правки и подготовлены обновленные скриншоты приветственного интерфейса.</p>
-        <p xml:lang="ro">Patch (2025-12-08): Corectat stilul comutatoarelor aplicației astfel încât widget-urile să se afișeze în mod consecvent în toate temele desktop; adăugate override-uri CSS focalizate și pregătite capturi de ecran actualizate pentru fluxul de bun venit.</p>
-        </description>
-      </release>
-      <release version="1.1.2" date="2025-11-29">
-        <description>
-          <p>Universal disk detection in CHROOT for all hardware and VM types.</p>
-        </description>
-      </release>
-      <release version="1.1.1" date="2025-09-08">
-        <description>
-          <p>Updated welcome tab links.</p>
-        </description>
-      </release>
-      <release version="1.1.0" date="2025-08-02">
-        <description>
-          <p>Internationalization refactor and BTRFS fixes.</p>
-        </description>
-      </release>
-      <release version="1.0.9" date="2025-07-27">
-        <description>
-          <p>New program icon for better Soplos Linux branding integration</p>
-        </description>
-      </release>
-      <release version="1.0.8" date="2025-07-27">
-        <description>
-          <p>Advanced partition and BTRFS subvolume detection
-          Full /home mounting support (partition or subvolume)
-          Improved recovery flow robustness
-          Multiple terminal compatibility</p>
-        </description>
-      </release>
-      <release version="1.0.6" date="2025-07-18">
-        <description>
-          <p>Metainfo update for AppStream/DEP-11 compliance</p>
-        </description>
-      </release>
-      <release version="1.0.5" date="2025-07-10">
-        <description>
-          <p>Full BTRFS subvolume support in CHROOT recovery
-          Complete internationalization in 8 languages with mnemonics</p>
-        </description>
-      </release>
-      <release version="1.0.4" date="2024-01-28">
-        <description>
-          <p>Advanced CHROOT functionality with intelligent partition detection
-          NumLock management integration
-          Automatic XDG folder migration
-          Real-time Python cache cleanup
-          GParted integration</p>
-        </description>
-      </release>
-      <release version="1.0.0" date="2024-01-27">
-        <description>
-          <p>Initial release with basic welcome interface and CHROOT functionality.</p>
-        </description>
-      </release>
-    </releases>
+  <keywords>
+    <keyword>welcome</keyword>
+    <keyword>live</keyword>
+    <keyword>install</keyword>
+    <keyword>chroot</keyword>
+    <keyword>recovery</keyword>
+    <keyword>btrfs</keyword>
+    <keyword>soplos</keyword>
+    <keyword xml:lang="es">bienvenida</keyword>
+    <keyword xml:lang="es">instalar</keyword>
     <keyword xml:lang="es">recuperación</keyword>
-    <keyword xml:lang="es">btrfs</keyword>
-    <keyword xml:lang="es">subvolúmenes</keyword>
-    <keyword xml:lang="es">partición</keyword>
-    <keyword xml:lang="es">internacionalización</keyword>
-    <keyword xml:lang="es">soplos</keyword>
     <keyword xml:lang="fr">bienvenue</keyword>
-    <keyword xml:lang="fr">live</keyword>
     <keyword xml:lang="fr">installer</keyword>
-    <keyword xml:lang="fr">configuration</keyword>
-    <keyword xml:lang="fr">soplos</keyword>
+    <keyword xml:lang="fr">récupération</keyword>
     <keyword xml:lang="pt">boas-vindas</keyword>
-    <keyword xml:lang="pt">live</keyword>
     <keyword xml:lang="pt">instalar</keyword>
-    <keyword xml:lang="pt">configuração</keyword>
-    <keyword xml:lang="pt">soplos</keyword>
+    <keyword xml:lang="pt">recuperação</keyword>
     <keyword xml:lang="de">willkommen</keyword>
-    <keyword xml:lang="de">live</keyword>
     <keyword xml:lang="de">installation</keyword>
-    <keyword xml:lang="de">einrichtung</keyword>
-    <keyword xml:lang="de">soplos</keyword>
+    <keyword xml:lang="de">wiederherstellung</keyword>
     <keyword xml:lang="it">benvenuto</keyword>
-    <keyword xml:lang="it">live</keyword>
     <keyword xml:lang="it">installare</keyword>
-    <keyword xml:lang="it">configurazione</keyword>
-    <keyword xml:lang="it">soplos</keyword>
+    <keyword xml:lang="it">recupero</keyword>
     <keyword xml:lang="ru">приветствие</keyword>
-    <keyword xml:lang="ru">live</keyword>
     <keyword xml:lang="ru">установка</keyword>
-    <keyword xml:lang="ru">настройка</keyword>
-    <keyword xml:lang="ru">soplos</keyword>
+    <keyword xml:lang="ru">восстановление</keyword>
     <keyword xml:lang="ro">bun venit</keyword>
-    <keyword xml:lang="ro">live</keyword>
     <keyword xml:lang="ro">instalare</keyword>
-    <keyword xml:lang="ro">configurare</keyword>
-    <keyword xml:lang="ro">soplos</keyword>
+    <keyword xml:lang="ro">recuperare</keyword>
   </keywords>
 
   <launchable type="desktop-id">org.soplos.welcomelive.desktop</launchable>
@@ -188,21 +97,21 @@
     <screenshot type="default">
       <caption>Welcome Screen with Language Selection and System Installation</caption>
       <caption xml:lang="es">Pantalla de Bienvenida con Selección de Idioma e Instalación del Sistema</caption>
-      <caption xml:lang="fr">Écran de bienvenue avec sélection de langue et installation du système</caption>
-      <caption xml:lang="pt">Tela de boas-vindas com seleção de idioma e instalação do sistema</caption>
-      <caption xml:lang="de">Willkommensbildschirm mit Sprachauswahl und Systeminstallation</caption>
+      <caption xml:lang="fr">Écran d'accueil avec sélection de la langue et installation du système</caption>
+      <caption xml:lang="pt">Ecrã de boas-vindas com seleção de idioma e instalação do sistema</caption>
+      <caption xml:lang="de">Begrüßungsbildschirm mit Sprachauswahl und Systeminstallation</caption>
       <caption xml:lang="it">Schermata di benvenuto con selezione della lingua e installazione del sistema</caption>
       <caption xml:lang="ru">Экран приветствия с выбором языка и установкой системы</caption>
-      <caption xml:lang="ro">Ecran de bun venit cu selecție de limbă și instalare a sistemului</caption>
+      <caption xml:lang="ro">Ecran de bun venit cu selecţie de limbă şi instalare a sistemului</caption>
       <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot1.png</image>
     </screenshot>
     <screenshot>
       <caption>Advanced CHROOT Recovery System</caption>
       <caption xml:lang="es">Sistema Avanzado de Recuperación CHROOT</caption>
-      <caption xml:lang="fr">Système avancé de récupération CHROOT</caption>
-      <caption xml:lang="pt">Sistema avançado de recuperação CHROOT</caption>
-      <caption xml:lang="de">Erweitertes CHROOT-Wiederherstellungssystem</caption>
-      <caption xml:lang="it">Sistema di ripristino CHROOT avanzato</caption>
+      <caption xml:lang="fr">Système de récupération CHROOT avancé</caption>
+      <caption xml:lang="pt">Sistema de recuperação CHROOT avançado</caption>
+      <caption xml:lang="de">Fortschrittliches CHROOT-Wiederherstellungssystem</caption>
+      <caption xml:lang="it">Sistema di recupero CHROOT avanzato</caption>
       <caption xml:lang="ru">Продвинутая система восстановления CHROOT</caption>
       <caption xml:lang="ro">Sistem avansat de recuperare CHROOT</caption>
       <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot2.png</image>
@@ -215,7 +124,7 @@
       <caption xml:lang="de">Auswahl von BTRFS-Subvolumes</caption>
       <caption xml:lang="it">Selezione dei sottovolumi BTRFS</caption>
       <caption xml:lang="ru">Выбор подтомов BTRFS</caption>
-      <caption xml:lang="ro">Selecție subvolum BTRFS</caption>
+      <caption xml:lang="ro">Selectare subvolume BTRFS</caption>
       <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot3.png</image>
     </screenshot>
     <screenshot>
@@ -225,7 +134,7 @@
       <caption xml:lang="pt">Terminal com sessão CHROOT ativa</caption>
       <caption xml:lang="de">Terminal mit aktiver CHROOT-Sitzung</caption>
       <caption xml:lang="it">Terminal con sessione CHROOT attiva</caption>
-      <caption xml:lang="ru">Терминал с активной сессией CHROOT</caption>
+      <caption xml:lang="ru">Терминал с активной CHROOT-сессией</caption>
       <caption xml:lang="ro">Terminal cu sesiune CHROOT activă</caption>
       <image>https://raw.githubusercontent.com/SoplosLinux/soplos-welcome-live/main/assets/screenshots/screenshot4.png</image>
     </screenshot>
@@ -268,22 +177,32 @@
           <li>Enhanced CHROOT recovery with improved partition detection</li>
           <li>Full BTRFS subvolume support</li>
         </ul>
-        <p>Patch (2025-12-08): Fixed application switch styling so widgets render consistently across desktop themes; added focused CSS overrides and prepared updated screenshots for the welcome flow.</p>
-        <p xml:lang="es">Parche (2025-12-08): Corregido el estilo de los interruptores de la aplicación para que los widgets se muestren de forma coherente en todos los temas de escritorio; añadidos overrides CSS focalizados y preparadas capturas actualizadas del flujo de bienvenida.</p>
-        <p xml:lang="fr">Correctif (2025-12-08): Correction du style des commutateurs de l'application afin que les widgets s'affichent de manière cohérente sur tous les thèmes de bureau ; ajouts d'overrides CSS ciblés et captures d'écran mises à jour préparées pour le flux d'accueil.</p>
-        <p xml:lang="pt">Patch (2025-12-08): Corrigido o estilo dos interruptores da aplicação para que os widgets sejam renderizados de forma consistente em todos os temas de ambiente de trabalho; adicionados overrides CSS e preparadas capturas atualizadas do fluxo de boas-vindas.</p>
-        <p xml:lang="de">Patch (2025-12-08): Fehler im Stil der Anwendungsschalter behoben, sodass Widgets in verschiedenen Desktop-Themen konsistent dargestellt werden; gezielte CSS-Overrides hinzugefügt und aktualisierte Screenshots für den Willkommensablauf vorbereitet.</p>
-        <p xml:lang="it">Patch (2025-12-08): Corretto lo stile degli interruttori dell'applicazione in modo che i widget vengano visualizzati in modo coerente tra i temi del desktop; aggiunti override CSS mirati e preparati screenshot aggiornati per il flusso di benvenuto.</p>
-        <p xml:lang="ru">Патч (2025-12-08): Исправлен стиль переключателей приложения, теперь виджеты отображаются одинаково во всех темах рабочего стола; добавлены целевые CSS-правки и подготовлены обновленные скриншоты приветственного интерфейса.</p>
-        <p xml:lang="ro">Patch (2025-12-08): Corectat stilul comutatoarelor aplicației astfel încât widget-urile să se afișeze în mod consecvent în toate temele desktop; adăugate override-uri CSS focalizate și pregătite capturi de ecran actualizate pentru fluxul de bun venit.</p>
-        <p>Patch (2025-12-09): Removed KDE bookmark remapping logic; the language changer now deletes the user's <code>~/.local/share/user-places.xbel</code> before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies live image behaviour and avoids incorrect localized paths. (No backups; intended for live environments.)</p>
-        <p xml:lang="es">Parche (2025-12-09): Eliminada la lógica de remapeo de marcadores de KDE; el cambiador de idioma ahora borra <code>~/.local/share/user-places.xbel</code> antes de reiniciar la sesión para que KDE/Dolphin regenere los marcadores localizados. Esto simplifica el comportamiento en la imagen live y evita rutas localizadas incorrectas. (Sin copias de seguridad; previsto para entornos live.)</p>
-        <p xml:lang="fr">Correctif (2025-12-09) : Suppression de la logique de remappage des favoris KDE ; le changeur de langue supprime désormais <code>~/.local/share/user-places.xbel</code> avant de redémarrer la session afin que KDE/Dolphin régénère les favoris localisés. Cela simplifie le comportement de l'image live et évite des chemins localisés incorrects. (Aucune sauvegarde ; prévu pour les environnements live.)</p>
-        <p xml:lang="pt">Patch (2025-12-09): Removida a lógica de remapeamento dos favoritos do KDE; o trocador de idioma agora exclui <code>~/.local/share/user-places.xbel</code> antes de reiniciar a sessão para que o KDE/Dolphin regenere os favoritos localizados. Isto simplifica o comportamento da imagem live e evita caminhos localizados incorretos. (Sem backups; destinado a ambientes live.)</p>
-        <p xml:lang="de">Patch (2025-12-09): Entfernte KDE-Lesezeichen-Remapping-Logik; der Sprachwechsler löscht nun <code>~/.local/share/user-places.xbel</code> vor dem Neustart der Sitzung, damit KDE/Dolphin lokalisierte Lesezeichen neu erzeugt. Dies vereinfacht das Verhalten des Live-Images und verhindert falsche lokalisierte Pfade. (Keine Backups; vorgesehen für Live-Umgebungen.)</p>
-        <p xml:lang="it">Patch (2025-12-09): Rimossa la logica di remappatura dei segnalibri di KDE; il cambio lingua ora elimina <code>~/.local/share/user-places.xbel</code> prima di riavviare la sessione in modo che KDE/Dolphin rigeneri i segnalibri localizzati. Questo semplifica il comportamento dell'immagine live ed evita percorsi localizzati errati. (Nessun backup; previsto per ambienti live.)</p>
-        <p xml:lang="ru">Патч (2025-12-09): Удалена логика переназначения закладок KDE; сменщик языка теперь удаляет <code>~/.local/share/user-places.xbel</code> перед перезапуском сессии, чтобы KDE/Dolphin регенерировал локализованные закладки. Это упрощает поведение live-образа и предотвращает неверные локализованные пути. (Без резервных копий; предназначено для live-сред.)</p>
-        <p xml:lang="ro">Patch (2025-12-09): Eliminată logica de remapare a semnelor de carte KDE; schimbătorul de limbă șterge acum <code>~/.local/share/user-places.xbel</code> înainte de a reporni sesiunea, astfel încât KDE/Dolphin să regenereze semnele de carte localizate. Aceasta simplifică comportamentul imaginii live și evită căi localizate incorecte. (Fără backup-uri; destinat mediilor live.)</p>
+          <p>Patch (2025-12-08): Fixed application switch styling so widgets render consistently across desktop themes; added focused CSS overrides and prepared updated screenshots for the welcome flow.</p>
+          <p xml:lang="es">Parche (2025-12-08): Corregido el estilo de los interruptores de la aplicación para que los widgets se muestren de forma coherente en todos los temas de escritorio; añadidos overrides CSS focalizados y preparadas capturas actualizadas del flujo de bienvenida.</p>
+          <p xml:lang="fr">Correctif (2025-12-08) : Correction du style des commutateurs de l'application afin que les widgets s'affichent de manière cohérente sur tous les thèmes de bureau ; ajouts d'overrides CSS ciblés et captures d'écran mises à jour préparées pour le flux d'accueil.</p>
+          <p xml:lang="pt">Patch (2025-12-08): Corrigido o estilo dos interruptores da aplicação para que os widgets sejam renderizados de forma consistente em todos os temas de ambiente de trabalho; adicionados overrides CSS e preparadas capturas atualizadas do fluxo de boas-vindas.</p>
+          <p xml:lang="de">Patch (2025-12-08): Fehler im Stil der Anwendungsschalter behoben, sodass Widgets in verschiedenen Desktop-Themen konsistent dargestellt werden; gezielte CSS-Overrides hinzugefügt und aktualisierte Screenshots für den Willkommensablauf vorbereitet.</p>
+          <p xml:lang="it">Patch (2025-12-08): Corretto lo stile degli interruttori dell'applicazione in modo che i widget vengano visualizzati in modo coerente tra i temi del desktop; aggiunti override CSS mirati e preparati screenshot aggiornati per il flusso di benvenuto.</p>
+          <p xml:lang="ru">Патч (2025-12-08): Исправлен стиль переключателей приложения, теперь виджеты отображаются одинаково во всех темах рабочего стола; добавлены целевые CSS-правки и подготовлены обновленные скриншоты приветственного интерфейса.</p>
+          <p xml:lang="ro">Patch (2025-12-08): Corectat stilul comutatoarelor aplicației astfel încât widget-urile să se afișeze în mod consecvent în toate temele desktop; adăugate override-uri CSS focalizate și pregătite capturi de ecran actualizate pentru fluxul de bun venit.</p>
+
+          <p>Patch (2025-12-09): Removed KDE bookmark remapping logic from the language changer; the language switcher now deletes <code>~/.local/share/user-places.xbel</code> before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies behavior in live images and avoids incorrect localized paths.</p>
+          <p xml:lang="es">Parche (2025-12-09): Eliminada la lógica de remapeo de marcadores de KDE en el cambiador de idioma; el cambiador ahora borra <code>~/.local/share/user-places.xbel</code> antes de reiniciar la sesión para que KDE/Dolphin regenere marcadores localizados. Esto simplifica el comportamiento en imágenes live y evita rutas localizadas incorrectas.</p>
+          <p xml:lang="fr">Correctif (2025-12-09) : Suppression de la logique de remappage des favoris KDE dans le changeur de langue ; le changeur supprime désormais <code>~/.local/share/user-places.xbel</code> avant de redémarrer la session afin que KDE/Dolphin régénère les favoris localisés. Cela simplifie le comportement sur les images live et évite des chemins localisés incorrects.</p>
+          <p xml:lang="pt">Patch (2025-12-09): Removida a lógica de remapeamento de marcadores do KDE no trocador de idioma; o trocador agora elimina <code>~/.local/share/user-places.xbel</code> antes de reiniciar a sessão para que o KDE/Dolphin regenere marcadores localizados. Isso simplifica o comportamento em imagens live e evita caminhos localizados incorretos.</p>
+          <p xml:lang="de">Patch (2025-12-09): Entfernen der KDE-Lesezeichen-Remapping-Logik im Sprachumschalter; der Umschalter löscht jetzt <code>~/.local/share/user-places.xbel</code> vor dem Neustart der Sitzung, damit KDE/Dolphin lokalisierte Lesezeichen regeneriert. Dies vereinfacht das Verhalten in Live-Images und vermeidet falsche lokalisierte Pfade.</p>
+          <p xml:lang="it">Patch (2025-12-09): Rimosso il comportamento di remappatura dei segnalibri di KDE nel selettore di lingua; il selettore ora elimina <code>~/.local/share/user-places.xbel</code> prima di riavviare la sessione in modo che KDE/Dolphin rigeneri i segnalibri localizzati. Questo semplifica il comportamento nelle immagini live ed evita percorsi localizzati errati.</p>
+          <p xml:lang="ru">Патч (2025-12-09): Удалена логика переназначения закладок KDE в переключателе языка; переключатель теперь удаляет <code>~/.local/share/user-places.xbel</code> перед перезапуском сессии, чтобы KDE/Dolphin регенерировал локализованные закладки. Это упрощает поведение в live-образах и избегает неверных локализованных путей.</p>
+          <p xml:lang="ro">Patch (2025-12-09): Eliminată logica de remapare a semnelor de carte KDE în schimbătorul de limbă; schimbătorul acum șterge <code>~/.local/share/user-places.xbel</code> înainte de repornirea sesiunii astfel încât KDE/Dolphin să regenereze semnele localizate. Aceasta simplifică comportamentul în imaginile live și evită căi localizate incorecte.</p>
+
+          <p>Patch (2025-12-09): GNOME / Wayland display improvements: robust GNOME Wayland resolution handling with GDK-first detection and a defensive D-Bus fallback; selects best refresh rate and applies temporary monitor changes suitable for Live ISOs.</p>
+          <p xml:lang="es">Parche (2025-12-09): Mejoras en GNOME / Wayland: manejo robusto de resoluciones en GNOME Wayland con detección prioritaria por GDK y respaldo defensivo vía D-Bus; selecciona la mejor tasa de refresco y aplica cambios temporales de monitor adecuados para ISOs Live.</p>
+          <p xml:lang="fr">Correctif (2025-12-09) : Améliorations GNOME / Wayland : gestion robuste des résolutions sur GNOME Wayland avec détection prioritaire GDK et repli défensif via D-Bus ; sélection de la meilleure fréquence de rafraîchissement et application de changements temporaires d'écran adaptés aux Live ISO.</p>
+          <p xml:lang="pt">Patch (2025-12-09): Melhorias GNOME / Wayland: tratamento robusto de resoluções no GNOME Wayland com deteção prioritária via GDK e fallback defensivo via D-Bus; seleciona a melhor taxa de atualização e aplica alterações temporárias de monitor adequadas para ISOs Live.</p>
+          <p xml:lang="de">Patch (2025-12-09): GNOME / Wayland Verbesserungen: robuster Umgang mit Auflösungen unter GNOME Wayland mit GDK-vorrangiger Erkennung und defensivem D-Bus-Fallback; wählt die beste Bildwiederholrate und wendet temporäre Monitoränderungen an, geeignet für Live-ISOs.</p>
+          <p xml:lang="it">Patch (2025-12-09): Miglioramenti GNOME / Wayland: gestione robusta delle risoluzioni su GNOME Wayland con rilevamento prioritario GDK e fallback difensivo via D-Bus; seleziona la migliore frequenza di aggiornamento e applica modifiche temporanee del monitor adatte alle Live ISO.</p>
+          <p xml:lang="ru">Патч (2025-12-09): Улучшения GNOME / Wayland: надежная обработка разрешений в GNOME Wayland с приоритетной детекцией через GDK и защитным fallback через D-Bus; выбирает лучшую частоту обновления и применяет временные изменения монитора, подходящие для Live ISO.</p>
+          <p xml:lang="ro">Patch (2025-12-09): Îmbunătățiri GNOME / Wayland: gestionare robustă a rezoluțiilor în GNOME Wayland cu detectare prioritară GDK și fallback defensiv via D-Bus; selectează cea mai bună rată de reîmprospătare și aplică modificări temporare ale monitorului, potrivite pentru ISO-uri Live.</p>
       </description>
     </release>
     <release version="1.1.2" date="2025-11-29">
@@ -308,15 +227,7 @@
     </release>
   </releases>
 
-  <content_rating type="oars-1.1">
-    <content_attribute id="violence-cartoon">none</content_attribute>
-    <content_attribute id="sex-nudity">none</content_attribute>
-    <content_attribute id="language-profanity">none</content_attribute>
-    <content_attribute id="drugs-alcohol">none</content_attribute>
-    <content_attribute id="money-gambling">none</content_attribute>
-    <content_attribute id="money-purchasing">none</content_attribute>
-    <content_attribute id="social-chat">none</content_attribute>
-  </content_rating>
+  <content_rating type="oars-1.1" />
 
   <languages>
     <lang percentage="100">es</lang>
