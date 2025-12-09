@@ -41,6 +41,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - Applied focused CSS overrides and ensured application CSS has USER priority so widgets render consistently
 - Prepared updated screenshots for the welcome flow (replace legacy images before packaging)
 
+### 🩹 Patch - 2025-12-09
+- Removed KDE bookmark remapping logic from the language changer; the language switcher now deletes `~/.local/share/user-places.xbel` before restarting the session so KDE/Dolphin regenerates localized bookmarks. This simplifies behavior in live images and avoids incorrect localized paths. (No backups; intended for live environments, documented as 2.0 preproduction.)
+
 ---
 
 ## [1.1.2] - 2025-11-29
