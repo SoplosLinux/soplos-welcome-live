@@ -14,7 +14,6 @@ import os
 import subprocess
 import shutil
 import time
-import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Optional, Tuple, Callable
 from enum import Enum
@@ -253,6 +252,8 @@ echo "System locale configured"
         env = os.environ.copy()
         env['LANG'] = locale
         env['LC_ALL'] = locale
+        # Ensure xdg-user-dirs-update uses the intended language
+        env['LANGUAGE'] = locale.split('_')[0]
         try:
             subprocess.run(['xdg-user-dirs-update', '--force'], env=env, check=False, timeout=30)
         except Exception as e:
@@ -334,8 +335,24 @@ echo "System locale configured"
                     '--key', 'url', f'file://{desktop_path}'
                 ], check=False)
                 
-                # Update Dolphin bookmarks (user-places.xbel)
-                self._update_kde_bookmarks(home, new_dirs)
+                # Remove Dolphin bookmarks file so KDE/Dolphin will regenerate it
+                # on next session start. For a live system we remove it outright
+                # (do NOT move to Trash) to ensure the regenerated file matches
+                # the new XDG directories.
+                try:
+                    xbel_path = home / '.local' / 'share' / 'user-places.xbel'
+                    if xbel_path.exists():
+                        xbel_path.unlink()
+                except Exception:
+                    pass
+
+                # Also remove any stray copy in the Trash files (if present)
+                try:
+                    trash_copy = home / '.local' / 'share' / 'Trash' / 'files' / 'user-places.xbel'
+                    if trash_copy.exists():
+                        trash_copy.unlink()
+                except Exception:
+                    pass
                 
                 # Force refresh of Plasma Shell
                 subprocess.run(['qdbus', 'org.kde.plasmashell', '/PlasmaShell', 
@@ -344,72 +361,8 @@ echo "System locale configured"
             except Exception as e:
                 print(f"Error updating KDE references: {e}")
     
-    def _update_kde_bookmarks(self, home, new_dirs):
-        """Update Dolphin bookmarks (user-places.xbel)."""
-        try:
-            xbel_path = home / '.local' / 'share' / 'user-places.xbel'
-            if not xbel_path.exists():
-                return
-
-            tree = ET.parse(xbel_path)
-            root = tree.getroot()
-            
-            # Map of generic English XDG names to their XDG keys
-            # This allows us to identify standard folders even if path is custom
-            xdg_map = {
-                'Downloads': 'XDG_DOWNLOAD_DIR',
-                'Documents': 'XDG_DOCUMENTS_DIR',
-                'Music': 'XDG_MUSIC_DIR',
-                'Pictures': 'XDG_PICTURES_DIR',
-                'Videos': 'XDG_VIDEOS_DIR'
-            }
-            
-            changed = False
-            for bookmark in root.findall('bookmark'):
-                href = bookmark.get('href', '')
-                
-                # Try to identify if this bookmark corresponds to a known XDG dir
-                target_key = None
-                for eng_name, key in xdg_map.items():
-                    # Check if current href ends with standard English name OR current localized name
-                    # But simpler: check if it matches OLD XDG path? 
-                    # We don't have old XDG path map here easily available inside this loop context 
-                    # unless we pass it. 
-                    # Better strategy: Check if the bookmark points to a folder that IS an XDG folder.
-                    
-                    # Since we moved the folders, the old href might be invalid or valid but old name.
-                    # We rely on the fact that we know the NEW path from 'new_dirs'.
-                    pass
-
-                # Strategy 2: Iterate over new_dirs and find relevant bookmarks by checking content/metadata? 
-                # No, too complex. 
-                # Strategy 3: Just look for standard folder names in href (English) and update them.
-                # KDE Live ISO starts in English typically.
-                
-                for eng_name, key in xdg_map.items():
-                    # Construct old english path
-                    old_eng_path = f"file://{home}/{eng_name}"
-                    
-                    # If bookmark points to old english path
-                    if href == old_eng_path:
-                        new_path = new_dirs.get(key)
-                        if new_path:
-                            # Update href
-                            bookmark.set('href', f"file://{new_path}")
-                            
-                            # Update title
-                            title_elem = bookmark.find('title')
-                            if title_elem is not None:
-                                title_elem.text = new_path.name
-                            
-                            changed = True
-                            print(f"Updated Dolphin bookmark: {eng_name} -> {new_path.name}")
-            
-            if changed:
-                tree.write(xbel_path, encoding='UTF-8', xml_declaration=True)
-                
-        except Exception as e:
-            print(f"Error updating Dolphin bookmarks: {e}")
+    # KDE bookmark remapping code removed: we rely on deleting
+    # `~/.local/share/user-places.xbel` so KDE/Dolphin regenerates it.
     
     def _update_gtk_bookmarks(self):
         """Update GTK bookmarks for GNOME."""
