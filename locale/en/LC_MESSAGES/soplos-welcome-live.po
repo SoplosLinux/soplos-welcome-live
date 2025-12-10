@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: soplos-welcome-live 2.0.0\n"
-"Report-Msgid-Bugs-To: info@soploslinux.com\n"
-"POT-Creation-Date: 2024-12-07 12:00+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-10 09:15+0100\n"
 "PO-Revision-Date: 2024-12-07 12:00+0000\n"
 "Last-Translator: Soplos Team <info@soploslinux.com>\n"
 "Language-Team: English <en@li.org>\n"
@@ -15,194 +15,489 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Soplos Welcome Live"
-msgstr "Soplos Welcome Live"
-
-msgid "Welcome to Soplos Linux"
-msgstr "Welcome to Soplos Linux"
-
-msgid "Live Session"
-msgstr "Live Session"
-
-msgid "Show at startup"
-msgstr "Show at startup"
-
-msgid "Language"
-msgstr "Language"
-
-msgid "Try Soplos Linux"
-msgstr "Try Soplos Linux"
-
-msgid "Explore the system before installing"
-msgstr "Explore the system before installing"
-
-msgid "Website"
-msgstr "Website"
-
-msgid "Forums"
-msgstr "Forums"
-
-msgid "Wiki"
-msgstr "Wiki"
-
-msgid "Donate"
-msgstr "Donate"
-
-msgid "Exit"
-msgstr "Exit"
-
-msgid "System Rescue"
-msgstr "System Rescue"
-
-msgid "Mount and repair an existing installation"
-msgstr "Mount and repair an existing installation"
-
-msgid "Install Soplos Linux"
-msgstr "Install Soplos Linux"
-
-msgid "Change Language"
-msgstr "Change Language"
-
-msgid "Do you want to change the system language to {language}?\n\nThis will require a session restart to take full effect."
-msgstr "Do you want to change the system language to {language}?\n\nThis will require a session restart to take full effect."
-
-msgid "Changing language..."
-msgstr "Changing language..."
-
-msgid "Restart Required"
-msgstr "Restart Required"
-
-msgid "Language settings have been updated.\n\nDo you want to restart your session now to apply all changes?"
-msgstr "Language settings have been updated.\n\nDo you want to restart your session now to apply all changes?"
-
-msgid "Partial Success"
-msgstr "Partial Success"
-
-msgid "Error"
-msgstr "Error"
-
-msgid "Installer Not Found"
-msgstr "Installer Not Found"
-
-msgid "The Calamares installer could not be found.\nPlease install it or run the installation manually."
-msgstr "The Calamares installer could not be found.\nPlease install it or run the installation manually."
-
-msgid "Could not open System Rescue: {error}"
-msgstr "Could not open System Rescue: {error}"
-
-msgid "Select a disk to mount an existing Linux installation for rescue or repair."
-msgstr "Select a disk to mount an existing Linux installation for rescue or repair."
-
-msgid "Device"
-msgstr "Device"
-
-msgid "Size"
-msgstr "Size"
-
-msgid "Model"
-msgstr "Model"
-
+#: core/chroot_operations.py:67
 msgid "Unknown Device"
 msgstr "Unknown Device"
 
+#: core/chroot_operations.py:411
+#, fuzzy
+msgid "Unmounting"
+msgstr "Unmount"
+
+#: core/chroot_operations.py:426
+#, fuzzy
+msgid "Unmount completed"
+msgstr "Unmounted"
+
+#: core/chroot_operations.py:539
+msgid ""
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
+msgstr ""
+
+#: core/chroot_operations.py:555
+msgid "CHROOT Recovery Environment"
+msgstr ""
+
+#: core/chroot_operations.py:556
+#, fuzzy
+msgid "Mount point contents:"
+msgstr "Mount Point"
+
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr ""
+
+#: core/chroot_operations.py:581
+msgid "Cleaning up mounts..."
+msgstr ""
+
+#: core/chroot_operations.py:590
+msgid "Cleanup completed"
+msgstr ""
+
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
+msgstr ""
+
+#: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
+msgid "Soplos Welcome Live"
+msgstr "Soplos Welcome Live"
+
+#: core/application.py:257
+msgid "Preferences"
+msgstr ""
+
+#: core/application.py:258
+msgid "About"
+msgstr ""
+
+#: core/application.py:259
+msgid "Quit"
+msgstr ""
+
+#: core/application.py:310
+msgid ""
+"\n"
+"Soplos Welcome Live 2.0 - Live ISO Welcome Application\n"
+"\n"
+"Usage: soplos-welcome-live [OPTIONS]\n"
+"\n"
+"Options:\n"
+"  -h, --help              Show this help message\n"
+"  -v, --version           Show version information\n"
+"  --lang=LANG             Set language (es, en, fr, de, pt, it, ro, ru)\n"
+"  --theme=THEME           Set theme (base, light, dark)\n"
+"  --chroot                Open chroot mode directly\n"
+"  --debug                 Enable debug mode\n"
+"\n"
+"Examples:\n"
+"  soplos-welcome-live                    # Start with auto-detected "
+"settings\n"
+"  soplos-welcome-live --lang=es          # Start in Spanish\n"
+"  soplos-welcome-live --theme=dark       # Start with dark theme\n"
+"  soplos-welcome-live --chroot           # Open chroot mode\n"
+"\n"
+"For more information, visit: https://soplos.org\n"
+msgstr ""
+
+#: core/application.py:337
+#, python-brace-format
+msgid ""
+"\n"
+"Soplos Welcome Live {version}\n"
+"\n"
+"Copyright (C) 2025 Sergi Perich\n"
+"This is free software; see the source for copying conditions.\n"
+"There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A "
+"PARTICULAR PURPOSE.\n"
+"\n"
+"Edition: {edition}\n"
+"Desktop Environment: {desktop_env}\n"
+"Display Protocol: {display_protocol}\n"
+"Theme: {theme}\n"
+"Language: {language}\n"
+msgstr ""
+
+#: ui/main_window.py:188
+msgid "Welcome to Soplos Linux"
+msgstr "Welcome to Soplos Linux"
+
+#: ui/main_window.py:196
+msgid "Live Session"
+msgstr "Live Session"
+
+#: ui/main_window.py:204
+msgid ""
+"Explore the system, install Soplos Linux, or rescue an existing installation."
+msgstr ""
+
+#: ui/main_window.py:241
+msgid "Ready"
+msgstr ""
+
+#: ui/main_window.py:290
+msgid "Available options:"
+msgstr ""
+
+#: ui/main_window.py:310
+#, fuzzy
+msgid "Install Soplos Linux on your computer"
+msgstr "Install Soplos Linux"
+
+#: ui/main_window.py:311
+#, fuzzy
+msgid "Rescue an existing installation via CHROOT"
+msgstr "Mount and repair an existing installation"
+
+#: ui/main_window.py:312
+msgid "Change system language on the fly"
+msgstr ""
+
+#: ui/main_window.py:317
+msgid "Toggle NumLock for keyboards"
+msgstr ""
+
+#: ui/main_window.py:343
+msgid "Install Soplos Linux"
+msgstr "Install Soplos Linux"
+
+#: ui/main_window.py:358 ui/chroot_window.py:25
+msgid "System Rescue"
+msgstr "System Rescue"
+
+#: ui/main_window.py:363
+msgid "Mount and repair an existing installation"
+msgstr "Mount and repair an existing installation"
+
+#: ui/main_window.py:376
+#, fuzzy
+msgid "Web"
+msgstr "Website"
+
+#: ui/main_window.py:377
+msgid "Forums"
+msgstr "Forums"
+
+#: ui/main_window.py:378
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/main_window.py:379
+msgid "Donate"
+msgstr "Donate"
+
+#: ui/main_window.py:456
+msgid "Show at startup"
+msgstr "Show at startup"
+
+#: ui/main_window.py:484
+msgid "NumLock on install"
+msgstr ""
+
+#: ui/main_window.py:491
+msgid "Enable/disable NumLock activation in installed system"
+msgstr ""
+
+#: ui/main_window.py:526
+#, python-brace-format
+msgid "Ready - {desktop} on {protocol}"
+msgstr ""
+
+#: ui/main_window.py:618
+msgid "NumLock Enabled"
+msgstr ""
+
+#: ui/main_window.py:619
+msgid "NumLock will be activated automatically in the installed system."
+msgstr ""
+
+#: ui/main_window.py:625
+msgid "NumLock Disabled"
+msgstr ""
+
+#: ui/main_window.py:626
+msgid ""
+"NumLock will NOT be activated in the installed system.\n"
+"Recommended for laptops without numeric keypad."
+msgstr ""
+
+#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
+#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
+#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
+#: ui/chroot_window.py:403 ui/chroot_window.py:474
+msgid "Error"
+msgstr "Error"
+
+#: ui/main_window.py:666
+#, fuzzy
+msgid "Configuring language..."
+msgstr "Changing language..."
+
+#: ui/main_window.py:697
+msgid "Configuring system locale..."
+msgstr ""
+
+#: ui/main_window.py:701
+msgid "Applying user settings..."
+msgstr ""
+
+#: ui/main_window.py:705
+msgid "Migrating directories..."
+msgstr ""
+
+#: ui/main_window.py:713
+msgid "Restarting session..."
+msgstr ""
+
+#: ui/main_window.py:760
+msgid "Installer Not Found"
+msgstr "Installer Not Found"
+
+#: ui/main_window.py:761
+msgid ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+msgstr ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+
+#: ui/main_window.py:777
+#, python-brace-format
+msgid "Could not open System Rescue: {error}"
+msgstr "Could not open System Rescue: {error}"
+
+#: ui/chroot_window.py:42
+#, fuzzy
+msgid "Select disk to rescue"
+msgstr "Please select a disk to continue."
+
+#: ui/chroot_window.py:56 ui/chroot_window.py:185
+msgid "Device"
+msgstr "Device"
+
+#: ui/chroot_window.py:57 ui/chroot_window.py:186
+msgid "Size"
+msgstr "Size"
+
+#: ui/chroot_window.py:58
+msgid "Model"
+msgstr "Model"
+
+#: ui/chroot_window.py:69
 msgid "Open GParted"
 msgstr "Open GParted"
 
-msgid "Open GParted partition editor"
-msgstr "Open GParted partition editor"
-
+#: ui/chroot_window.py:78 ui/chroot_window.py:417
 msgid "Close"
 msgstr "Close"
 
+#: ui/chroot_window.py:83
 msgid "Next"
 msgstr "Next"
 
-msgid "No Disks Found"
-msgstr "No Disks Found"
+#: ui/chroot_window.py:101
+#, fuzzy
+msgid "Error loading disks: {}"
+msgstr "Error loading partitions: {error}"
 
-msgid "No disk devices were found on this system."
-msgstr "No disk devices were found on this system."
-
-msgid "No Selection"
-msgstr "No Selection"
-
+#: ui/chroot_window.py:123
 msgid "Please select a disk to continue."
 msgstr "Please select a disk to continue."
 
-msgid "Error loading partitions: {error}"
+#: ui/chroot_window.py:139
+#, fuzzy
+msgid "Error loading partitions: {}"
 msgstr "Error loading partitions: {error}"
 
+#: ui/chroot_window.py:147
 msgid "Select Partitions"
 msgstr "Select Partitions"
 
-msgid "No mountable partitions found on this disk."
+#: ui/chroot_window.py:166
+#, fuzzy
+msgid "No partitions found on this disk."
 msgstr "No mountable partitions found on this disk."
 
+#: ui/chroot_window.py:173
 msgid "Assign mount points to partitions"
 msgstr "Assign mount points to partitions"
 
+#: ui/chroot_window.py:184
 msgid "Mount Point"
 msgstr "Mount Point"
 
+#: ui/chroot_window.py:187
 msgid "Filesystem"
 msgstr "Filesystem"
 
-msgid "-- Not used --"
-msgstr "-- Not used --"
+#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
+#, fuzzy
+msgid "Select option"
+msgstr "Select Partitions"
 
-msgid "Btrfs Subvolumes"
-msgstr "Btrfs Subvolumes"
-
-msgid "subvolume"
+#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
+#, fuzzy
+msgid "Select subvolume"
 msgstr "subvolume"
 
-msgid "Default"
-msgstr "Default"
-
-msgid "You must select a partition for the root (/) mount point."
+#: ui/chroot_window.py:394
+#, fuzzy
+msgid "You must select a root partition (/)."
 msgstr "You must select a partition for the root (/) mount point."
 
-msgid "Mount Failed"
-msgstr "Mount Failed"
-
-msgid "System Mounted Successfully"
-msgstr "System Mounted Successfully"
-
-msgid "The system has been mounted at {mount_point}.\n\nYou can now open a terminal to perform repairs."
-msgstr "The system has been mounted at {mount_point}.\n\nYou can now open a terminal to perform repairs."
-
-msgid "Open Terminal"
-msgstr "Open Terminal"
-
-msgid "Unmount"
-msgstr "Unmount"
-
-msgid "Terminal Not Found"
-msgstr "Terminal Not Found"
-
-msgid "Could not find a terminal emulator.\n\nTo access the chroot manually, run:\nsudo arch-chroot {mount_point}"
-msgstr "Could not find a terminal emulator.\n\nTo access the chroot manually, run:\nsudo arch-chroot {mount_point}"
-
-msgid "Unmounted"
-msgstr "Unmounted"
-
-msgid "The system has been unmounted successfully."
-msgstr "The system has been unmounted successfully."
-
-msgid "Unmount System?"
+#: ui/chroot_window.py:413
+#, fuzzy
+msgid "Mounting system..."
 msgstr "Unmount System?"
 
-msgid "Do you want to unmount the system before closing?"
-msgstr "Do you want to unmount the system before closing?"
+#: ui/chroot_window.py:430 ui/chroot_window.py:446
+#, fuzzy
+msgid "Mounting partitions..."
+msgstr "Assign mount points to partitions"
 
-msgid "Root partition (/) not specified"
-msgstr "Root partition (/) not specified"
+#: ui/chroot_window.py:452
+msgid "Mounting virtual filesystems..."
+msgstr ""
 
-msgid "System mounted successfully"
-msgstr "System mounted successfully"
+#: ui/chroot_window.py:467
+msgid "Chroot started successfully in new terminal."
+msgstr ""
 
-msgid "System was not mounted"
-msgstr "System was not mounted"
+#: ui/chroot_window.py:508
+msgid "Invalid Linux System"
+msgstr ""
 
-msgid "System unmounted successfully"
-msgstr "System unmounted successfully"
+#: ui/chroot_window.py:509
+msgid ""
+"The mounted system does not appear to be a valid Linux installation. "
+"Essential files (like /bin/bash or /etc/fstab) are missing."
+msgstr ""
+
+#: ui/chroot_window.py:513
+#, fuzzy
+msgid "Mount Error"
+msgstr "Mount Point"
+
+#: ui/chroot_window.py:514
+msgid "An error occurred while mounting the system: {}"
+msgstr ""
+
+#~ msgid "Language"
+#~ msgstr "Language"
+
+#~ msgid "Try Soplos Linux"
+#~ msgstr "Try Soplos Linux"
+
+#~ msgid "Explore the system before installing"
+#~ msgstr "Explore the system before installing"
+
+#~ msgid "Exit"
+#~ msgstr "Exit"
+
+#~ msgid "Change Language"
+#~ msgstr "Change Language"
+
+#~ msgid ""
+#~ "Do you want to change the system language to {language}?\n"
+#~ "\n"
+#~ "This will require a session restart to take full effect."
+#~ msgstr ""
+#~ "Do you want to change the system language to {language}?\n"
+#~ "\n"
+#~ "This will require a session restart to take full effect."
+
+#~ msgid "Restart Required"
+#~ msgstr "Restart Required"
+
+#~ msgid ""
+#~ "Language settings have been updated.\n"
+#~ "\n"
+#~ "Do you want to restart your session now to apply all changes?"
+#~ msgstr ""
+#~ "Language settings have been updated.\n"
+#~ "\n"
+#~ "Do you want to restart your session now to apply all changes?"
+
+#~ msgid "Partial Success"
+#~ msgstr "Partial Success"
+
+#~ msgid ""
+#~ "Select a disk to mount an existing Linux installation for rescue or "
+#~ "repair."
+#~ msgstr ""
+#~ "Select a disk to mount an existing Linux installation for rescue or "
+#~ "repair."
+
+#~ msgid "Open GParted partition editor"
+#~ msgstr "Open GParted partition editor"
+
+#~ msgid "No Disks Found"
+#~ msgstr "No Disks Found"
+
+#~ msgid "No disk devices were found on this system."
+#~ msgstr "No disk devices were found on this system."
+
+#~ msgid "No Selection"
+#~ msgstr "No Selection"
+
+#~ msgid "-- Not used --"
+#~ msgstr "-- Not used --"
+
+#~ msgid "Btrfs Subvolumes"
+#~ msgstr "Btrfs Subvolumes"
+
+#~ msgid "Default"
+#~ msgstr "Default"
+
+#~ msgid "Mount Failed"
+#~ msgstr "Mount Failed"
+
+#~ msgid "System Mounted Successfully"
+#~ msgstr "System Mounted Successfully"
+
+#~ msgid ""
+#~ "The system has been mounted at {mount_point}.\n"
+#~ "\n"
+#~ "You can now open a terminal to perform repairs."
+#~ msgstr ""
+#~ "The system has been mounted at {mount_point}.\n"
+#~ "\n"
+#~ "You can now open a terminal to perform repairs."
+
+#~ msgid "Open Terminal"
+#~ msgstr "Open Terminal"
+
+#~ msgid "Terminal Not Found"
+#~ msgstr "Terminal Not Found"
+
+#~ msgid ""
+#~ "Could not find a terminal emulator.\n"
+#~ "\n"
+#~ "To access the chroot manually, run:\n"
+#~ "sudo arch-chroot {mount_point}"
+#~ msgstr ""
+#~ "Could not find a terminal emulator.\n"
+#~ "\n"
+#~ "To access the chroot manually, run:\n"
+#~ "sudo arch-chroot {mount_point}"
+
+#~ msgid "The system has been unmounted successfully."
+#~ msgstr "The system has been unmounted successfully."
+
+#~ msgid "Do you want to unmount the system before closing?"
+#~ msgstr "Do you want to unmount the system before closing?"
+
+#~ msgid "Root partition (/) not specified"
+#~ msgstr "Root partition (/) not specified"
+
+#~ msgid "System mounted successfully"
+#~ msgstr "System mounted successfully"
+
+#~ msgid "System was not mounted"
+#~ msgstr "System was not mounted"
+
+#~ msgid "System unmounted successfully"
+#~ msgstr "System unmounted successfully"

@@ -554,7 +554,7 @@ echo "{_('Unmount completed')}"
         
         chroot_title = _("CHROOT Recovery Environment")
         mount_msg = _("Mount point contents:")
-        exit_msg = _("Type 'exit' to leave")
+        exit_msg = _("Type 'exit' or press Ctrl+D to leave")
         separator = '=' * 34
         
         # Legacy script generation
@@ -608,13 +608,13 @@ echo "{_('Cleanup completed')}"
         # Terminal Definitions (binary -> command list)
         # Note: 'bash script' must be passed as a single arg to -e for some terminals
         terms_db = {
-            'kitty': ['kitty', '--title', 'CHROOT Recovery', 'bash', script_path],
-            'xfce4-terminal': ['xfce4-terminal', '--title=CHROOT Recovery', '-e', f'bash {script_path}'],
-            'konsole': ['konsole', '--title', 'CHROOT Recovery', '-e', f'bash {script_path}'],
+            'kitty': ['kitty', '--title', chroot_title, 'bash', script_path],
+            'xfce4-terminal': ['xfce4-terminal', f'--title={chroot_title}', '-e', f'bash {script_path}'],
+            'konsole': ['konsole', '--title', chroot_title, '-e', f'bash {script_path}'],
             'gnome-terminal': ['gnome-terminal', '--', 'bash', '-c', script_path],
             'ptyxis': ['ptyxis', '--', 'bash', script_path],
             'alacritty': ['alacritty', '-e', 'bash', script_path],
-            'xterm': ['xterm', '-title', 'CHROOT Recovery', '-e', 'bash', script_path],
+            'xterm': ['xterm', '-title', chroot_title, '-e', 'bash', script_path],
             'uterm': ['uterm', '-e', f'bash {script_path}']
         }
 

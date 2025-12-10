@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: soplos-welcome 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-07 02:50+0100\n"
+"POT-Creation-Date: 2025-12-10 09:15+0100\n"
 "PO-Revision-Date: 2025-12-07 12:00+0100\n"
 "Last-Translator: Sergi Perich <info@soploslinux.com>\n"
 "Language-Team: Portuguese <info@soploslinux.com>\n"
@@ -16,20 +16,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/application.py:187 ui/main_window.py:82
+#: core/chroot_operations.py:67
+#, fuzzy
+msgid "Unknown Device"
+msgstr "Desconhecido"
+
+#: core/chroot_operations.py:411
+msgid "Unmounting"
+msgstr ""
+
+#: core/chroot_operations.py:426
+#, fuzzy
+msgid "Unmount completed"
+msgstr "Verificação concluída"
+
+#: core/chroot_operations.py:539
+msgid ""
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
+msgstr ""
+
+#: core/chroot_operations.py:555
+#, fuzzy
+msgid "CHROOT Recovery Environment"
+msgstr "Ambiente de Recuperação CHROOT"
+
+#: core/chroot_operations.py:556
+msgid "Mount point contents:"
+msgstr "Conteúdo do ponto de montagem:"
+
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr "Digite 'exit' ou pressione Ctrl+D para sair"
+
+#: core/chroot_operations.py:581
+#, fuzzy
+msgid "Cleaning up mounts..."
+msgstr "Limpando montagens..."
+
+#: core/chroot_operations.py:590
+#, fuzzy
+msgid "Cleanup completed"
+msgstr "Limpeza concluída"
+
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
+msgstr ""
+
+#: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
 #, fuzzy
 msgid "Soplos Welcome Live"
 msgstr "Boas-vindas ao Soplos"
 
-#: core/application.py:214
+#: core/application.py:257
+msgid "Preferences"
+msgstr "Preferências"
+
+#: core/application.py:258
 msgid "About"
 msgstr "Sobre"
 
-#: core/application.py:220
+#: core/application.py:259
 msgid "Quit"
 msgstr "Sair"
 
-#: core/application.py:267
+#: core/application.py:310
 #, fuzzy
 msgid ""
 "\n"
@@ -76,7 +129,7 @@ msgstr ""
 "\n"
 "Para mais informações, visite: https://soplos.org\n"
 
-#: core/application.py:294
+#: core/application.py:337
 #, fuzzy, python-brace-format
 msgid ""
 "\n"
@@ -106,308 +159,310 @@ msgstr ""
 "Tema: {theme}\n"
 "Idioma: {language}\n"
 
-#: core/chroot_operations.py:68
-#, fuzzy
-msgid "Unknown Device"
-msgstr "Desconhecido"
-
-#: core/chroot_operations.py:314
-msgid "Root partition (/) not specified"
-msgstr ""
-
-#: core/chroot_operations.py:347
-#, fuzzy
-msgid "System mounted successfully"
-msgstr "Operação concluída com sucesso"
-
-#: core/chroot_operations.py:407
-#, fuzzy
-msgid "System was not mounted"
-msgstr "Sistema Atualizado"
-
-#: core/chroot_operations.py:429
-#, fuzzy
-msgid "System unmounted successfully"
-msgstr "Definições atualizadas com sucesso!"
-
-#: ui/chroot_window.py:30 ui/chroot_window.py:64 ui/main_window.py:283
-#, fuzzy
-msgid "System Rescue"
-msgstr "Cópias de Segurança do Sistema"
-
-#: ui/chroot_window.py:68
-msgid ""
-"Select a disk to mount an existing Linux installation for rescue or repair."
-msgstr ""
-
-#: ui/chroot_window.py:84 ui/chroot_window.py:212
-msgid "Device"
-msgstr ""
-
-#: ui/chroot_window.py:85 ui/chroot_window.py:212
-msgid "Size"
-msgstr ""
-
-#: ui/chroot_window.py:86
-#, fuzzy
-msgid "Model"
-msgstr "Modelo:"
-
-#: ui/chroot_window.py:98
-#, fuzzy
-msgid "Open GParted"
-msgstr "Começar"
-
-#: ui/chroot_window.py:100
-msgid "Open GParted partition editor"
-msgstr ""
-
-#: ui/chroot_window.py:108 ui/chroot_window.py:376
-msgid "Close"
-msgstr "Fechar"
-
-#: ui/chroot_window.py:113
-msgid "Next"
-msgstr ""
-
-#: ui/chroot_window.py:129
-msgid "No Disks Found"
-msgstr ""
-
-#: ui/chroot_window.py:130
-msgid "No disk devices were found on this system."
-msgstr ""
-
-#: ui/chroot_window.py:135 ui/chroot_window.py:147 ui/chroot_window.py:170
-#: ui/chroot_window.py:341 ui/chroot_window.py:357 ui/chroot_window.py:423
-#: ui/chroot_window.py:437 ui/chroot_window.py:440 ui/main_window.py:387
-#: ui/main_window.py:421 ui/main_window.py:431
-msgid "Error"
-msgstr "Erro"
-
-#: ui/chroot_window.py:136
-#, python-brace-format
-msgid "Error loading disks: {error}"
-msgstr ""
-
-#: ui/chroot_window.py:156
-#, fuzzy
-msgid "No Selection"
-msgstr "Seletor de Repositório"
-
-#: ui/chroot_window.py:157
-msgid "Please select a disk to continue."
-msgstr ""
-
-#: ui/chroot_window.py:171
-#, python-brace-format
-msgid "Error loading partitions: {error}"
-msgstr ""
-
-#: ui/chroot_window.py:178
-msgid "Select Partitions"
-msgstr ""
-
-#: ui/chroot_window.py:193
-msgid "No mountable partitions found on this disk."
-msgstr ""
-
-#: ui/chroot_window.py:202
-msgid "Assign mount points to partitions"
-msgstr ""
-
-#: ui/chroot_window.py:212
-msgid "Mount Point"
-msgstr ""
-
-#: ui/chroot_window.py:212
-#, fuzzy
-msgid "Filesystem"
-msgstr "Ferramentas de Sistema de Ficheiros"
-
-#: ui/chroot_window.py:233
-msgid "-- Not used --"
-msgstr ""
-
-#: ui/chroot_window.py:265
-msgid "Btrfs Subvolumes"
-msgstr ""
-
-#: ui/chroot_window.py:298
-msgid "subvolume"
-msgstr ""
-
-#: ui/chroot_window.py:302
-msgid "Default"
-msgstr "Predefinido"
-
-#: ui/chroot_window.py:342
-msgid "You must select a partition for the root (/) mount point."
-msgstr ""
-
-#: ui/chroot_window.py:354
-msgid "Mount Failed"
-msgstr ""
-
-#: ui/chroot_window.py:366
-#, fuzzy
-msgid "System Mounted Successfully"
-msgstr "GameMode instalado com sucesso!"
-
-#: ui/chroot_window.py:370
-#, python-brace-format
-msgid ""
-"The system has been mounted at {mount_point}.\n"
-"\n"
-"You can now open a terminal to perform repairs."
-msgstr ""
-
-#: ui/chroot_window.py:377
-msgid "Open Terminal"
-msgstr ""
-
-#: ui/chroot_window.py:378
-msgid "Unmount"
-msgstr ""
-
-#: ui/chroot_window.py:413
-msgid "Terminal Not Found"
-msgstr ""
-
-#: ui/chroot_window.py:414
-#, python-brace-format
-msgid ""
-"Could not find a terminal emulator.\n"
-"\n"
-"To access the chroot manually, run:\n"
-"sudo arch-chroot {mount_point}"
-msgstr ""
-
-#: ui/chroot_window.py:432
-msgid "Unmounted"
-msgstr ""
-
-#: ui/chroot_window.py:433
-#, fuzzy
-msgid "The system has been unmounted successfully."
-msgstr "O DaVinci Resolve foi instalado com sucesso."
-
-#: ui/chroot_window.py:451
-#, fuzzy
-msgid "Unmount System?"
-msgstr "Sistema atual"
-
-#: ui/chroot_window.py:453
-msgid "Do you want to unmount the system before closing?"
-msgstr ""
-
-#: ui/main_window.py:161
+#: ui/main_window.py:188
 msgid "Welcome to Soplos Linux"
 msgstr "Bem-vindo ao Soplos Linux"
 
-#: ui/main_window.py:162
+#: ui/main_window.py:196
 msgid "Live Session"
 msgstr ""
 
-#: ui/main_window.py:177
-#, fuzzy
-msgid "Show at startup"
-msgstr "Mostrar esta aplicação no arranque"
-
-#: ui/main_window.py:191
-#, fuzzy
-msgid "Language"
-msgstr "Mudar Idioma"
-
-#: ui/main_window.py:231
-#, fuzzy
-msgid "Try Soplos Linux"
-msgstr "Bem-vindo ao Soplos Linux"
-
-#: ui/main_window.py:232
-msgid "Explore the system before installing"
+#: ui/main_window.py:204
+msgid ""
+"Explore the system, install Soplos Linux, or rescue an existing installation."
 msgstr ""
 
-#: ui/main_window.py:247
-msgid "Website"
-msgstr ""
+#: ui/main_window.py:241
+msgid "Ready"
+msgstr "Pronto"
 
-#: ui/main_window.py:253
-msgid "Forums"
-msgstr "Fóruns"
-
-#: ui/main_window.py:259
-msgid "Wiki"
-msgstr "Wiki"
-
-#: ui/main_window.py:265
-msgid "Donate"
-msgstr "Doar"
-
-#: ui/main_window.py:278
-msgid "Exit"
-msgstr ""
-
-#: ui/main_window.py:285
+#: ui/main_window.py:290
 #, fuzzy
-msgid "Mount and repair an existing installation"
-msgstr "A preparar a instalação..."
+msgid "Available options:"
+msgstr "Atualizações Disponíveis"
 
-#: ui/main_window.py:289
+#: ui/main_window.py:310
 #, fuzzy
-msgid "Install Soplos Linux"
+msgid "Install Soplos Linux on your computer"
 msgstr "Instalar Liquorix"
 
-#: ui/main_window.py:324
-msgid "Change Language"
-msgstr "Mudar Idioma"
+#: ui/main_window.py:311
+#, fuzzy
+msgid "Rescue an existing installation via CHROOT"
+msgstr "A preparar a instalação..."
 
-#: ui/main_window.py:327
-#, python-brace-format
-msgid ""
-"Do you want to change the system language to {language}?\n"
-"\n"
-"This will require a session restart to take full effect."
+#: ui/main_window.py:312
+msgid "Change system language on the fly"
+msgstr ""
+
+#: ui/main_window.py:317
+msgid "Toggle NumLock for keyboards"
 msgstr ""
 
 #: ui/main_window.py:343
 #, fuzzy
-msgid "Changing language..."
+msgid "Install Soplos Linux"
+msgstr "Instalar Liquorix"
+
+#: ui/main_window.py:358 ui/chroot_window.py:25
+#, fuzzy
+msgid "System Rescue"
+msgstr "Cópias de Segurança do Sistema"
+
+#: ui/main_window.py:363
+#, fuzzy
+msgid "Mount and repair an existing installation"
+msgstr "A preparar a instalação..."
+
+#: ui/main_window.py:376
+msgid "Web"
+msgstr "Web"
+
+#: ui/main_window.py:377
+msgid "Forums"
+msgstr "Fóruns"
+
+#: ui/main_window.py:378
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/main_window.py:379
+msgid "Donate"
+msgstr "Doar"
+
+#: ui/main_window.py:456
+#, fuzzy
+msgid "Show at startup"
+msgstr "Mostrar esta aplicação no arranque"
+
+#: ui/main_window.py:484
+#, fuzzy
+msgid "NumLock on install"
+msgstr "Pacotes a instalar:"
+
+#: ui/main_window.py:491
+msgid "Enable/disable NumLock activation in installed system"
+msgstr ""
+
+#: ui/main_window.py:526
+#, python-brace-format
+msgid "Ready - {desktop} on {protocol}"
+msgstr "Pronto - {desktop} em {protocol}"
+
+#: ui/main_window.py:618
+msgid "NumLock Enabled"
+msgstr ""
+
+#: ui/main_window.py:619
+msgid "NumLock will be activated automatically in the installed system."
+msgstr ""
+
+#: ui/main_window.py:625
+msgid "NumLock Disabled"
+msgstr ""
+
+#: ui/main_window.py:626
+msgid ""
+"NumLock will NOT be activated in the installed system.\n"
+"Recommended for laptops without numeric keypad."
+msgstr ""
+
+#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
+#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
+#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
+#: ui/chroot_window.py:403 ui/chroot_window.py:474
+msgid "Error"
+msgstr "Erro"
+
+#: ui/main_window.py:666
+#, fuzzy
+msgid "Configuring language..."
 msgstr "Mudar Idioma"
 
-#: ui/main_window.py:368
-msgid "Restart Required"
+#: ui/main_window.py:697
+#, fuzzy
+msgid "Configuring system locale..."
+msgstr "A configurar aplicação..."
+
+#: ui/main_window.py:701
+#, fuzzy
+msgid "Applying user settings..."
+msgstr "Todas as definições do sistema"
+
+#: ui/main_window.py:705
+msgid "Migrating directories..."
 msgstr ""
 
-#: ui/main_window.py:371
-msgid ""
-"Language settings have been updated.\n"
-"\n"
-"Do you want to restart your session now to apply all changes?"
-msgstr ""
+#: ui/main_window.py:713
+#, fuzzy
+msgid "Restarting session..."
+msgstr "A iniciar..."
 
-#: ui/main_window.py:384
-msgid "Partial Success"
-msgstr ""
-
-#: ui/main_window.py:415
+#: ui/main_window.py:760
 #, fuzzy
 msgid "Installer Not Found"
 msgstr "Instalado"
 
-#: ui/main_window.py:416
+#: ui/main_window.py:761
 msgid ""
 "The Calamares installer could not be found.\n"
 "Please install it or run the installation manually."
 msgstr ""
 
-#: ui/main_window.py:432
+#: ui/main_window.py:777
 #, fuzzy, python-brace-format
 msgid "Could not open System Rescue: {error}"
 msgstr "Não foi possível abrir o site"
 
-#~ msgid "Preferences"
-#~ msgstr "Preferências"
+#: ui/chroot_window.py:42
+msgid "Select disk to rescue"
+msgstr ""
+
+#: ui/chroot_window.py:56 ui/chroot_window.py:185
+msgid "Device"
+msgstr ""
+
+#: ui/chroot_window.py:57 ui/chroot_window.py:186
+msgid "Size"
+msgstr ""
+
+#: ui/chroot_window.py:58
+#, fuzzy
+msgid "Model"
+msgstr "Modelo:"
+
+#: ui/chroot_window.py:69
+#, fuzzy
+msgid "Open GParted"
+msgstr "Começar"
+
+#: ui/chroot_window.py:78 ui/chroot_window.py:417
+msgid "Close"
+msgstr "Fechar"
+
+#: ui/chroot_window.py:83
+msgid "Next"
+msgstr ""
+
+#: ui/chroot_window.py:101
+msgid "Error loading disks: {}"
+msgstr ""
+
+#: ui/chroot_window.py:123
+msgid "Please select a disk to continue."
+msgstr ""
+
+#: ui/chroot_window.py:139
+msgid "Error loading partitions: {}"
+msgstr ""
+
+#: ui/chroot_window.py:147
+msgid "Select Partitions"
+msgstr ""
+
+#: ui/chroot_window.py:166
+#, fuzzy
+msgid "No partitions found on this disk."
+msgstr "Nenhuma otimização encontrada"
+
+#: ui/chroot_window.py:173
+msgid "Assign mount points to partitions"
+msgstr ""
+
+#: ui/chroot_window.py:184
+msgid "Mount Point"
+msgstr ""
+
+#: ui/chroot_window.py:187
+#, fuzzy
+msgid "Filesystem"
+msgstr "Ferramentas de Sistema de Ficheiros"
+
+#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
+#, fuzzy
+msgid "Select option"
+msgstr "Seletor de Repositório"
+
+#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
+#, fuzzy
+msgid "Select subvolume"
+msgstr "Selecionar Tudo"
+
+#: ui/chroot_window.py:394
+msgid "You must select a root partition (/)."
+msgstr ""
+
+#: ui/chroot_window.py:413
+#, fuzzy
+msgid "Mounting system..."
+msgstr "Sistema atual"
+
+#: ui/chroot_window.py:430 ui/chroot_window.py:446
+#, fuzzy
+msgid "Mounting partitions..."
+msgstr "A configurar aplicação..."
+
+#: ui/chroot_window.py:452
+#, fuzzy
+msgid "Mounting virtual filesystems..."
+msgstr "Montando sistemas de arquivos virtuais..."
+
+#: ui/chroot_window.py:467
+msgid "Chroot started successfully in new terminal."
+msgstr "Chroot iniciado com sucesso em novo terminal."
+
+#: ui/chroot_window.py:508
+msgid "Invalid Linux System"
+msgstr "Sistema Linux Inválido"
+
+#: ui/chroot_window.py:509
+msgid ""
+"The mounted system does not appear to be a valid Linux installation. "
+"Essential files (like /bin/bash or /etc/fstab) are missing."
+msgstr ""
+
+#: ui/chroot_window.py:513
+#, fuzzy
+msgid "Mount Error"
+msgstr "Erro"
+
+#: ui/chroot_window.py:514
+msgid "An error occurred while mounting the system: {}"
+msgstr ""
+
+#, fuzzy
+#~ msgid "System mounted successfully"
+#~ msgstr "Operação concluída com sucesso"
+
+#, fuzzy
+#~ msgid "System was not mounted"
+#~ msgstr "Sistema Atualizado"
+
+#, fuzzy
+#~ msgid "System unmounted successfully"
+#~ msgstr "Definições atualizadas com sucesso!"
+
+#~ msgid "Default"
+#~ msgstr "Predefinido"
+
+#, fuzzy
+#~ msgid "System Mounted Successfully"
+#~ msgstr "GameMode instalado com sucesso!"
+
+#, fuzzy
+#~ msgid "The system has been unmounted successfully."
+#~ msgstr "O DaVinci Resolve foi instalado com sucesso."
+
+#, fuzzy
+#~ msgid "Language"
+#~ msgstr "Mudar Idioma"
+
+#, fuzzy
+#~ msgid "Try Soplos Linux"
+#~ msgstr "Bem-vindo ao Soplos Linux"
+
+#~ msgid "Change Language"
+#~ msgstr "Mudar Idioma"
 
 #~ msgid "Web Browsers"
 #~ msgstr "Navegadores Web"
@@ -574,9 +629,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "About Soplos Welcome"
 #~ msgstr "Sobre o Soplos Welcome"
 
-#~ msgid "Ready"
-#~ msgstr "Pronto"
-
 #~ msgid "Welcome"
 #~ msgstr "Boas-vindas"
 
@@ -636,9 +688,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "System Information"
 #~ msgstr "Informação do Sistema"
 
-#~ msgid "Desktop Environment"
-#~ msgstr "Ambiente de Trabalho"
-
 #~ msgid "Display Protocol"
 #~ msgstr "Protocolo de Ecrã"
 
@@ -656,10 +705,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "Uninstall Demo Package"
 #~ msgstr "Desinstalar Pacote de Demonstração"
-
-#, python-brace-format
-#~ msgid "Ready - {desktop} on {protocol}"
-#~ msgstr "Pronto - {desktop} em {protocol}"
 
 #~ msgid "GNOME"
 #~ msgstr "GNOME"
@@ -708,9 +753,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "Installing files..."
 #~ msgstr "A instalar ficheiros..."
 
-#~ msgid "Configuring application..."
-#~ msgstr "A configurar aplicação..."
-
 #~ msgid "Finalizing installation..."
 #~ msgstr "A finalizar instalação..."
 
@@ -728,9 +770,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "Removing files..."
 #~ msgstr "A remover ficheiros..."
-
-#~ msgid "Cleaning configuration..."
-#~ msgstr "A limpar configuração..."
 
 #~ msgid "Uninstallation completed!"
 #~ msgstr "Desinstalação concluída!"
@@ -983,9 +1022,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "System Settings"
 #~ msgstr "Definições do Sistema"
-
-#~ msgid "All system settings"
-#~ msgstr "Todas as definições do sistema"
 
 #~ msgid "KDE System Settings"
 #~ msgstr "Definições do Sistema KDE"
@@ -1244,9 +1280,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "GameMode optimizes system performance when running games."
 #~ msgstr "O GameMode otimiza o desempenho do sistema ao executar jogos."
 
-#~ msgid "Packages to install:"
-#~ msgstr "Pacotes a instalar:"
-
 #~ msgid "Continue?"
 #~ msgstr "Continuar?"
 
@@ -1479,9 +1512,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "All gaming tweaks have been removed."
 #~ msgstr "Todos os ajustes de jogos foram removidos."
-
-#~ msgid "No optimizations found"
-#~ msgstr "Nenhuma otimização encontrada"
 
 #~ msgid "No gaming optimizations are currently applied."
 #~ msgstr "Nenhumas otimizações de jogos estão atualmente aplicadas."
@@ -1744,9 +1774,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "Updating GRUB..."
 #~ msgstr "A atualizar GRUB..."
 
-#~ msgid "Cleanup complete."
-#~ msgstr "Limpeza concluída."
-
 #~ msgid "GRUB update complete."
 #~ msgstr "Atualização do GRUB concluída."
 
@@ -1771,9 +1798,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "Search programs..."
 #~ msgstr "Pesquisar programas..."
-
-#~ msgid "Select All"
-#~ msgstr "Selecionar Tudo"
 
 #~ msgid "Deselect All"
 #~ msgstr "Desselecionar Tudo"
@@ -1993,9 +2017,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "No packages available to update at this time."
 #~ msgstr "Não há pacotes disponíveis para atualizar neste momento."
 
-#~ msgid "Available Updates"
-#~ msgstr "Atualizações Disponíveis"
-
 #~ msgid "Update All"
 #~ msgstr "Atualizar Tudo"
 
@@ -2051,9 +2072,6 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "• View recommended applications"
 #~ msgstr "• Ver aplicações recomendadas"
 
-#~ msgid "Web"
-#~ msgstr "Web"
-
 #~ msgid "Check your internet connection and try again."
 #~ msgstr "Verifique a sua ligação à internet e tente novamente."
 
@@ -2077,9 +2095,6 @@ msgstr "Não foi possível abrir o site"
 
 #~ msgid "Could not remove autostart file."
 #~ msgstr "Não foi possível remover ficheiro de arranque automático."
-
-#~ msgid "Starting..."
-#~ msgstr "A iniciar..."
 
 #~ msgid "Unpacking"
 #~ msgstr "A descompactar"
@@ -2123,14 +2138,8 @@ msgstr "Não foi possível abrir o site"
 #~ msgid "Detecting GPU..."
 #~ msgstr "A detetar GPU..."
 
-#~ msgid "Detecting virtual machine..."
-#~ msgstr "A detetar máquina virtual..."
-
 #~ msgid "Detecting storage..."
 #~ msgstr "A detetar armazenamento..."
 
 #~ msgid "Detecting network..."
 #~ msgstr "A detetar rede..."
-
-#~ msgid "Scan completed"
-#~ msgstr "Verificação concluída"
