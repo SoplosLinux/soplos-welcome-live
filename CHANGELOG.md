@@ -50,10 +50,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 	 - Selects best refresh rate when multiple modes match the requested resolution; improved error handling and debug logging.
 	 - Selects best refresh rate when multiple modes match the requested resolution; improved error handling and debug logging.
 
-### 🩹 Patch - 2025-12-10
-- **Restored Legacy Chroot Logic**: Re-implemented the robust unmount script (`safe_umount`) and exact mount sequence (Clean -> Mount -> Virtuals -> Validate) from legacy Tyron/Tyson versions.
-- **Cross-DE Terminal Support**: Implemented logic to detect Desktop Environment (XFCE, Plasma, GNOME) and launch the appropriate terminal based on specific priority lists (e.g., Kitty/Xfce4-terminal for XFCE, Konsole for Plasma).
-- **UI Restoration**: Restored the detailed Chroot progress dialog and the window footer/buttons layout to match the legacy experience.
+### Patch - 2025-12-10
+- **Legacy Chroot Restoration**: Re-implemented the robust 2.0-style chroot logic with `safe_umount`, strict mounting sequence, and validation.
+- **Cross-DE Terminal Support**: Implemented smart terminal detection for Chroot (Kitty/Xfce4-terminal for XFCE, Konsole for Plasma, Gnome-terminal/Ptyxis for GNOME).
+- **Resolution Persistence**: Implemented session persistence for resolution changes.
+  - **GNOME Wayland**: Switched to persistent `ApplyMonitorsConfig` method.
+  - **XFCE X11**: Added autostart script generation (`soplos-resolution.desktop`).
+- **UI Improvements**: Restored the progress dialog detailed view and window footer buttons to match the legacy experience.
 - **System Validation**: Re-enabled strict system validation checks to ensure only valid Linux systems are chrooted.
 ---
 

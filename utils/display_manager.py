@@ -107,6 +107,7 @@ class DisplayManager:
             
             if connected_output:
                 subprocess.run(['xrandr', '--output', connected_output, '--mode', resolution], check=True)
+                self._persist_x11_resolution(connected_output, resolution)
                 return True
         except Exception as e:
             print(f"X11 switch failed: {e}")
@@ -124,6 +125,32 @@ class DisplayManager:
         except Exception:
             pass
         return None
+
+    def _persist_x11_resolution(self, output: str, mode: str):
+        """Persist X11 resolution via autostart script for session restarts."""
+        try:
+            config_dir = Path.home() / ".config" / "autostart"
+            config_dir.mkdir(parents=True, exist_ok=True)
+            
+            desktop_file = config_dir / "soplos-resolution.desktop"
+            
+            content = f"""[Desktop Entry]
+Type=Application
+Name=Restore Resolution
+Exec=xrandr --output {output} --mode {mode}
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+"""
+            with open(desktop_file, 'w') as f:
+                f.write(content)
+            
+            # Ensure permissions
+            os.chmod(desktop_file, 0o755)
+            print(f"Persisted X11 resolution to {desktop_file}")
+            
+        except Exception as e:
+            print(f"Failed to persist X11 resolution: {e}")
 
     # ==================== KDE Wayland Implementation ====================
 
@@ -595,7 +622,7 @@ class DisplayManager:
                 "(uua(iiduba(ssa{sv}))a{sv})",
                 (
                     serial,
-                    1,  # 1 = Temporary (use 2 for persistent)
+                    2,  # 2 = Persistent (Writes to ~/.config/monitors.xml)
                     new_logical_monitors,
                     {}  # Empty properties dict
                 )

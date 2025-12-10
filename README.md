@@ -113,9 +113,10 @@ Contact: info@soploslinux.com
 	- Avoids incorrect virtual/guest modes at startup, chooses best available refresh rate, and applies temporary monitor changes suitable for Live ISO usage.
 
 #### Patch - 2025-12-10
-- Restored **Legacy Chroot Functionality**: Robust unmount script, exact mount sequence, and strict system validation.
-- **Cross-DE Terminal Support**: Specific terminal priority lists for XFCE, Plasma, and GNOME (Kitty, Konsole, Gnome-Term).
-- **UI Restoration**: Detailed progress dialogs and window footer visibility restored.
+- Restored legacy functionality for robust Chroot operations (safe unmount, exact mount sequence).
+- Added cross-DE terminal support (XFCE, Plasma, GNOME) with environment-aware launching.
+- Implemented **Resolution Persistence**: Resolution changes now persist across language-switch restarts in GNOME (Wayland) and XFCE (X11).
+- Restored original UI progress dialogs and buttons.
 
 ### v1.1.2 (2025-11-29)
 - Universal disk detection in CHROOT (all hardware/VM types)
