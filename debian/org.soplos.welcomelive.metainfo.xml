@@ -212,6 +212,16 @@
           <p xml:lang="it">Patch (2025-12-10): Ripristinata la funzionalità Chroot legacy con script di smontaggio robusto e sequenza di montaggio esatta; implementato il supporto terminale multi-ambiente (XFCE, Plasma, GNOME) con elenchi di priorità specifici; ripristinata l'interfaccia di avanzamento dettagliata e il piè di pagina della finestra.</p>
           <p xml:lang="ru">Патч (2025-12-10): Восстановлена устаревшая функциональность Chroot с надежным скриптом размонтирования и точной последовательностью монтирования; реализована поддержка терминалов в разных DE (XFCE, Plasma, GNOME) со специальными списками приоритетов; восстановлен детальный интерфейс прогресса и "футер" окна.</p>
           <p xml:lang="ro">Patch (2025-12-10): Restaurată funcționalitatea Chroot moștenită cu script robust de demontare și secvență exactă de montare; implementat suport terminal multi-mediu (XFCE, Plasma, GNOME) cu liste de prioritate specifice; restaurată interfața de progres detaliată și subsolul ferestrei.</p>
+          
+          <p>Patch (2025-12-10 - Final): Complete quality review of all translations (ES, EN, DE, FR, PT, IT, RO, RU) ensuring 100% coverage, natural phrasing, and UI conciseness.</p>
+          <p xml:lang="es">Parche (2025-12-10 - Final): Completada la revisión de calidad de todas las traducciones (ES, EN, DE, FR, PT, IT, RO, RU) asegurando cobertura del 100%, fraseo natural y concisión en la interfaz.</p>
+          <p xml:lang="fr">Correctif (2025-12-10 - Final) : Révision complète de la qualité de toutes les traductions (ES, EN, DE, FR, PT, IT, RO, RU) assurant une couverture à 100 %, un phrasé naturel et la concision de l'interface.</p>
+          <p xml:lang="pt">Patch (2025-12-10 - Final): Concluída a revisão de qualidade de todas as traduções (ES, EN, DE, FR, PT, IT, RO, RU) garantindo cobertura de 100%, fraseado natural e concisão da interface.</p>
+          <p xml:lang="de">Patch (2025-12-10 - Final): Vollständige Qualitätsprüfung aller Übersetzungen (ES, EN, DE, FR, PT, IT, RO, RU), Sicherstellung von 100% Abdeckung, natürlicher Formulierung und UI-Prägnanz.</p>
+          <p xml:lang="it">Patch (2025-12-10 - Finale): Completata la revisione della qualità di tutte le traduzioni (ES, EN, DE, FR, PT, IT, RO, RU) garantendo copertura al 100%, fraseggio naturale e concisione dell'interfaccia.</p>
+          <p xml:lang="ru">Патч (2025-12-10 - Финал): Завершен полный аудит качества всех переводов (ES, EN, DE, FR, PT, IT, RO, RU), обеспечено 100% покрытие, естественность фраз и лаконичность интерфейса.</p>
+          <p xml:lang="ro">Patch (2025-12-10 - Final): Finalizată revizuirea calității tuturor traducerilor (ES, EN, DE, FR, PT, IT, RO, RU) asigurând acoperire 100%, formulare naturală și concizie a interfeței.</p>
+
       </description>
     </release>
     <release version="1.1.2" date="2025-11-29">

@@ -1,14 +1,12 @@
-# Russian translations for soplos-welcome package.
+# Russian translation for Soplos Welcome Live
 # Copyright (C) 2025 Sergi Perich
-# This file is distributed under the same license as the soplos-welcome package.
-# Sergi Perich <info@soploslinux.com>, 2025.
-#
+# This file is distributed under the same license as the soplos-welcome-live package.
 msgid ""
 msgstr ""
-"Project-Id-Version: soplos-welcome 2.0.0\n"
+"Project-Id-Version: soplos-welcome-live 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-10 09:15+0100\n"
-"PO-Revision-Date: 2025-12-07 12:00+0100\n"
+"POT-Creation-Date: 2025-12-06 21:33+0100\n"
+"PO-Revision-Date: 2025-12-06 22:45+0100\n"
 "Last-Translator: Sergi Perich <info@soploslinux.com>\n"
 "Language-Team: Russian <info@soploslinux.com>\n"
 "Language: ru\n"
@@ -18,58 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: core/chroot_operations.py:67
-#, fuzzy
-msgid "Unknown Device"
-msgstr "Неизвестно"
-
-#: core/chroot_operations.py:411
-msgid "Unmounting"
-msgstr "Desmontando"
-
-#: core/chroot_operations.py:426
-msgid "Unmount completed"
-msgstr "Desmontaje completado"
-
-#: core/chroot_operations.py:539
-msgid ""
-"The mounted system does not appear to be a valid Linux - essential files not "
-"found"
-msgstr ""
-
-#: core/chroot_operations.py:555
-#, fuzzy
-msgid "CHROOT Recovery Environment"
-msgstr "Среда восстановления CHROOT"
-
-#: core/chroot_operations.py:556
-msgid "Mount point contents:"
-msgstr "Содержимое точки монтирования:"
-
-#: core/chroot_operations.py:557
-msgid "Type 'exit' or press Ctrl+D to leave"
-msgstr "Введите 'exit' или нажмите Ctrl+D для выхода"
-
-#: core/chroot_operations.py:581
-#, fuzzy
-msgid "Cleaning up mounts..."
-msgstr "Oчистка монтирования..."
-
-#: core/chroot_operations.py:590
-#, fuzzy
-msgid "Cleanup completed"
-msgstr "Очистка завершена"
-
-#: core/chroot_operations.py:656
-msgid ""
-"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
-"gnome-terminal or ptyxis."
-msgstr ""
-
 #: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
-#, fuzzy
 msgid "Soplos Welcome Live"
-msgstr "Soplos Welcome"
+msgstr "Soplos Welcome Live"
 
 #: core/application.py:257
 msgid "Preferences"
@@ -84,7 +33,6 @@ msgid "Quit"
 msgstr "Выход"
 
 #: core/application.py:310
-#, fuzzy
 msgid ""
 "\n"
 "Soplos Welcome Live 2.0 - Live ISO Welcome Application\n"
@@ -109,29 +57,28 @@ msgid ""
 "For more information, visit: https://soplos.org\n"
 msgstr ""
 "\n"
-"Soplos Welcome 2.0 - Самое передовое приложение приветствия в мире\n"
+"Soplos Welcome Live 2.0 - Приложение приветствия Live ISO\n"
 "\n"
-"Использование: soplos-welcome [ОПЦИИ]\n"
+"Использование: soplos-welcome-live [ОПЦИИ]\n"
 "\n"
 "Опции:\n"
-"  -h, --help              Показать это сообщение справки\n"
+"  -h, --help              Показать это сообщение\n"
 "  -v, --version           Показать информацию о версии\n"
-"  --lang=LANG             Установить язык (es, en, fr, de, pt, it, ro, ru)\n"
-"  --theme=THEME           Установить тему (base, light, dark, gnome, kde, "
-"xfce)\n"
+"  --lang=ЯЗЫК             Задать язык (es, en, fr, de, pt, it, ro, ru)\n"
+"  --theme=ТЕМА            Задать тему (base, light, dark)\n"
+"  --chroot                Открыть режим chroot напрямую\n"
 "  --debug                 Включить режим отладки\n"
 "\n"
 "Примеры:\n"
-"  soplos-welcome                    # Запуск с автоматически определенными "
-"настройками\n"
-"  soplos-welcome --lang=ru          # Запуск на русском языке\n"
-"  soplos-welcome --theme=dark       # Запуск с темной темой\n"
-"  soplos-welcome --debug            # Запуск в режиме отладки\n"
+"  soplos-welcome-live                    # Запуск с автонастройками\n"
+"  soplos-welcome-live --lang=es          # Запуск на испанском\n"
+"  soplos-welcome-live --theme=dark       # Запуск с темной темой\n"
+"  soplos-welcome-live --chroot           # Открыть режим chroot\n"
 "\n"
-"Для получения дополнительной информации посетите: https://soplos.org\n"
+"Для дополнительной информации посетите: https://soplos.org\n"
 
 #: core/application.py:337
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "\n"
 "Soplos Welcome Live {version}\n"
@@ -148,18 +95,201 @@ msgid ""
 "Language: {language}\n"
 msgstr ""
 "\n"
-"Soplos Welcome {version}\n"
+"Soplos Welcome Live {version}\n"
 "\n"
 "Copyright (C) 2025 Sergi Perich\n"
-"Это свободное программное обеспечение; см. исходный код для условий "
-"копирования.\n"
-"НЕТ НИКАКИХ гарантий; даже гарантии КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ "
-"ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.\n"
+"Это свободное ПО; см. исходный код для условий копирования.\n"
+"НЕТ никаких гарантий; даже КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ "
+"КОНКРЕТНОЙ ЦЕЛИ.\n"
 "\n"
-"Окружение рабочего стола: {desktop_env}\n"
-"Протокол дисплея: {display_protocol}\n"
+"Редакция: {edition}\n"
+"Окружение: {desktop_env}\n"
+"Протокол: {display_protocol}\n"
 "Тема: {theme}\n"
 "Язык: {language}\n"
+
+#: core/chroot_operations.py:67
+msgid "Unknown Device"
+msgstr "Неизвестное устройство"
+
+#: core/chroot_operations.py:411
+msgid "Unmounting"
+msgstr "Размонтирование"
+
+#: core/chroot_operations.py:426
+msgid "Unmount completed"
+msgstr "Размонтирование завершено"
+
+#: core/chroot_operations.py:539
+msgid ""
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
+msgstr ""
+"Смонтированная система не похожа на корректный Linux - важные файлы не "
+"найдены"
+
+#: core/chroot_operations.py:555
+msgid "CHROOT Recovery Environment"
+msgstr "Среда восстановления CHROOT"
+
+#: core/chroot_operations.py:556
+msgid "Mount point contents:"
+msgstr "Содержимое точки монтирования:"
+
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr "Введите 'exit' или нажмите Ctrl+D для выхода"
+
+#: core/chroot_operations.py:581
+msgid "Cleaning up mounts..."
+msgstr "Очистка точек монтирования..."
+
+#: core/chroot_operations.py:590
+msgid "Cleanup completed"
+msgstr "Очистка завершена"
+
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
+msgstr ""
+"Терминал не найден. Пожалуйста, установите kitty, xfce4-terminal, konsole, "
+"gnome-terminal или ptyxis."
+
+#: scripts/update-gtk-bookmarks.sh:21
+msgid "XFCE detected. Skipping GTK bookmark update."
+msgstr "Обнаружен XFCE. Пропуск обновления закладок GTK."
+
+#: scripts/update-gtk-bookmarks.sh:37
+msgid "No home directory found, skipping bookmark update"
+msgstr "Домашняя папка не найдена, пропуск обновления закладок"
+
+#: scripts/update-gtk-bookmarks.sh:51
+msgid "Updating GTK bookmarks from XDG directories..."
+msgstr "Обновление закладок GTK из каталогов XDG..."
+
+#: scripts/update-gtk-bookmarks.sh:77
+msgid "GTK bookmarks updated successfully"
+msgstr "Закладки GTK успешно обновлены"
+
+#: ui/chroot_window.py:25 ui/main_window.py:358
+msgid "System Rescue"
+msgstr "Восстановление системы"
+
+#: ui/chroot_window.py:42
+msgid "Select disk to rescue"
+msgstr "Выберите диск для восстановления"
+
+#: ui/chroot_window.py:56 ui/chroot_window.py:185
+msgid "Device"
+msgstr "Устройство"
+
+#: ui/chroot_window.py:57 ui/chroot_window.py:186
+msgid "Size"
+msgstr "Размер"
+
+#: ui/chroot_window.py:58
+msgid "Model"
+msgstr "Модель"
+
+#: ui/chroot_window.py:69
+msgid "Open GParted"
+msgstr "Открыть GParted"
+
+#: ui/chroot_window.py:78 ui/chroot_window.py:417
+msgid "Close"
+msgstr "Закрыть"
+
+#: ui/chroot_window.py:83
+msgid "Next"
+msgstr "Далее"
+
+#: ui/chroot_window.py:100 ui/chroot_window.py:112 ui/chroot_window.py:122
+#: ui/chroot_window.py:138 ui/chroot_window.py:393 ui/chroot_window.py:403
+#: ui/chroot_window.py:474 ui/main_window.py:631 ui/main_window.py:724
+#: ui/main_window.py:766 ui/main_window.py:776
+msgid "Error"
+msgstr "Ошибка"
+
+#: ui/chroot_window.py:101
+msgid "Error loading disks: {}"
+msgstr "Ошибка загрузки дисков: {}"
+
+#: ui/chroot_window.py:123
+msgid "Please select a disk to continue."
+msgstr "Пожалуйста, выберите диск для продолжения."
+
+#: ui/chroot_window.py:139
+msgid "Error loading partitions: {}"
+msgstr "Ошибка загрузки разделов: {}"
+
+#: ui/chroot_window.py:147
+msgid "Select Partitions"
+msgstr "Выбор разделов"
+
+#: ui/chroot_window.py:166
+msgid "No partitions found on this disk."
+msgstr "На этом диске разделы не найдены."
+
+#: ui/chroot_window.py:173
+msgid "Assign mount points to partitions"
+msgstr "Назначить точки монтирования"
+
+#: ui/chroot_window.py:184
+msgid "Mount Point"
+msgstr "Точка монтирования"
+
+#: ui/chroot_window.py:187
+msgid "Filesystem"
+msgstr "Файл. система"
+
+#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
+msgid "Select option"
+msgstr "Выберите опцию"
+
+#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
+msgid "Select subvolume"
+msgstr "Выберите подтом"
+
+#: ui/chroot_window.py:394
+msgid "You must select a root partition (/)."
+msgstr "Вы должны выбрать корневой раздел (/)."
+
+#: ui/chroot_window.py:413
+msgid "Mounting system..."
+msgstr "Монтирование системы..."
+
+#: ui/chroot_window.py:430 ui/chroot_window.py:446
+msgid "Mounting partitions..."
+msgstr "Монтирование разделов..."
+
+#: ui/chroot_window.py:452
+msgid "Mounting virtual filesystems..."
+msgstr "Монтирование вирт. файл. систем..."
+
+#: ui/chroot_window.py:467
+msgid "Chroot started successfully in new terminal."
+msgstr "Chroot успешно запущен в новом терминале."
+
+#: ui/chroot_window.py:508
+msgid "Invalid Linux System"
+msgstr "Некорректная система Linux"
+
+#: ui/chroot_window.py:509
+msgid ""
+"The mounted system does not appear to be a valid Linux installation. "
+"Essential files (like /bin/bash or /etc/fstab) are missing."
+msgstr ""
+"Смонтированная система выглядит как некорректная установка Linux. "
+"Отсутствуют важные файлы (как /bin/bash или /etc/fstab)."
+
+#: ui/chroot_window.py:513
+msgid "Mount Error"
+msgstr "Ошибка монтирования"
+
+#: ui/chroot_window.py:514
+msgid "An error occurred while mounting the system: {}"
+msgstr "Произошла ошибка при монтировании системы: {}"
 
 #: ui/main_window.py:188
 msgid "Welcome to Soplos Linux"
@@ -167,12 +297,14 @@ msgstr "Добро пожаловать в Soplos Linux"
 
 #: ui/main_window.py:196
 msgid "Live Session"
-msgstr ""
+msgstr "Live-сессия"
 
 #: ui/main_window.py:204
 msgid ""
 "Explore the system, install Soplos Linux, or rescue an existing installation."
 msgstr ""
+"Изучите систему, установите Soplos Linux или восстановите существующую "
+"установку."
 
 #: ui/main_window.py:241
 msgid "Ready"
@@ -184,42 +316,35 @@ msgstr "Доступные опции:"
 
 #: ui/main_window.py:310
 msgid "Install Soplos Linux on your computer"
-msgstr "Instalar Soplos Linux en su equipo"
+msgstr "Установить Soplos Linux на компьютер"
 
 #: ui/main_window.py:311
 msgid "Rescue an existing installation via CHROOT"
-msgstr "Rescatar instalación existente vía CHROOT"
+msgstr "Восстановление через CHROOT"
 
 #: ui/main_window.py:312
 msgid "Change system language on the fly"
-msgstr "Сменить язык системы на лету"
+msgstr "Смена языка системы на лету"
 
 #: ui/main_window.py:317
 msgid "Toggle NumLock for keyboards"
-msgstr "Переключить NumLock"
+msgstr "Настр. NumLock (устан. система)"
 
 #: ui/main_window.py:343
-#, fuzzy
 msgid "Install Soplos Linux"
-msgstr "Установить Liquorix"
-
-#: ui/main_window.py:358 ui/chroot_window.py:25
-#, fuzzy
-msgid "System Rescue"
-msgstr "Резервное копирование"
+msgstr "Установить Soplos Linux"
 
 #: ui/main_window.py:363
-#, fuzzy
 msgid "Mount and repair an existing installation"
-msgstr "Подготовка к установке..."
+msgstr "Монтировать и исправить систему"
 
 #: ui/main_window.py:376
 msgid "Web"
-msgstr "Web"
+msgstr "Сайт"
 
 #: ui/main_window.py:377
 msgid "Forums"
-msgstr "Форумы"
+msgstr "Форум"
 
 #: ui/main_window.py:378
 msgid "Wiki"
@@ -227,12 +352,11 @@ msgstr "Вики"
 
 #: ui/main_window.py:379
 msgid "Donate"
-msgstr "Пожертвовать"
+msgstr "Донат"
 
 #: ui/main_window.py:456
-#, fuzzy
 msgid "Show at startup"
-msgstr "Показывать это приложение при запуске"
+msgstr "Показывать при запуске"
 
 #: ui/main_window.py:484
 msgid "NumLock on install"
@@ -240,7 +364,7 @@ msgstr "NumLock при установке"
 
 #: ui/main_window.py:491
 msgid "Enable/disable NumLock activation in installed system"
-msgstr "Включить/выключить NumLock в установленной системе"
+msgstr "Вкл/Выкл NumLock в установленной системе"
 
 #: ui/main_window.py:526
 #, python-brace-format
@@ -253,7 +377,7 @@ msgstr "NumLock Включен"
 
 #: ui/main_window.py:619
 msgid "NumLock will be activated automatically in the installed system."
-msgstr "NumLock будет включен автоматически."
+msgstr "NumLock будет автоматически включен в установленной системе."
 
 #: ui/main_window.py:625
 msgid "NumLock Disabled"
@@ -264,26 +388,20 @@ msgid ""
 "NumLock will NOT be activated in the installed system.\n"
 "Recommended for laptops without numeric keypad."
 msgstr ""
-
-#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
-#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
-#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
-#: ui/chroot_window.py:403 ui/chroot_window.py:474
-msgid "Error"
-msgstr "Ошибка"
+"NumLock НЕ будет включен в установленной системе.\n"
+"Рекомендуется для ноутбуков без цифрового блока."
 
 #: ui/main_window.py:666
-#, fuzzy
 msgid "Configuring language..."
-msgstr "Изменить язык"
+msgstr "Настройка языка..."
 
 #: ui/main_window.py:697
 msgid "Configuring system locale..."
-msgstr "Настройка языка системы..."
+msgstr "Настройка локали системы..."
 
 #: ui/main_window.py:701
 msgid "Applying user settings..."
-msgstr "Применение настроек пользователя..."
+msgstr "Применение настроек..."
 
 #: ui/main_window.py:705
 msgid "Migrating directories..."
@@ -291,135 +409,21 @@ msgstr "Миграция каталогов..."
 
 #: ui/main_window.py:713
 msgid "Restarting session..."
-msgstr "Перезапуск сеанса..."
+msgstr "Перезапуск сессии..."
 
 #: ui/main_window.py:760
-#, fuzzy
 msgid "Installer Not Found"
-msgstr "Установлено"
+msgstr "Установщик не найден"
 
 #: ui/main_window.py:761
 msgid ""
 "The Calamares installer could not be found.\n"
 "Please install it or run the installation manually."
 msgstr ""
+"Установщик Calamares не найден.\n"
+"Пожалуйста, установите его или запустите установку вручную."
 
 #: ui/main_window.py:777
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not open System Rescue: {error}"
-msgstr "Не удалось открыть веб-сайт"
-
-#: ui/chroot_window.py:42
-msgid "Select disk to rescue"
-msgstr "Выберите диск для восстановления"
-
-#: ui/chroot_window.py:56 ui/chroot_window.py:185
-msgid "Device"
-msgstr ""
-
-#: ui/chroot_window.py:57 ui/chroot_window.py:186
-msgid "Size"
-msgstr ""
-
-#: ui/chroot_window.py:58
-#, fuzzy
-msgid "Model"
-msgstr "Модель:"
-
-#: ui/chroot_window.py:69
-#, fuzzy
-msgid "Open GParted"
-msgstr "Начать"
-
-#: ui/chroot_window.py:78 ui/chroot_window.py:417
-msgid "Close"
-msgstr "Закрыть"
-
-#: ui/chroot_window.py:83
-msgid "Next"
-msgstr ""
-
-#: ui/chroot_window.py:101
-msgid "Error loading disks: {}"
-msgstr ""
-
-#: ui/chroot_window.py:123
-msgid "Please select a disk to continue."
-msgstr ""
-
-#: ui/chroot_window.py:139
-msgid "Error loading partitions: {}"
-msgstr ""
-
-#: ui/chroot_window.py:147
-msgid "Select Partitions"
-msgstr ""
-
-#: ui/chroot_window.py:166
-#, fuzzy
-msgid "No partitions found on this disk."
-msgstr "Оптимизации не найдены"
-
-#: ui/chroot_window.py:173
-msgid "Assign mount points to partitions"
-msgstr ""
-
-#: ui/chroot_window.py:184
-msgid "Mount Point"
-msgstr ""
-
-#: ui/chroot_window.py:187
-#, fuzzy
-msgid "Filesystem"
-msgstr "Инструменты файловой системы"
-
-#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
-#, fuzzy
-msgid "Select option"
-msgstr "Выбор репозитория"
-
-#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-msgid "Select subvolume"
-msgstr "Выберите подтом"
-
-#: ui/chroot_window.py:394
-msgid "You must select a root partition (/)."
-msgstr ""
-
-#: ui/chroot_window.py:413
-#, fuzzy
-msgid "Mounting system..."
-msgstr "Текущая система"
-
-#: ui/chroot_window.py:430 ui/chroot_window.py:446
-#, fuzzy
-msgid "Mounting partitions..."
-msgstr "Настройка приложения..."
-
-#: ui/chroot_window.py:452
-#, fuzzy
-msgid "Mounting virtual filesystems..."
-msgstr "Монтирование виртуальных файловых систем..."
-
-#: ui/chroot_window.py:467
-msgid "Chroot started successfully in new terminal."
-msgstr "Chroot успешно запущен в новом терминале."
-
-#: ui/chroot_window.py:508
-msgid "Invalid Linux System"
-msgstr "Неверная система Linux"
-
-#: ui/chroot_window.py:509
-msgid ""
-"The mounted system does not appear to be a valid Linux installation. "
-"Essential files (like /bin/bash or /etc/fstab) are missing."
-msgstr ""
-
-#: ui/chroot_window.py:513
-#, fuzzy
-msgid "Mount Error"
-msgstr "Ошибка"
-
-#: ui/chroot_window.py:514
-msgid "An error occurred while mounting the system: {}"
-msgstr ""
+msgstr "Не удалось открыть Восстановление: {error}"

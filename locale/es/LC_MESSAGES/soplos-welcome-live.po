@@ -1,64 +1,19 @@
 # Spanish translation for Soplos Welcome Live
-# Copyright (C) 2024 Soplos Linux
-# This file is distributed under the GPL-3.0+ license.
-#
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-welcome-live package.
 msgid ""
 msgstr ""
-"Project-Id-Version: soplos-welcome-live 2.0.0\n"
+"Project-Id-Version: soplos-welcome-live 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-10 09:15+0100\n"
-"PO-Revision-Date: 2024-12-07 12:00+0000\n"
-"Last-Translator: Soplos Team <info@soploslinux.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"POT-Creation-Date: 2025-12-10 13:05+0100\n"
+"PO-Revision-Date: 2025-12-10 13:45+0100\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: Spanish <info@soploslinux.com>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: core/chroot_operations.py:67
-msgid "Unknown Device"
-msgstr "Dispositivo Desconocido"
-
-#: core/chroot_operations.py:411
-msgid "Unmounting"
-msgstr "Desmontando"
-
-#: core/chroot_operations.py:426
-msgid "Unmount completed"
-msgstr "Desmontaje completado"
-
-#: core/chroot_operations.py:539
-msgid ""
-"The mounted system does not appear to be a valid Linux - essential files not "
-"found"
-msgstr ""
-
-#: core/chroot_operations.py:555
-msgid "CHROOT Recovery Environment"
-msgstr "Entorno de Recuperación CHROOT"
-
-#: core/chroot_operations.py:556
-#, fuzzy
-msgid "Mount point contents:"
-msgstr "Contenido del punto de montaje:"
-
-#: core/chroot_operations.py:557
-msgid "Type 'exit' or press Ctrl+D to leave"
-msgstr "Escribe 'exit' o presiona Ctrl+D para salir"
-
-#: core/chroot_operations.py:581
-msgid "Cleaning up mounts..."
-msgstr "Limpiando montajes..."
-
-#: core/chroot_operations.py:590
-msgid "Cleanup completed"
-msgstr "Limpieza completada"
-
-#: core/chroot_operations.py:656
-msgid ""
-"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
-"gnome-terminal or ptyxis."
-msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
 msgid "Soplos Welcome Live"
@@ -100,6 +55,27 @@ msgid ""
 "\n"
 "For more information, visit: https://soplos.org\n"
 msgstr ""
+"\n"
+"Soplos Welcome Live 2.0 - Aplicación de bienvenida para ISO Live\n"
+"\n"
+"Uso: soplos-welcome-live [OPCIONES]\n"
+"\n"
+"Opciones:\n"
+"  -h, --help              Muestra este mensaje de ayuda\n"
+"  -v, --version           Muestra información de la versión\n"
+"  --lang=LANG             Establece el idioma (es, en, fr, de, pt, it, ro, ru)\n"
+"  --theme=TEMA            Establece el tema (base, light, dark)\n"
+"  --chroot                Abre el modo chroot directamente\n"
+"  --debug                 Habilita el modo depuración\n"
+"\n"
+"Ejemplos:\n"
+"  soplos-welcome-live                    # Inicia con configuración "
+"detectada\n"
+"  soplos-welcome-live --lang=es          # Inicia en español\n"
+"  soplos-welcome-live --theme=dark       # Inicia con tema oscuro\n"
+"  soplos-welcome-live --chroot           # Abre el modo chroot\n"
+"\n"
+"Para más información, visita: https://soplos.org\n"
 
 #: core/application.py:337
 #, python-brace-format
@@ -118,155 +94,91 @@ msgid ""
 "Theme: {theme}\n"
 "Language: {language}\n"
 msgstr ""
+"\n"
+"Soplos Welcome Live {version}\n"
+"\n"
+"Copyright (C) 2025 Sergi Perich\n"
+"Esto es software libre; consulta la fuente para condiciones de copia.\n"
+"NO hay garantía; ni siquiera de COMERCIABILIDAD o IDONEIDAD PARA UN "
+"PROPÓSITO PARTICULAR.\n"
+"\n"
+"Edición: {edition}\n"
+"Entorno de escritorio: {desktop_env}\n"
+"Protocolo de pantalla: {display_protocol}\n"
+"Tema: {theme}\n"
+"Idioma: {language}\n"
 
-#: ui/main_window.py:188
-msgid "Welcome to Soplos Linux"
-msgstr "Bienvenido a Soplos Linux"
+#: core/chroot_operations.py:67
+msgid "Unknown Device"
+msgstr "Dispositivo desconocido"
 
-#: ui/main_window.py:196
-msgid "Live Session"
-msgstr "Sesión Live"
+#: core/chroot_operations.py:411
+msgid "Unmounting"
+msgstr "Desmontando"
 
-#: ui/main_window.py:204
+#: core/chroot_operations.py:426
+msgid "Unmount completed"
+msgstr "Desmontaje completado"
+
+#: core/chroot_operations.py:539
 msgid ""
-"Explore the system, install Soplos Linux, or rescue an existing installation."
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
 msgstr ""
+"El sistema montado no parece ser un Linux válido. No se han encontrado "
+"archivos esenciales."
 
-#: ui/main_window.py:241
-msgid "Ready"
-msgstr "Listo"
+#: core/chroot_operations.py:555
+msgid "CHROOT Recovery Environment"
+msgstr "Entorno de recuperación CHROOT"
 
-#: ui/main_window.py:290
-msgid "Available options:"
-msgstr "Opciones disponibles:"
+#: core/chroot_operations.py:556
+msgid "Mount point contents:"
+msgstr "Contenido del punto de montaje:"
 
-#: ui/main_window.py:310
-msgid "Install Soplos Linux on your computer"
-msgstr "Instalar Soplos Linux en su equipo"
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr "Escribe 'exit' o pulsa Ctrl+D para salir"
 
-#: ui/main_window.py:311
-msgid "Rescue an existing installation via CHROOT"
-msgstr "Rescatar instalación existente vía CHROOT"
+#: core/chroot_operations.py:581
+msgid "Cleaning up mounts..."
+msgstr "Limpiando montajes..."
 
-#: ui/main_window.py:312
-msgid "Change system language on the fly"
-msgstr "Cambiar idioma del sistema al vuelo"
+#: core/chroot_operations.py:590
+msgid "Cleanup completed"
+msgstr "Limpieza completada"
 
-#: ui/main_window.py:317
-msgid "Toggle NumLock for keyboards"
-msgstr "Alternar NumLock para teclados"
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
+msgstr ""
+"No se ha encontrado ninguna terminal disponible. Por favor, instala kitty, "
+"xfce4-terminal, konsole, gnome-terminal o ptyxis."
 
-#: ui/main_window.py:343
-msgid "Install Soplos Linux"
-msgstr "Instalar Soplos Linux"
+#: scripts/update-gtk-bookmarks.sh:21
+msgid "XFCE detected. Skipping GTK bookmark update."
+msgstr "XFCE detectado. Se omite la actualización de marcadores GTK."
 
-#: ui/main_window.py:358 ui/chroot_window.py:25
+#: scripts/update-gtk-bookmarks.sh:37
+msgid "No home directory found, skipping bookmark update"
+msgstr "No se ha encontrado la carpeta personal, se omite la actualización de marcadores"
+
+#: scripts/update-gtk-bookmarks.sh:51
+msgid "Updating GTK bookmarks from XDG directories..."
+msgstr "Actualizando marcadores GTK desde directorios XDG..."
+
+#: scripts/update-gtk-bookmarks.sh:77
+msgid "GTK bookmarks updated successfully"
+msgstr "Marcadores GTK actualizados correctamente"
+
+#: ui/chroot_window.py:25 ui/main_window.py:358
 msgid "System Rescue"
-msgstr "Rescate del Sistema"
-
-#: ui/main_window.py:363
-msgid "Mount and repair an existing installation"
-msgstr "Montar y reparar una instalación existente"
-
-#: ui/main_window.py:376
-msgid "Web"
-msgstr "Web"
-
-#: ui/main_window.py:377
-msgid "Forums"
-msgstr "Foros"
-
-#: ui/main_window.py:378
-msgid "Wiki"
-msgstr "Wiki"
-
-#: ui/main_window.py:379
-msgid "Donate"
-msgstr "Donar"
-
-#: ui/main_window.py:456
-msgid "Show at startup"
-msgstr "Mostrar al inicio"
-
-#: ui/main_window.py:484
-msgid "NumLock on install"
-msgstr "NumLock en instalación"
-
-#: ui/main_window.py:491
-msgid "Enable/disable NumLock activation in installed system"
-msgstr "Activar/desactivar NumLock en el sistema instalado"
-
-#: ui/main_window.py:526
-#, python-brace-format
-msgid "Ready - {desktop} on {protocol}"
-msgstr "Listo - {desktop} en {protocol}"
-
-#: ui/main_window.py:618
-msgid "NumLock Enabled"
-msgstr "NumLock Activado"
-
-#: ui/main_window.py:619
-msgid "NumLock will be activated automatically in the installed system."
-msgstr "NumLock se activará automáticamente en el sistema instalado."
-
-#: ui/main_window.py:625
-msgid "NumLock Disabled"
-msgstr "NumLock Desactivado"
-
-#: ui/main_window.py:626
-msgid ""
-"NumLock will NOT be activated in the installed system.\n"
-"Recommended for laptops without numeric keypad."
-msgstr ""
-
-#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
-#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
-#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
-#: ui/chroot_window.py:403 ui/chroot_window.py:474
-msgid "Error"
-msgstr "Error"
-
-#: ui/main_window.py:666
-#, fuzzy
-msgid "Configuring language..."
-msgstr "Cambiando idioma..."
-
-#: ui/main_window.py:697
-msgid "Configuring system locale..."
-msgstr "Configurando idioma del sistema..."
-
-#: ui/main_window.py:701
-msgid "Applying user settings..."
-msgstr "Aplicando configuración de usuario..."
-
-#: ui/main_window.py:705
-msgid "Migrating directories..."
-msgstr "Migrando directorios..."
-
-#: ui/main_window.py:713
-msgid "Restarting session..."
-msgstr "Reiniciando sesión..."
-
-#: ui/main_window.py:760
-msgid "Installer Not Found"
-msgstr "Instalador No Encontrado"
-
-#: ui/main_window.py:761
-msgid ""
-"The Calamares installer could not be found.\n"
-"Please install it or run the installation manually."
-msgstr ""
-"No se pudo encontrar el instalador Calamares.\n"
-"Por favor instálelo o ejecute la instalación manualmente."
-
-#: ui/main_window.py:777
-#, python-brace-format
-msgid "Could not open System Rescue: {error}"
-msgstr "No se pudo abrir Rescate del Sistema: {error}"
+msgstr "Recuperación del sistema"
 
 #: ui/chroot_window.py:42
 msgid "Select disk to rescue"
-msgstr "Seleccionar disco a rescatar"
+msgstr "Selecciona el disco a recuperar"
 
 #: ui/chroot_window.py:56 ui/chroot_window.py:185
 msgid "Device"
@@ -292,64 +204,64 @@ msgstr "Cerrar"
 msgid "Next"
 msgstr "Siguiente"
 
+#: ui/chroot_window.py:100 ui/chroot_window.py:112 ui/chroot_window.py:122
+#: ui/chroot_window.py:138 ui/chroot_window.py:393 ui/chroot_window.py:403
+#: ui/chroot_window.py:474 ui/main_window.py:631 ui/main_window.py:724
+#: ui/main_window.py:766 ui/main_window.py:776
+msgid "Error"
+msgstr "Error"
+
 #: ui/chroot_window.py:101
-#, fuzzy
 msgid "Error loading disks: {}"
-msgstr "Error cargando particiones: {error}"
+msgstr "Error al cargar los discos: {}"
 
 #: ui/chroot_window.py:123
 msgid "Please select a disk to continue."
-msgstr "Por favor seleccione un disco para continuar."
+msgstr "Por favor, selecciona un disco para continuar."
 
 #: ui/chroot_window.py:139
-#, fuzzy
 msgid "Error loading partitions: {}"
-msgstr "Error cargando particiones: {error}"
+msgstr "Error al cargar las particiones: {}"
 
 #: ui/chroot_window.py:147
 msgid "Select Partitions"
-msgstr "Seleccionar Particiones"
+msgstr "Selecciona particiones"
 
 #: ui/chroot_window.py:166
-#, fuzzy
 msgid "No partitions found on this disk."
-msgstr "No se encontraron particiones montables en este disco."
+msgstr "No se han encontrado particiones en este disco."
 
 #: ui/chroot_window.py:173
 msgid "Assign mount points to partitions"
-msgstr "Asignar puntos de montaje a particiones"
+msgstr "Asigna puntos de montaje a las particiones"
 
 #: ui/chroot_window.py:184
 msgid "Mount Point"
-msgstr "Punto de Montaje"
+msgstr "Punto de montaje"
 
 #: ui/chroot_window.py:187
 msgid "Filesystem"
-msgstr "Sistema de Archivos"
+msgstr "Sistema de archivos"
 
 #: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
-#, fuzzy
 msgid "Select option"
-msgstr "Seleccionar Particiones"
+msgstr "Selecciona una opción"
 
 #: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
 msgid "Select subvolume"
-msgstr "Seleccionar subvolumen"
+msgstr "Selecciona un subvolumen"
 
 #: ui/chroot_window.py:394
-#, fuzzy
 msgid "You must select a root partition (/)."
-msgstr "Debe seleccionar una partición para el punto de montaje raíz (/)."
+msgstr "Debes seleccionar una partición raíz (/)."
 
 #: ui/chroot_window.py:413
-#, fuzzy
 msgid "Mounting system..."
-msgstr "¿Desmontar Sistema?"
+msgstr "Montando el sistema..."
 
 #: ui/chroot_window.py:430 ui/chroot_window.py:446
-#, fuzzy
 msgid "Mounting partitions..."
-msgstr "Asignar puntos de montaje a particiones"
+msgstr "Montando particiones..."
 
 #: ui/chroot_window.py:452
 msgid "Mounting virtual filesystems..."
@@ -357,23 +269,160 @@ msgstr "Montando sistemas de archivos virtuales..."
 
 #: ui/chroot_window.py:467
 msgid "Chroot started successfully in new terminal."
-msgstr "Chroot iniciado correctamente en nueva terminal."
+msgstr "Chroot iniciado correctamente en una nueva terminal."
 
 #: ui/chroot_window.py:508
 msgid "Invalid Linux System"
-msgstr "Sistema Linux Inválido"
+msgstr "Sistema Linux no válido"
 
 #: ui/chroot_window.py:509
 msgid ""
 "The mounted system does not appear to be a valid Linux installation. "
 "Essential files (like /bin/bash or /etc/fstab) are missing."
 msgstr ""
+"El sistema montado no parece ser una instalación Linux válida. "
+"Faltan archivos esenciales (como /bin/bash o /etc/fstab)."
 
 #: ui/chroot_window.py:513
-#, fuzzy
 msgid "Mount Error"
-msgstr "Punto de Montaje"
+msgstr "Error de montaje"
 
 #: ui/chroot_window.py:514
 msgid "An error occurred while mounting the system: {}"
+msgstr "Ha ocurrido un error al montar el sistema: {}"
+
+#: ui/main_window.py:188
+msgid "Welcome to Soplos Linux"
+msgstr "Bienvenido a Soplos Linux"
+
+#: ui/main_window.py:196
+msgid "Live Session"
+msgstr "Sesión Live"
+
+#: ui/main_window.py:204
+msgid ""
+"Explore the system, install Soplos Linux, or rescue an existing installation."
 msgstr ""
+"Explora el sistema, instala Soplos Linux o recupera una instalación existente."
+
+#: ui/main_window.py:241
+msgid "Ready"
+msgstr "Listo"
+
+#: ui/main_window.py:290
+msgid "Available options:"
+msgstr "Opciones disponibles:"
+
+#: ui/main_window.py:310
+msgid "Install Soplos Linux on your computer"
+msgstr "Instalar Soplos Linux en tu equipo"
+
+#: ui/main_window.py:311
+msgid "Rescue an existing installation via CHROOT"
+msgstr "Recuperar una instalación existente mediante CHROOT"
+
+#: ui/main_window.py:312
+msgid "Change system language on the fly"
+msgstr "Cambiar el idioma del sistema sobre la marcha"
+
+#: ui/main_window.py:317
+msgid "Toggle NumLock for keyboards"
+msgstr "Activar teclado numérico en el sistema instalado"
+
+#: ui/main_window.py:343
+msgid "Install Soplos Linux"
+msgstr "Instalar Soplos Linux"
+
+#: ui/main_window.py:363
+msgid "Mount and repair an existing installation"
+msgstr "Montar y reparar un sistema existente"
+
+#: ui/main_window.py:376
+msgid "Web"
+msgstr "Web"
+
+#: ui/main_window.py:377
+msgid "Forums"
+msgstr "Foros"
+
+#: ui/main_window.py:378
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/main_window.py:379
+msgid "Donate"
+msgstr "Donar"
+
+#: ui/main_window.py:456
+msgid "Show at startup"
+msgstr "Mostrar al inicio"
+
+#: ui/main_window.py:484
+msgid "NumLock on install"
+msgstr "Teclado numérico activado"
+
+#: ui/main_window.py:491
+msgid "Enable/disable NumLock activation in installed system"
+msgstr "Activa/desactiva la activación de Bloq Num en el sistema instalado"
+
+#: ui/main_window.py:526
+#, python-brace-format
+msgid "Ready - {desktop} on {protocol}"
+msgstr "Listo - {desktop} en {protocol}"
+
+#: ui/main_window.py:618
+msgid "NumLock Enabled"
+msgstr "Bloq Num activado"
+
+#: ui/main_window.py:619
+msgid "NumLock will be activated automatically in the installed system."
+msgstr "Bloq Num se activará automáticamente en el sistema instalado."
+
+#: ui/main_window.py:625
+msgid "NumLock Disabled"
+msgstr "Bloq Num desactivado"
+
+#: ui/main_window.py:626
+msgid ""
+"NumLock will NOT be activated in the installed system.\n"
+"Recommended for laptops without numeric keypad."
+msgstr ""
+"Bloq Num NO se activará en el sistema instalado.\n"
+"Recomendado para portátiles sin teclado numérico."
+
+#: ui/main_window.py:666
+msgid "Configuring language..."
+msgstr "Estableciendo idioma..."
+
+#: ui/main_window.py:697
+msgid "Configuring system locale..."
+msgstr "Estableciendo configuración regional..."
+
+#: ui/main_window.py:701
+msgid "Applying user settings..."
+msgstr "Aplicando configuración de usuario..."
+
+#: ui/main_window.py:705
+msgid "Migrating directories..."
+msgstr "Migrando directorios..."
+
+#: ui/main_window.py:713
+msgid "Restarting session..."
+msgstr "Reiniciando sesión..."
+
+#: ui/main_window.py:760
+msgid "Installer Not Found"
+msgstr "Instalador no encontrado"
+
+#: ui/main_window.py:761
+msgid ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+msgstr ""
+"No se ha podido encontrar el instalador Calamares.\n"
+"Por favor, instálalo o ejecuta la instalación manualmente."
+
+#: ui/main_window.py:777
+#, python-brace-format
+msgid "Could not open System Rescue: {error}"
+msgstr "No se ha podido abrir la recuperación del sistema: {error}"

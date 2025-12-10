@@ -58,6 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   - **XFCE X11**: Added autostart script generation (`soplos-resolution.desktop`).
 - **UI Improvements**: Restored the progress dialog detailed view and window footer buttons to match the legacy experience.
 - **System Validation**: Re-enabled strict system validation checks to ensure only valid Linux systems are chrooted.
+- **Translation Overhaul**: Complete quality review and refinement of all 8 languages (ES, EN, DE, FR, PT, IT, RO, RU) ensuring 100% string coverage, "natural" phrasing, and UI-conciseness.
+
 ---
 
 ## [1.1.2] - 2025-11-29

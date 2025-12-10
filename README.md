@@ -117,6 +117,8 @@ Contact: info@soploslinux.com
 - Added cross-DE terminal support (XFCE, Plasma, GNOME) with environment-aware launching.
 - Implemented **Resolution Persistence**: Resolution changes now persist across language-switch restarts in GNOME (Wayland) and XFCE (X11).
 - Restored original UI progress dialogs and buttons.
+- **Translation Overhaul**: Complete quality review and refinement of all 8 languages (ES, EN, DE, FR, PT, IT, RO, RU) ensuring 100% string coverage and UI-conciseness.
+
 
 ### v1.1.2 (2025-11-29)
 - Universal disk detection in CHROOT (all hardware/VM types)

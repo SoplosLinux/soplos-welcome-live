@@ -1,13 +1,12 @@
-# Romanian translations for soplos-welcome package.
+# Romanian translation for Soplos Welcome Live
 # Copyright (C) 2025 Sergi Perich
-# This file is distributed under the same license as the soplos-welcome package.
-#
+# This file is distributed under the same license as the soplos-welcome-live package.
 msgid ""
 msgstr ""
-"Project-Id-Version: soplos-welcome 2.0\n"
+"Project-Id-Version: soplos-welcome-live 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-10 09:15+0100\n"
-"PO-Revision-Date: 2025-12-07 18:00+0100\n"
+"POT-Creation-Date: 2025-12-06 21:33+0100\n"
+"PO-Revision-Date: 2025-12-06 22:30+0100\n"
 "Last-Translator: Sergi Perich <info@soploslinux.com>\n"
 "Language-Team: Romanian <info@soploslinux.com>\n"
 "Language: ro\n"
@@ -17,58 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#: core/chroot_operations.py:67
-#, fuzzy
-msgid "Unknown Device"
-msgstr "Necunoscut"
-
-#: core/chroot_operations.py:411
-msgid "Unmounting"
-msgstr "Desmontando"
-
-#: core/chroot_operations.py:426
-msgid "Unmount completed"
-msgstr "Desmontaje completado"
-
-#: core/chroot_operations.py:539
-msgid ""
-"The mounted system does not appear to be a valid Linux - essential files not "
-"found"
-msgstr ""
-
-#: core/chroot_operations.py:555
-#, fuzzy
-msgid "CHROOT Recovery Environment"
-msgstr "Mediu de Recuperare CHROOT"
-
-#: core/chroot_operations.py:556
-msgid "Mount point contents:"
-msgstr "Conținutul punctului de montare:"
-
-#: core/chroot_operations.py:557
-msgid "Type 'exit' or press Ctrl+D to leave"
-msgstr "Tastați 'exit' sau apăsați Ctrl+D pentru a ieși"
-
-#: core/chroot_operations.py:581
-#, fuzzy
-msgid "Cleaning up mounts..."
-msgstr "Curățare montări..."
-
-#: core/chroot_operations.py:590
-#, fuzzy
-msgid "Cleanup completed"
-msgstr "Curățare finalizată"
-
-#: core/chroot_operations.py:656
-msgid ""
-"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
-"gnome-terminal or ptyxis."
-msgstr ""
-
 #: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
-#, fuzzy
 msgid "Soplos Welcome Live"
-msgstr "Bun venit în Soplos"
+msgstr "Soplos Welcome Live"
 
 #: core/application.py:257
 msgid "Preferences"
@@ -83,7 +33,6 @@ msgid "Quit"
 msgstr "Ieșire"
 
 #: core/application.py:310
-#, fuzzy
 msgid ""
 "\n"
 "Soplos Welcome Live 2.0 - Live ISO Welcome Application\n"
@@ -108,28 +57,29 @@ msgid ""
 "For more information, visit: https://soplos.org\n"
 msgstr ""
 "\n"
-"Soplos Welcome 2.0 - Cea mai avansată aplicație de bun venit din lume\n"
+"Soplos Welcome Live 2.0 - Aplicație de bun venit ISO Live\n"
 "\n"
-"Utilizare: soplos-welcome [OPȚIUNI]\n"
+"Utilizare: soplos-welcome-live [OPȚIUNI]\n"
 "\n"
 "Opțiuni:\n"
-"  -h, --help              Afișează acest mesaj de ajutor\n"
-"  -v, --version           Afișează informații despre versiune\n"
+"  -h, --help              Arată acest mesaj de ajutor\n"
+"  -v, --version           Arată informațiile despre versiune\n"
 "  --lang=LANG             Setează limba (es, en, fr, de, pt, it, ro, ru)\n"
-"  --theme=THEME           Setează tema (base, light, dark, gnome, kde, "
-"xfce)\n"
+"  --theme=TEMĂ            Setează tema (base, light, dark)\n"
+"  --chroot                Deschide direct modul chroot\n"
 "  --debug                 Activează modul de depanare\n"
 "\n"
 "Exemple:\n"
-"  soplos-welcome                    # Pornește cu setări detectate automat\n"
-"  soplos-welcome --lang=ro          # Pornește în Română\n"
-"  soplos-welcome --theme=dark       # Pornește cu tema întunecată\n"
-"  soplos-welcome --debug            # Pornește în modul de depanare\n"
+"  soplos-welcome-live                    # Pornește cu setările detectate "
+"automat\n"
+"  soplos-welcome-live --lang=es          # Pornește în spaniolă\n"
+"  soplos-welcome-live --theme=dark       # Pornește cu tema întunecată\n"
+"  soplos-welcome-live --chroot           # Deschide modul chroot\n"
 "\n"
-"Pentru mai multe informații, vizitează: https://soplos.org\n"
+"Pentru mai multe informații, vizitați: https://soplos.org\n"
 
 #: core/application.py:337
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "\n"
 "Soplos Welcome Live {version}\n"
@@ -146,17 +96,201 @@ msgid ""
 "Language: {language}\n"
 msgstr ""
 "\n"
-"Soplos Welcome {version}\n"
+"Soplos Welcome Live {version}\n"
 "\n"
 "Copyright (C) 2025 Sergi Perich\n"
 "Acesta este software liber; vezi sursa pentru condițiile de copiere.\n"
-"NU există garanție; nici măcar pentru COMERCIALIZARE sau ADECVARE PENTRU UN "
-"SCOP PARTICULAR.\n"
+"NU există nicio garanție; nici măcar pentru VANDABILITATE sau POTRIVIRE "
+"PENTRU UN SCOP ANUME.\n"
 "\n"
-"Mediu Desktop: {desktop_env}\n"
+"Ediție: {edition}\n"
+"Mediul Desktop: {desktop_env}\n"
 "Protocol Afișare: {display_protocol}\n"
 "Temă: {theme}\n"
 "Limbă: {language}\n"
+
+#: core/chroot_operations.py:67
+msgid "Unknown Device"
+msgstr "Dispozitiv necunoscut"
+
+#: core/chroot_operations.py:411
+msgid "Unmounting"
+msgstr "Se demontează"
+
+#: core/chroot_operations.py:426
+msgid "Unmount completed"
+msgstr "Demontare completă"
+
+#: core/chroot_operations.py:539
+msgid ""
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
+msgstr ""
+"Sistemul montat nu pare a fi un Linux valid - fișiere esențiale nu au fost "
+"găsite"
+
+#: core/chroot_operations.py:555
+msgid "CHROOT Recovery Environment"
+msgstr "Mediu recuperare CHROOT"
+
+#: core/chroot_operations.py:556
+msgid "Mount point contents:"
+msgstr "Conținut punct de montare:"
+
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr "Tastați 'exit' sau apăsați Ctrl+D pentru a ieși"
+
+#: core/chroot_operations.py:581
+msgid "Cleaning up mounts..."
+msgstr "Curățare puncte de montare..."
+
+#: core/chroot_operations.py:590
+msgid "Cleanup completed"
+msgstr "Curățare completă"
+
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
+msgstr ""
+"Niciun terminal disponibil găsit. Vă rugăm să instalați kitty, xfce4-"
+"terminal, konsole, gnome-terminal sau ptyxis."
+
+#: scripts/update-gtk-bookmarks.sh:21
+msgid "XFCE detected. Skipping GTK bookmark update."
+msgstr "XFCE detectat. Se sare peste actualizarea semnelor de carte GTK."
+
+#: scripts/update-gtk-bookmarks.sh:37
+msgid "No home directory found, skipping bookmark update"
+msgstr "Nu s-a găsit directorul home, se sare peste actualizare semne de carte"
+
+#: scripts/update-gtk-bookmarks.sh:51
+msgid "Updating GTK bookmarks from XDG directories..."
+msgstr "Se actualizează semnele de carte GTK din directoarele XDG..."
+
+#: scripts/update-gtk-bookmarks.sh:77
+msgid "GTK bookmarks updated successfully"
+msgstr "Semne de carte GTK actualizate cu succes"
+
+#: ui/chroot_window.py:25 ui/main_window.py:358
+msgid "System Rescue"
+msgstr "Recuperare sistem"
+
+#: ui/chroot_window.py:42
+msgid "Select disk to rescue"
+msgstr "Selectați discul pentru recuperare"
+
+#: ui/chroot_window.py:56 ui/chroot_window.py:185
+msgid "Device"
+msgstr "Dispozitiv"
+
+#: ui/chroot_window.py:57 ui/chroot_window.py:186
+msgid "Size"
+msgstr "Mărime"
+
+#: ui/chroot_window.py:58
+msgid "Model"
+msgstr "Model"
+
+#: ui/chroot_window.py:69
+msgid "Open GParted"
+msgstr "Deschide GParted"
+
+#: ui/chroot_window.py:78 ui/chroot_window.py:417
+msgid "Close"
+msgstr "Închide"
+
+#: ui/chroot_window.py:83
+msgid "Next"
+msgstr "Următorul"
+
+#: ui/chroot_window.py:100 ui/chroot_window.py:112 ui/chroot_window.py:122
+#: ui/chroot_window.py:138 ui/chroot_window.py:393 ui/chroot_window.py:403
+#: ui/chroot_window.py:474 ui/main_window.py:631 ui/main_window.py:724
+#: ui/main_window.py:766 ui/main_window.py:776
+msgid "Error"
+msgstr "Eroare"
+
+#: ui/chroot_window.py:101
+msgid "Error loading disks: {}"
+msgstr "Eroare la încărcarea discurilor: {}"
+
+#: ui/chroot_window.py:123
+msgid "Please select a disk to continue."
+msgstr "Vă rugăm selectați un disc pentru a continua."
+
+#: ui/chroot_window.py:139
+msgid "Error loading partitions: {}"
+msgstr "Eroare la încărcarea partițiilor: {}"
+
+#: ui/chroot_window.py:147
+msgid "Select Partitions"
+msgstr "Selectare Partiții"
+
+#: ui/chroot_window.py:166
+msgid "No partitions found on this disk."
+msgstr "Nu s-au găsit partiții pe acest disc."
+
+#: ui/chroot_window.py:173
+msgid "Assign mount points to partitions"
+msgstr "Atribuire puncte de montare partițiilor"
+
+#: ui/chroot_window.py:184
+msgid "Mount Point"
+msgstr "Punct Montare"
+
+#: ui/chroot_window.py:187
+msgid "Filesystem"
+msgstr "Sistem Fișiere"
+
+#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
+msgid "Select option"
+msgstr "Selectați opțiunea"
+
+#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
+msgid "Select subvolume"
+msgstr "Selectați subvolum"
+
+#: ui/chroot_window.py:394
+msgid "You must select a root partition (/)."
+msgstr "Trebuie să selectați o partiție rădăcină (/)."
+
+#: ui/chroot_window.py:413
+msgid "Mounting system..."
+msgstr "Se montează sistemul..."
+
+#: ui/chroot_window.py:430 ui/chroot_window.py:446
+msgid "Mounting partitions..."
+msgstr "Se montează partițiile..."
+
+#: ui/chroot_window.py:452
+msgid "Mounting virtual filesystems..."
+msgstr "Se montează sistemele de fișiere virtuale..."
+
+#: ui/chroot_window.py:467
+msgid "Chroot started successfully in new terminal."
+msgstr "Chroot pornit cu succes într-un nou terminal."
+
+#: ui/chroot_window.py:508
+msgid "Invalid Linux System"
+msgstr "Sistem Linux Invalid"
+
+#: ui/chroot_window.py:509
+msgid ""
+"The mounted system does not appear to be a valid Linux installation. "
+"Essential files (like /bin/bash or /etc/fstab) are missing."
+msgstr ""
+"Sistemul montat nu pare a fi o instalare Linux validă. "
+"Lipsesc fișiere esențiale (precum /bin/bash sau /etc/fstab)."
+
+#: ui/chroot_window.py:513
+msgid "Mount Error"
+msgstr "Eroare Montare"
+
+#: ui/chroot_window.py:514
+msgid "An error occurred while mounting the system: {}"
+msgstr "A apărut o eroare la montarea sistemului: {}"
 
 #: ui/main_window.py:188
 msgid "Welcome to Soplos Linux"
@@ -164,16 +298,18 @@ msgstr "Bun venit în Soplos Linux"
 
 #: ui/main_window.py:196
 msgid "Live Session"
-msgstr ""
+msgstr "Sesiune Live"
 
 #: ui/main_window.py:204
 msgid ""
 "Explore the system, install Soplos Linux, or rescue an existing installation."
 msgstr ""
+"Explorați sistemul, instalați Soplos Linux sau recuperați o instalare "
+"existentă."
 
 #: ui/main_window.py:241
 msgid "Ready"
-msgstr "Gata"
+msgstr "Pregătit"
 
 #: ui/main_window.py:290
 msgid "Available options:"
@@ -181,34 +317,27 @@ msgstr "Opțiuni disponibile:"
 
 #: ui/main_window.py:310
 msgid "Install Soplos Linux on your computer"
-msgstr "Instalar Soplos Linux en su equipo"
+msgstr "Instalați Soplos Linux pe calculator"
 
 #: ui/main_window.py:311
 msgid "Rescue an existing installation via CHROOT"
-msgstr "Rescatar instalación existente vía CHROOT"
+msgstr "Recuperare instalare existentă via CHROOT"
 
 #: ui/main_window.py:312
 msgid "Change system language on the fly"
-msgstr "Schimbă limba sistemului din mers"
+msgstr "Schimbare limbă sistem din mers"
 
 #: ui/main_window.py:317
 msgid "Toggle NumLock for keyboards"
-msgstr "Comutare NumLock pentru tastaturi"
+msgstr "Setare NumLock (sistem instalat)"
 
 #: ui/main_window.py:343
-#, fuzzy
 msgid "Install Soplos Linux"
-msgstr "Instalează Liquorix"
-
-#: ui/main_window.py:358 ui/chroot_window.py:25
-#, fuzzy
-msgid "System Rescue"
-msgstr "Copii de Rezervă Sistem"
+msgstr "Instalare Soplos Linux"
 
 #: ui/main_window.py:363
-#, fuzzy
 msgid "Mount and repair an existing installation"
-msgstr "Se pregătește instalarea..."
+msgstr "Montare și reparare instalare existentă"
 
 #: ui/main_window.py:376
 msgid "Web"
@@ -224,12 +353,11 @@ msgstr "Wiki"
 
 #: ui/main_window.py:379
 msgid "Donate"
-msgstr "Donează"
+msgstr "Donații"
 
 #: ui/main_window.py:456
-#, fuzzy
 msgid "Show at startup"
-msgstr "Arată această aplicație la pornire"
+msgstr "Arată la pornire"
 
 #: ui/main_window.py:484
 msgid "NumLock on install"
@@ -242,7 +370,7 @@ msgstr "Activează/dezactivează NumLock în sistemul instalat"
 #: ui/main_window.py:526
 #, python-brace-format
 msgid "Ready - {desktop} on {protocol}"
-msgstr "Gata - {desktop} pe {protocol}"
+msgstr "Pregătit - {desktop} pe {protocol}"
 
 #: ui/main_window.py:618
 msgid "NumLock Enabled"
@@ -261,162 +389,42 @@ msgid ""
 "NumLock will NOT be activated in the installed system.\n"
 "Recommended for laptops without numeric keypad."
 msgstr ""
-
-#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
-#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
-#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
-#: ui/chroot_window.py:403 ui/chroot_window.py:474
-msgid "Error"
-msgstr "Eroare"
+"NumLock NU va fi activat în sistemul instalat.\n"
+"Recomandat pentru laptopuri fără tastatură numerică."
 
 #: ui/main_window.py:666
-#, fuzzy
 msgid "Configuring language..."
-msgstr "Schimbă Limba"
+msgstr "Se configurează limba..."
 
 #: ui/main_window.py:697
 msgid "Configuring system locale..."
-msgstr "Configurare localizare sistem..."
+msgstr "Se configurează setările regionale..."
 
 #: ui/main_window.py:701
 msgid "Applying user settings..."
-msgstr "Aplicare setări utilizator..."
+msgstr "Se aplică setările utilizatorului..."
 
 #: ui/main_window.py:705
 msgid "Migrating directories..."
-msgstr "Migrare directoare..."
+msgstr "Se migrează directoarele..."
 
 #: ui/main_window.py:713
 msgid "Restarting session..."
-msgstr "Repornire sesiune..."
+msgstr "Se repornește sesiunea..."
 
 #: ui/main_window.py:760
-#, fuzzy
 msgid "Installer Not Found"
-msgstr "Instalat"
+msgstr "Instalator Negăsit"
 
 #: ui/main_window.py:761
 msgid ""
 "The Calamares installer could not be found.\n"
 "Please install it or run the installation manually."
 msgstr ""
+"Instalatorul Calamares nu a putut fi găsit.\n"
+"Vă rugăm să îl instalați sau să rulați instalarea manual."
 
 #: ui/main_window.py:777
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not open System Rescue: {error}"
-msgstr "Nu s-a putut deschide site-ul web"
-
-#: ui/chroot_window.py:42
-msgid "Select disk to rescue"
-msgstr "Selectați discul pentru recuperare"
-
-#: ui/chroot_window.py:56 ui/chroot_window.py:185
-msgid "Device"
-msgstr ""
-
-#: ui/chroot_window.py:57 ui/chroot_window.py:186
-msgid "Size"
-msgstr ""
-
-#: ui/chroot_window.py:58
-#, fuzzy
-msgid "Model"
-msgstr "Model:"
-
-#: ui/chroot_window.py:69
-#, fuzzy
-msgid "Open GParted"
-msgstr "Începe"
-
-#: ui/chroot_window.py:78 ui/chroot_window.py:417
-msgid "Close"
-msgstr "Închide"
-
-#: ui/chroot_window.py:83
-msgid "Next"
-msgstr ""
-
-#: ui/chroot_window.py:101
-msgid "Error loading disks: {}"
-msgstr ""
-
-#: ui/chroot_window.py:123
-msgid "Please select a disk to continue."
-msgstr ""
-
-#: ui/chroot_window.py:139
-msgid "Error loading partitions: {}"
-msgstr ""
-
-#: ui/chroot_window.py:147
-msgid "Select Partitions"
-msgstr ""
-
-#: ui/chroot_window.py:166
-#, fuzzy
-msgid "No partitions found on this disk."
-msgstr "Nicio optimizare găsită"
-
-#: ui/chroot_window.py:173
-msgid "Assign mount points to partitions"
-msgstr ""
-
-#: ui/chroot_window.py:184
-msgid "Mount Point"
-msgstr ""
-
-#: ui/chroot_window.py:187
-#, fuzzy
-msgid "Filesystem"
-msgstr "Instrumente Sistem de Fișiere"
-
-#: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
-#, fuzzy
-msgid "Select option"
-msgstr "Selector Repo"
-
-#: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-msgid "Select subvolume"
-msgstr "Selectați subvolum"
-
-#: ui/chroot_window.py:394
-msgid "You must select a root partition (/)."
-msgstr ""
-
-#: ui/chroot_window.py:413
-#, fuzzy
-msgid "Mounting system..."
-msgstr "Sistem curent"
-
-#: ui/chroot_window.py:430 ui/chroot_window.py:446
-#, fuzzy
-msgid "Mounting partitions..."
-msgstr "Se configurează aplicația..."
-
-#: ui/chroot_window.py:452
-#, fuzzy
-msgid "Mounting virtual filesystems..."
-msgstr "Montare sisteme de fișiere virtuale..."
-
-#: ui/chroot_window.py:467
-msgid "Chroot started successfully in new terminal."
-msgstr "Chroot pornit cu succes în noul terminal."
-
-#: ui/chroot_window.py:508
-msgid "Invalid Linux System"
-msgstr "Sistem Linux Invalid"
-
-#: ui/chroot_window.py:509
-msgid ""
-"The mounted system does not appear to be a valid Linux installation. "
-"Essential files (like /bin/bash or /etc/fstab) are missing."
-msgstr ""
-
-#: ui/chroot_window.py:513
-#, fuzzy
-msgid "Mount Error"
-msgstr "Eroare"
-
-#: ui/chroot_window.py:514
-msgid "An error occurred while mounting the system: {}"
-msgstr ""
+msgstr "Nu s-a putut deschide Recuperarea de Sistem: {error}"

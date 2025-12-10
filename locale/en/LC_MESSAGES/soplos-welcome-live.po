@@ -1,66 +1,19 @@
 # English translation for Soplos Welcome Live
-# Copyright (C) 2024 Soplos Linux
-# This file is distributed under the GPL-3.0+ license.
-#
+# Copyright (C) 2025 Sergi Perich
+# This file is distributed under the same license as the soplos-welcome-live package.
 msgid ""
 msgstr ""
-"Project-Id-Version: soplos-welcome-live 2.0.0\n"
+"Project-Id-Version: soplos-welcome-live 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-10 09:15+0100\n"
-"PO-Revision-Date: 2024-12-07 12:00+0000\n"
-"Last-Translator: Soplos Team <info@soploslinux.com>\n"
-"Language-Team: English <en@li.org>\n"
+"POT-Creation-Date: 2025-12-10 13:05+0100\n"
+"PO-Revision-Date: 2025-12-06 21:33+0100\n"
+"Last-Translator: Sergi Perich <info@soploslinux.com>\n"
+"Language-Team: English <info@soploslinux.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: core/chroot_operations.py:67
-msgid "Unknown Device"
-msgstr "Unknown Device"
-
-#: core/chroot_operations.py:411
-#, fuzzy
-msgid "Unmounting"
-msgstr "Unmount"
-
-#: core/chroot_operations.py:426
-#, fuzzy
-msgid "Unmount completed"
-msgstr "Unmounted"
-
-#: core/chroot_operations.py:539
-msgid ""
-"The mounted system does not appear to be a valid Linux - essential files not "
-"found"
-msgstr ""
-
-#: core/chroot_operations.py:555
-msgid "CHROOT Recovery Environment"
-msgstr ""
-
-#: core/chroot_operations.py:556
-#, fuzzy
-msgid "Mount point contents:"
-msgstr "Mount Point"
-
-#: core/chroot_operations.py:557
-msgid "Type 'exit' or press Ctrl+D to leave"
-msgstr ""
-
-#: core/chroot_operations.py:581
-msgid "Cleaning up mounts..."
-msgstr ""
-
-#: core/chroot_operations.py:590
-msgid "Cleanup completed"
-msgstr ""
-
-#: core/chroot_operations.py:656
-msgid ""
-"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
-"gnome-terminal or ptyxis."
-msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: core/application.py:214 ui/main_window.py:72 ui/main_window.py:122
 msgid "Soplos Welcome Live"
@@ -68,15 +21,15 @@ msgstr "Soplos Welcome Live"
 
 #: core/application.py:257
 msgid "Preferences"
-msgstr ""
+msgstr "Preferences"
 
 #: core/application.py:258
 msgid "About"
-msgstr ""
+msgstr "About"
 
 #: core/application.py:259
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: core/application.py:310
 msgid ""
@@ -102,6 +55,27 @@ msgid ""
 "\n"
 "For more information, visit: https://soplos.org\n"
 msgstr ""
+"\n"
+"Soplos Welcome Live 2.0 - Live ISO Welcome Application\n"
+"\n"
+"Usage: soplos-welcome-live [OPTIONS]\n"
+"\n"
+"Options:\n"
+"  -h, --help              Show this help message\n"
+"  -v, --version           Show version information\n"
+"  --lang=LANG             Set language (es, en, fr, de, pt, it, ro, ru)\n"
+"  --theme=THEME           Set theme (base, light, dark)\n"
+"  --chroot                Open chroot mode directly\n"
+"  --debug                 Enable debug mode\n"
+"\n"
+"Examples:\n"
+"  soplos-welcome-live                    # Start with auto-detected "
+"settings\n"
+"  soplos-welcome-live --lang=es          # Start in Spanish\n"
+"  soplos-welcome-live --theme=dark       # Start with dark theme\n"
+"  soplos-welcome-live --chroot           # Open chroot mode\n"
+"\n"
+"For more information, visit: https://soplos.org\n"
 
 #: core/application.py:337
 #, python-brace-format
@@ -120,159 +94,91 @@ msgid ""
 "Theme: {theme}\n"
 "Language: {language}\n"
 msgstr ""
+"\n"
+"Soplos Welcome Live {version}\n"
+"\n"
+"Copyright (C) 2025 Sergi Perich\n"
+"This is free software; see the source for copying conditions.\n"
+"There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A "
+"PARTICULAR PURPOSE.\n"
+"\n"
+"Edition: {edition}\n"
+"Desktop Environment: {desktop_env}\n"
+"Display Protocol: {display_protocol}\n"
+"Theme: {theme}\n"
+"Language: {language}\n"
 
-#: ui/main_window.py:188
-msgid "Welcome to Soplos Linux"
-msgstr "Welcome to Soplos Linux"
+#: core/chroot_operations.py:67
+msgid "Unknown Device"
+msgstr "Unknown Device"
 
-#: ui/main_window.py:196
-msgid "Live Session"
-msgstr "Live Session"
+#: core/chroot_operations.py:411
+msgid "Unmounting"
+msgstr "Unmounting"
 
-#: ui/main_window.py:204
+#: core/chroot_operations.py:426
+msgid "Unmount completed"
+msgstr "Unmount completed"
+
+#: core/chroot_operations.py:539
 msgid ""
-"Explore the system, install Soplos Linux, or rescue an existing installation."
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
 msgstr ""
+"The mounted system does not appear to be a valid Linux - essential files not "
+"found"
 
-#: ui/main_window.py:241
-msgid "Ready"
+#: core/chroot_operations.py:555
+msgid "CHROOT Recovery Environment"
+msgstr "CHROOT Recovery Environment"
+
+#: core/chroot_operations.py:556
+msgid "Mount point contents:"
+msgstr "Mount point contents:"
+
+#: core/chroot_operations.py:557
+msgid "Type 'exit' or press Ctrl+D to leave"
+msgstr "Type 'exit' or press Ctrl+D to leave"
+
+#: core/chroot_operations.py:581
+msgid "Cleaning up mounts..."
+msgstr "Cleaning up mounts..."
+
+#: core/chroot_operations.py:590
+msgid "Cleanup completed"
+msgstr "Cleanup completed"
+
+#: core/chroot_operations.py:656
+msgid ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
 msgstr ""
+"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
+"gnome-terminal or ptyxis."
 
-#: ui/main_window.py:290
-msgid "Available options:"
-msgstr ""
+#: scripts/update-gtk-bookmarks.sh:21
+msgid "XFCE detected. Skipping GTK bookmark update."
+msgstr "XFCE detected. Skipping GTK bookmark update."
 
-#: ui/main_window.py:310
-#, fuzzy
-msgid "Install Soplos Linux on your computer"
-msgstr "Install Soplos Linux"
+#: scripts/update-gtk-bookmarks.sh:37
+msgid "No home directory found, skipping bookmark update"
+msgstr "No home directory found, skipping bookmark update"
 
-#: ui/main_window.py:311
-#, fuzzy
-msgid "Rescue an existing installation via CHROOT"
-msgstr "Mount and repair an existing installation"
+#: scripts/update-gtk-bookmarks.sh:51
+msgid "Updating GTK bookmarks from XDG directories..."
+msgstr "Updating GTK bookmarks from XDG directories..."
 
-#: ui/main_window.py:312
-msgid "Change system language on the fly"
-msgstr ""
+#: scripts/update-gtk-bookmarks.sh:77
+msgid "GTK bookmarks updated successfully"
+msgstr "GTK bookmarks updated successfully"
 
-#: ui/main_window.py:317
-msgid "Toggle NumLock for keyboards"
-msgstr ""
-
-#: ui/main_window.py:343
-msgid "Install Soplos Linux"
-msgstr "Install Soplos Linux"
-
-#: ui/main_window.py:358 ui/chroot_window.py:25
+#: ui/chroot_window.py:25 ui/main_window.py:358
 msgid "System Rescue"
 msgstr "System Rescue"
 
-#: ui/main_window.py:363
-msgid "Mount and repair an existing installation"
-msgstr "Mount and repair an existing installation"
-
-#: ui/main_window.py:376
-#, fuzzy
-msgid "Web"
-msgstr "Website"
-
-#: ui/main_window.py:377
-msgid "Forums"
-msgstr "Forums"
-
-#: ui/main_window.py:378
-msgid "Wiki"
-msgstr "Wiki"
-
-#: ui/main_window.py:379
-msgid "Donate"
-msgstr "Donate"
-
-#: ui/main_window.py:456
-msgid "Show at startup"
-msgstr "Show at startup"
-
-#: ui/main_window.py:484
-msgid "NumLock on install"
-msgstr ""
-
-#: ui/main_window.py:491
-msgid "Enable/disable NumLock activation in installed system"
-msgstr ""
-
-#: ui/main_window.py:526
-#, python-brace-format
-msgid "Ready - {desktop} on {protocol}"
-msgstr ""
-
-#: ui/main_window.py:618
-msgid "NumLock Enabled"
-msgstr ""
-
-#: ui/main_window.py:619
-msgid "NumLock will be activated automatically in the installed system."
-msgstr ""
-
-#: ui/main_window.py:625
-msgid "NumLock Disabled"
-msgstr ""
-
-#: ui/main_window.py:626
-msgid ""
-"NumLock will NOT be activated in the installed system.\n"
-"Recommended for laptops without numeric keypad."
-msgstr ""
-
-#: ui/main_window.py:631 ui/main_window.py:724 ui/main_window.py:766
-#: ui/main_window.py:776 ui/chroot_window.py:100 ui/chroot_window.py:112
-#: ui/chroot_window.py:122 ui/chroot_window.py:138 ui/chroot_window.py:393
-#: ui/chroot_window.py:403 ui/chroot_window.py:474
-msgid "Error"
-msgstr "Error"
-
-#: ui/main_window.py:666
-#, fuzzy
-msgid "Configuring language..."
-msgstr "Changing language..."
-
-#: ui/main_window.py:697
-msgid "Configuring system locale..."
-msgstr ""
-
-#: ui/main_window.py:701
-msgid "Applying user settings..."
-msgstr ""
-
-#: ui/main_window.py:705
-msgid "Migrating directories..."
-msgstr ""
-
-#: ui/main_window.py:713
-msgid "Restarting session..."
-msgstr ""
-
-#: ui/main_window.py:760
-msgid "Installer Not Found"
-msgstr "Installer Not Found"
-
-#: ui/main_window.py:761
-msgid ""
-"The Calamares installer could not be found.\n"
-"Please install it or run the installation manually."
-msgstr ""
-"The Calamares installer could not be found.\n"
-"Please install it or run the installation manually."
-
-#: ui/main_window.py:777
-#, python-brace-format
-msgid "Could not open System Rescue: {error}"
-msgstr "Could not open System Rescue: {error}"
-
 #: ui/chroot_window.py:42
-#, fuzzy
 msgid "Select disk to rescue"
-msgstr "Please select a disk to continue."
+msgstr "Select disk to rescue"
 
 #: ui/chroot_window.py:56 ui/chroot_window.py:185
 msgid "Device"
@@ -298,28 +204,32 @@ msgstr "Close"
 msgid "Next"
 msgstr "Next"
 
+#: ui/chroot_window.py:100 ui/chroot_window.py:112 ui/chroot_window.py:122
+#: ui/chroot_window.py:138 ui/chroot_window.py:393 ui/chroot_window.py:403
+#: ui/chroot_window.py:474 ui/main_window.py:631 ui/main_window.py:724
+#: ui/main_window.py:766 ui/main_window.py:776
+msgid "Error"
+msgstr "Error"
+
 #: ui/chroot_window.py:101
-#, fuzzy
 msgid "Error loading disks: {}"
-msgstr "Error loading partitions: {error}"
+msgstr "Error loading disks: {}"
 
 #: ui/chroot_window.py:123
 msgid "Please select a disk to continue."
 msgstr "Please select a disk to continue."
 
 #: ui/chroot_window.py:139
-#, fuzzy
 msgid "Error loading partitions: {}"
-msgstr "Error loading partitions: {error}"
+msgstr "Error loading partitions: {}"
 
 #: ui/chroot_window.py:147
 msgid "Select Partitions"
 msgstr "Select Partitions"
 
 #: ui/chroot_window.py:166
-#, fuzzy
 msgid "No partitions found on this disk."
-msgstr "No mountable partitions found on this disk."
+msgstr "No partitions found on this disk."
 
 #: ui/chroot_window.py:173
 msgid "Assign mount points to partitions"
@@ -334,53 +244,185 @@ msgid "Filesystem"
 msgstr "Filesystem"
 
 #: ui/chroot_window.py:206 ui/chroot_window.py:277 ui/chroot_window.py:351
-#, fuzzy
 msgid "Select option"
-msgstr "Select Partitions"
+msgstr "Select option"
 
 #: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-#, fuzzy
 msgid "Select subvolume"
-msgstr "subvolume"
+msgstr "Select subvolume"
 
 #: ui/chroot_window.py:394
-#, fuzzy
 msgid "You must select a root partition (/)."
-msgstr "You must select a partition for the root (/) mount point."
+msgstr "You must select a root partition (/)."
 
 #: ui/chroot_window.py:413
-#, fuzzy
 msgid "Mounting system..."
-msgstr "Unmount System?"
+msgstr "Mounting system..."
 
 #: ui/chroot_window.py:430 ui/chroot_window.py:446
-#, fuzzy
 msgid "Mounting partitions..."
-msgstr "Assign mount points to partitions"
+msgstr "Mounting partitions..."
 
 #: ui/chroot_window.py:452
 msgid "Mounting virtual filesystems..."
-msgstr ""
+msgstr "Mounting virtual filesystems..."
 
 #: ui/chroot_window.py:467
 msgid "Chroot started successfully in new terminal."
-msgstr ""
+msgstr "Chroot started successfully in new terminal."
 
 #: ui/chroot_window.py:508
 msgid "Invalid Linux System"
-msgstr ""
+msgstr "Invalid Linux System"
 
 #: ui/chroot_window.py:509
 msgid ""
 "The mounted system does not appear to be a valid Linux installation. "
 "Essential files (like /bin/bash or /etc/fstab) are missing."
 msgstr ""
+"The mounted system does not appear to be a valid Linux installation. "
+"Essential files (like /bin/bash or /etc/fstab) are missing."
 
 #: ui/chroot_window.py:513
-#, fuzzy
 msgid "Mount Error"
-msgstr "Mount Point"
+msgstr "Mount Error"
 
 #: ui/chroot_window.py:514
 msgid "An error occurred while mounting the system: {}"
+msgstr "An error occurred while mounting the system: {}"
+
+#: ui/main_window.py:188
+msgid "Welcome to Soplos Linux"
+msgstr "Welcome to Soplos Linux"
+
+#: ui/main_window.py:196
+msgid "Live Session"
+msgstr "Live Session"
+
+#: ui/main_window.py:204
+msgid ""
+"Explore the system, install Soplos Linux, or rescue an existing installation."
 msgstr ""
+"Explore the system, install Soplos Linux, or rescue an existing installation."
+
+#: ui/main_window.py:241
+msgid "Ready"
+msgstr "Ready"
+
+#: ui/main_window.py:290
+msgid "Available options:"
+msgstr "Available options:"
+
+#: ui/main_window.py:310
+msgid "Install Soplos Linux on your computer"
+msgstr "Install Soplos Linux on your computer"
+
+#: ui/main_window.py:311
+msgid "Rescue an existing installation via CHROOT"
+msgstr "Rescue an existing installation via CHROOT"
+
+#: ui/main_window.py:312
+msgid "Change system language on the fly"
+msgstr "Change system language on the fly"
+
+#: ui/main_window.py:317
+msgid "Toggle NumLock for keyboards"
+msgstr "Toggle NumLock for keyboards"
+
+#: ui/main_window.py:343
+msgid "Install Soplos Linux"
+msgstr "Install Soplos Linux"
+
+#: ui/main_window.py:363
+msgid "Mount and repair an existing installation"
+msgstr "Mount and repair an existing installation"
+
+#: ui/main_window.py:376
+msgid "Web"
+msgstr "Web"
+
+#: ui/main_window.py:377
+msgid "Forums"
+msgstr "Forums"
+
+#: ui/main_window.py:378
+msgid "Wiki"
+msgstr "Wiki"
+
+#: ui/main_window.py:379
+msgid "Donate"
+msgstr "Donate"
+
+#: ui/main_window.py:456
+msgid "Show at startup"
+msgstr "Show at startup"
+
+#: ui/main_window.py:484
+msgid "NumLock on install"
+msgstr "NumLock on install"
+
+#: ui/main_window.py:491
+msgid "Enable/disable NumLock activation in installed system"
+msgstr "Enable/disable NumLock activation in installed system"
+
+#: ui/main_window.py:526
+#, python-brace-format
+msgid "Ready - {desktop} on {protocol}"
+msgstr "Ready - {desktop} on {protocol}"
+
+#: ui/main_window.py:618
+msgid "NumLock Enabled"
+msgstr "NumLock Enabled"
+
+#: ui/main_window.py:619
+msgid "NumLock will be activated automatically in the installed system."
+msgstr "NumLock will be activated automatically in the installed system."
+
+#: ui/main_window.py:625
+msgid "NumLock Disabled"
+msgstr "NumLock Disabled"
+
+#: ui/main_window.py:626
+msgid ""
+"NumLock will NOT be activated in the installed system.\n"
+"Recommended for laptops without numeric keypad."
+msgstr ""
+"NumLock will NOT be activated in the installed system.\n"
+"Recommended for laptops without numeric keypad."
+
+#: ui/main_window.py:666
+msgid "Configuring language..."
+msgstr "Configuring language..."
+
+#: ui/main_window.py:697
+msgid "Configuring system locale..."
+msgstr "Configuring system locale..."
+
+#: ui/main_window.py:701
+msgid "Applying user settings..."
+msgstr "Applying user settings..."
+
+#: ui/main_window.py:705
+msgid "Migrating directories..."
+msgstr "Migrating directories..."
+
+#: ui/main_window.py:713
+msgid "Restarting session..."
+msgstr "Restarting session..."
+
+#: ui/main_window.py:760
+msgid "Installer Not Found"
+msgstr "Installer Not Found"
+
+#: ui/main_window.py:761
+msgid ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+msgstr ""
+"The Calamares installer could not be found.\n"
+"Please install it or run the installation manually."
+
+#: ui/main_window.py:777
+#, python-brace-format
+msgid "Could not open System Rescue: {error}"
+msgstr "Could not open System Rescue: {error}"
