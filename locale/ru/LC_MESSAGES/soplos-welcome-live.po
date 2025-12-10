@@ -25,12 +25,11 @@ msgstr "Неизвестно"
 
 #: core/chroot_operations.py:411
 msgid "Unmounting"
-msgstr ""
+msgstr "Desmontando"
 
 #: core/chroot_operations.py:426
-#, fuzzy
 msgid "Unmount completed"
-msgstr "Сканирование завершено"
+msgstr "Desmontaje completado"
 
 #: core/chroot_operations.py:539
 msgid ""
@@ -180,27 +179,24 @@ msgid "Ready"
 msgstr "Готово"
 
 #: ui/main_window.py:290
-#, fuzzy
 msgid "Available options:"
-msgstr "Доступные обновления"
+msgstr "Доступные опции:"
 
 #: ui/main_window.py:310
-#, fuzzy
 msgid "Install Soplos Linux on your computer"
-msgstr "Установить Liquorix"
+msgstr "Instalar Soplos Linux en su equipo"
 
 #: ui/main_window.py:311
-#, fuzzy
 msgid "Rescue an existing installation via CHROOT"
-msgstr "Подготовка к установке..."
+msgstr "Rescatar instalación existente vía CHROOT"
 
 #: ui/main_window.py:312
 msgid "Change system language on the fly"
-msgstr ""
+msgstr "Сменить язык системы на лету"
 
 #: ui/main_window.py:317
 msgid "Toggle NumLock for keyboards"
-msgstr ""
+msgstr "Переключить NumLock"
 
 #: ui/main_window.py:343
 #, fuzzy
@@ -219,7 +215,7 @@ msgstr "Подготовка к установке..."
 
 #: ui/main_window.py:376
 msgid "Web"
-msgstr "Веб"
+msgstr "Web"
 
 #: ui/main_window.py:377
 msgid "Forums"
@@ -239,13 +235,12 @@ msgid "Show at startup"
 msgstr "Показывать это приложение при запуске"
 
 #: ui/main_window.py:484
-#, fuzzy
 msgid "NumLock on install"
-msgstr "Пакеты для установки:"
+msgstr "NumLock при установке"
 
 #: ui/main_window.py:491
 msgid "Enable/disable NumLock activation in installed system"
-msgstr ""
+msgstr "Включить/выключить NumLock в установленной системе"
 
 #: ui/main_window.py:526
 #, python-brace-format
@@ -254,15 +249,15 @@ msgstr "Готово - {desktop} на {protocol}"
 
 #: ui/main_window.py:618
 msgid "NumLock Enabled"
-msgstr ""
+msgstr "NumLock Включен"
 
 #: ui/main_window.py:619
 msgid "NumLock will be activated automatically in the installed system."
-msgstr ""
+msgstr "NumLock будет включен автоматически."
 
 #: ui/main_window.py:625
 msgid "NumLock Disabled"
-msgstr ""
+msgstr "NumLock Выключен"
 
 #: ui/main_window.py:626
 msgid ""
@@ -283,23 +278,20 @@ msgid "Configuring language..."
 msgstr "Изменить язык"
 
 #: ui/main_window.py:697
-#, fuzzy
 msgid "Configuring system locale..."
-msgstr "Настройка приложения..."
+msgstr "Настройка языка системы..."
 
 #: ui/main_window.py:701
-#, fuzzy
 msgid "Applying user settings..."
-msgstr "Все параметры системы"
+msgstr "Применение настроек пользователя..."
 
 #: ui/main_window.py:705
 msgid "Migrating directories..."
-msgstr ""
+msgstr "Миграция каталогов..."
 
 #: ui/main_window.py:713
-#, fuzzy
 msgid "Restarting session..."
-msgstr "Запуск..."
+msgstr "Перезапуск сеанса..."
 
 #: ui/main_window.py:760
 #, fuzzy
@@ -319,7 +311,7 @@ msgstr "Не удалось открыть веб-сайт"
 
 #: ui/chroot_window.py:42
 msgid "Select disk to rescue"
-msgstr ""
+msgstr "Выберите диск для восстановления"
 
 #: ui/chroot_window.py:56 ui/chroot_window.py:185
 msgid "Device"
@@ -387,9 +379,8 @@ msgid "Select option"
 msgstr "Выбор репозитория"
 
 #: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-#, fuzzy
 msgid "Select subvolume"
-msgstr "Выбрать все"
+msgstr "Выберите подтом"
 
 #: ui/chroot_window.py:394
 msgid "You must select a root partition (/)."

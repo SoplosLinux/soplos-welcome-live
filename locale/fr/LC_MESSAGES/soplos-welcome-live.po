@@ -24,12 +24,11 @@ msgstr "Inconnu"
 
 #: core/chroot_operations.py:411
 msgid "Unmounting"
-msgstr ""
+msgstr "Desmontando"
 
 #: core/chroot_operations.py:426
-#, fuzzy
 msgid "Unmount completed"
-msgstr "Analyse terminée"
+msgstr "Desmontaje completado"
 
 #: core/chroot_operations.py:539
 msgid ""
@@ -180,27 +179,24 @@ msgid "Ready"
 msgstr "Prêt"
 
 #: ui/main_window.py:290
-#, fuzzy
 msgid "Available options:"
-msgstr "Mises à jour disponibles"
+msgstr "Options disponibles :"
 
 #: ui/main_window.py:310
-#, fuzzy
 msgid "Install Soplos Linux on your computer"
-msgstr "Installer Liquorix"
+msgstr "Instalar Soplos Linux en su equipo"
 
 #: ui/main_window.py:311
-#, fuzzy
 msgid "Rescue an existing installation via CHROOT"
-msgstr "Préparation de l'installation..."
+msgstr "Rescatar instalación existente vía CHROOT"
 
 #: ui/main_window.py:312
 msgid "Change system language on the fly"
-msgstr ""
+msgstr "Changer la langue du système à la volée"
 
 #: ui/main_window.py:317
 msgid "Toggle NumLock for keyboards"
-msgstr ""
+msgstr "Basculer Verr Num pour les claviers"
 
 #: ui/main_window.py:343
 #, fuzzy
@@ -239,13 +235,12 @@ msgid "Show at startup"
 msgstr "Afficher cette application au démarrage"
 
 #: ui/main_window.py:484
-#, fuzzy
 msgid "NumLock on install"
-msgstr "Paquets à installer :"
+msgstr "Verr Num à l'installation"
 
 #: ui/main_window.py:491
 msgid "Enable/disable NumLock activation in installed system"
-msgstr ""
+msgstr "Activer/désactiver Verr Num sur le système installé"
 
 #: ui/main_window.py:526
 #, python-brace-format
@@ -254,15 +249,15 @@ msgstr "Prêt - {desktop} sur {protocol}"
 
 #: ui/main_window.py:618
 msgid "NumLock Enabled"
-msgstr ""
+msgstr "Verr Num Activé"
 
 #: ui/main_window.py:619
 msgid "NumLock will be activated automatically in the installed system."
-msgstr ""
+msgstr "Verr Num sera activé automatiquement sur le système installé."
 
 #: ui/main_window.py:625
 msgid "NumLock Disabled"
-msgstr ""
+msgstr "Verr Num Désactivé"
 
 #: ui/main_window.py:626
 msgid ""
@@ -283,23 +278,20 @@ msgid "Configuring language..."
 msgstr "Changer la langue"
 
 #: ui/main_window.py:697
-#, fuzzy
 msgid "Configuring system locale..."
-msgstr "Configuration de l'application..."
+msgstr "Configuration de la langue du système..."
 
 #: ui/main_window.py:701
-#, fuzzy
 msgid "Applying user settings..."
-msgstr "Tous les paramètres système"
+msgstr "Application des paramètres utilisateur..."
 
 #: ui/main_window.py:705
 msgid "Migrating directories..."
-msgstr ""
+msgstr "Migration des répertoires..."
 
 #: ui/main_window.py:713
-#, fuzzy
 msgid "Restarting session..."
-msgstr "Démarrage..."
+msgstr "Redémarrage de la session..."
 
 #: ui/main_window.py:760
 #, fuzzy
@@ -319,7 +311,7 @@ msgstr "Impossible d'ouvrir le site web"
 
 #: ui/chroot_window.py:42
 msgid "Select disk to rescue"
-msgstr ""
+msgstr "Sélectionner le disque à secourir"
 
 #: ui/chroot_window.py:56 ui/chroot_window.py:185
 msgid "Device"
@@ -387,9 +379,8 @@ msgid "Select option"
 msgstr "Sélecteur de dépôts"
 
 #: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-#, fuzzy
 msgid "Select subvolume"
-msgstr "Tout sélectionner"
+msgstr "Sélectionner le sous-volume"
 
 #: ui/chroot_window.py:394
 msgid "You must select a root partition (/)."

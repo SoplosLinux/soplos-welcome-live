@@ -20,14 +20,12 @@ msgid "Unknown Device"
 msgstr "Dispositivo Desconocido"
 
 #: core/chroot_operations.py:411
-#, fuzzy
 msgid "Unmounting"
-msgstr "Desmontar"
+msgstr "Desmontando"
 
 #: core/chroot_operations.py:426
-#, fuzzy
 msgid "Unmount completed"
-msgstr "Desmontado"
+msgstr "Desmontaje completado"
 
 #: core/chroot_operations.py:539
 msgid ""
@@ -68,15 +66,15 @@ msgstr "Soplos Welcome Live"
 
 #: core/application.py:257
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: core/application.py:258
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: core/application.py:259
 msgid "Quit"
-msgstr ""
+msgstr "Salir"
 
 #: core/application.py:310
 msgid ""
@@ -136,29 +134,27 @@ msgstr ""
 
 #: ui/main_window.py:241
 msgid "Ready"
-msgstr ""
+msgstr "Listo"
 
 #: ui/main_window.py:290
 msgid "Available options:"
-msgstr ""
+msgstr "Opciones disponibles:"
 
 #: ui/main_window.py:310
-#, fuzzy
 msgid "Install Soplos Linux on your computer"
-msgstr "Instalar Soplos Linux"
+msgstr "Instalar Soplos Linux en su equipo"
 
 #: ui/main_window.py:311
-#, fuzzy
 msgid "Rescue an existing installation via CHROOT"
-msgstr "Montar y reparar una instalación existente"
+msgstr "Rescatar instalación existente vía CHROOT"
 
 #: ui/main_window.py:312
 msgid "Change system language on the fly"
-msgstr ""
+msgstr "Cambiar idioma del sistema al vuelo"
 
 #: ui/main_window.py:317
 msgid "Toggle NumLock for keyboards"
-msgstr ""
+msgstr "Alternar NumLock para teclados"
 
 #: ui/main_window.py:343
 msgid "Install Soplos Linux"
@@ -173,9 +169,8 @@ msgid "Mount and repair an existing installation"
 msgstr "Montar y reparar una instalación existente"
 
 #: ui/main_window.py:376
-#, fuzzy
 msgid "Web"
-msgstr "Sitio Web"
+msgstr "Web"
 
 #: ui/main_window.py:377
 msgid "Forums"
@@ -195,28 +190,28 @@ msgstr "Mostrar al inicio"
 
 #: ui/main_window.py:484
 msgid "NumLock on install"
-msgstr ""
+msgstr "NumLock en instalación"
 
 #: ui/main_window.py:491
 msgid "Enable/disable NumLock activation in installed system"
-msgstr ""
+msgstr "Activar/desactivar NumLock en el sistema instalado"
 
 #: ui/main_window.py:526
 #, python-brace-format
 msgid "Ready - {desktop} on {protocol}"
-msgstr ""
+msgstr "Listo - {desktop} en {protocol}"
 
 #: ui/main_window.py:618
 msgid "NumLock Enabled"
-msgstr ""
+msgstr "NumLock Activado"
 
 #: ui/main_window.py:619
 msgid "NumLock will be activated automatically in the installed system."
-msgstr ""
+msgstr "NumLock se activará automáticamente en el sistema instalado."
 
 #: ui/main_window.py:625
 msgid "NumLock Disabled"
-msgstr ""
+msgstr "NumLock Desactivado"
 
 #: ui/main_window.py:626
 msgid ""
@@ -238,19 +233,19 @@ msgstr "Cambiando idioma..."
 
 #: ui/main_window.py:697
 msgid "Configuring system locale..."
-msgstr ""
+msgstr "Configurando idioma del sistema..."
 
 #: ui/main_window.py:701
 msgid "Applying user settings..."
-msgstr ""
+msgstr "Aplicando configuración de usuario..."
 
 #: ui/main_window.py:705
 msgid "Migrating directories..."
-msgstr ""
+msgstr "Migrando directorios..."
 
 #: ui/main_window.py:713
 msgid "Restarting session..."
-msgstr ""
+msgstr "Reiniciando sesión..."
 
 #: ui/main_window.py:760
 msgid "Installer Not Found"
@@ -270,9 +265,8 @@ msgid "Could not open System Rescue: {error}"
 msgstr "No se pudo abrir Rescate del Sistema: {error}"
 
 #: ui/chroot_window.py:42
-#, fuzzy
 msgid "Select disk to rescue"
-msgstr "Por favor seleccione un disco para continuar."
+msgstr "Seleccionar disco a rescatar"
 
 #: ui/chroot_window.py:56 ui/chroot_window.py:185
 msgid "Device"
@@ -339,9 +333,8 @@ msgid "Select option"
 msgstr "Seleccionar Particiones"
 
 #: ui/chroot_window.py:312 ui/chroot_window.py:336 ui/chroot_window.py:359
-#, fuzzy
 msgid "Select subvolume"
-msgstr "subvolumen"
+msgstr "Seleccionar subvolumen"
 
 #: ui/chroot_window.py:394
 #, fuzzy
