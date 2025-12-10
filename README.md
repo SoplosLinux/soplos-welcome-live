@@ -112,6 +112,11 @@ Contact: info@soploslinux.com
 	- Improved detection and setting of resolutions on GNOME Wayland (GDK-first detection with a robust D-Bus fallback).
 	- Avoids incorrect virtual/guest modes at startup, chooses best available refresh rate, and applies temporary monitor changes suitable for Live ISO usage.
 
+#### Patch - 2025-12-10
+- Restored **Legacy Chroot Functionality**: Robust unmount script, exact mount sequence, and strict system validation.
+- **Cross-DE Terminal Support**: Specific terminal priority lists for XFCE, Plasma, and GNOME (Kitty, Konsole, Gnome-Term).
+- **UI Restoration**: Detailed progress dialogs and window footer visibility restored.
+
 ### v1.1.2 (2025-11-29)
 - Universal disk detection in CHROOT (all hardware/VM types)
 - Fixed indentation errors in core modules

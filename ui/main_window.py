@@ -534,6 +534,11 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # Right: Version
         version_label = Gtk.Label(label=f"Soplos Welcome Live v{__version__}")
+        version_label.set_halign(Gtk.Align.END)
+        version_label.get_style_context().add_class('dim-label')
+        status_box.pack_end(version_label, False, False, 0)
+        
+        parent.pack_end(status_box, False, False, 0)
 
     def _debug_print_switches(self):
         """Diagnostic: print allocation and style info for switches."""
@@ -585,11 +590,7 @@ class MainWindow(Gtk.ApplicationWindow):
         except Exception as e:
             print(f"[DIAG] Error in _debug_print_switches: {e}")
         return False
-        version_label.set_halign(Gtk.Align.END)
-        version_label.get_style_context().add_class('dim-label')
-        status_box.pack_end(version_label, False, False, 0)
         
-        parent.pack_end(status_box, False, False, 0)
     
     # ==================== Helper Methods ====================
     

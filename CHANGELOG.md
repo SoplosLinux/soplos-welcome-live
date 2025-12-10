@@ -48,7 +48,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 	 - Added GDK-first fallback to reliably detect the actual screen geometry at startup (avoids incorrect VM/guest mode detection such as `RHT`).
 	 - Safer `ApplyMonitorsConfig` usage: pass empty property maps for monitor props to satisfy D-Bus signatures, increased D-Bus timeout to 5s, and prefer temporary apply method in Live ISOs.
 	 - Selects best refresh rate when multiple modes match the requested resolution; improved error handling and debug logging.
+	 - Selects best refresh rate when multiple modes match the requested resolution; improved error handling and debug logging.
 
+### 🩹 Patch - 2025-12-10
+- **Restored Legacy Chroot Logic**: Re-implemented the robust unmount script (`safe_umount`) and exact mount sequence (Clean -> Mount -> Virtuals -> Validate) from legacy Tyron/Tyson versions.
+- **Cross-DE Terminal Support**: Implemented logic to detect Desktop Environment (XFCE, Plasma, GNOME) and launch the appropriate terminal based on specific priority lists (e.g., Kitty/Xfce4-terminal for XFCE, Konsole for Plasma).
+- **UI Restoration**: Restored the detailed Chroot progress dialog and the window footer/buttons layout to match the legacy experience.
+- **System Validation**: Re-enabled strict system validation checks to ensure only valid Linux systems are chrooted.
 ---
 
 ## [1.1.2] - 2025-11-29

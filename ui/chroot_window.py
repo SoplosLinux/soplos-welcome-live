@@ -1,84 +1,54 @@
-"""
-ChRoot Window for Soplos Welcome Live.
-Provides system rescue functionality - mount and access existing Linux installations.
-"""
-
 import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk, GLib
-
 import os
-import sys
 import subprocess
+import shutil
+import sys
 from pathlib import Path
-from typing import Optional, List, Dict
 
+# Add the root directory to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.i18n_manager import _
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, GLib
 from core.chroot_operations import SystemOperations
+from core.i18n_manager import _
 from ui import CSS_CLASSES
 
+# Disable accessibility warnings
+os.environ['NO_AT_BRIDGE'] = '1'
 
 class ChRootWindow(Gtk.Window):
-    """
-    System rescue window for mounting and accessing existing installations.
-    Supports btrfs subvolumes and standard partition layouts.
-    """
-    
-    def __init__(self, parent_window: Optional[Gtk.Window] = None):
-        """Initialize the ChRoot window."""
-        super().__init__(title=_("System Rescue"))
+    def __init__(self, parent=None):
+        # Clean pycache before initializing
+        self.clean_pycache()
         
-        self.parent_window = parent_window
-        
-        if parent_window:
-            self.set_transient_for(parent_window)
-            self.set_modal(True)
-        
+        Gtk.Window.__init__(self, title=_("System Rescue"))
         self.set_default_size(650, 450)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_border_width(10)
         
-        # Initialize system operations
+        if parent:
+            self.set_transient_for(parent)
+            self.set_modal(True)
+        
         self.sys_ops = SystemOperations()
         
-        # Current state
-        self.selected_disk = None
-        self.partition_combos = {}
-        self.btrfs_subvol_combos = {}
-        self.current_partitions = []
-        
-        # Create UI
-        self._create_ui()
-        
-        # Load disks
-        self.load_disks()
-    
-    def _create_ui(self):
-        """Create the user interface."""
+        # Main container
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(main_box)
         
-        # Title
+        # Title label
         title_label = Gtk.Label()
-        title_label.set_text(_('System Rescue'))
-        title_label.get_style_context().add_class(CSS_CLASSES['dialog_title'])
-        main_box.pack_start(title_label, False, False, 5)
-        
-        # Description
-        desc_label = Gtk.Label(label=_("Select a disk to mount an existing Linux installation for rescue or repair."))
-        desc_label.set_line_wrap(True)
-        main_box.pack_start(desc_label, False, False, 5)
+        title_label.set_markup(f"<span size='large' weight='bold'>{_('Select disk to rescue')}</span>")
+        title_label.get_style_context().add_class(CSS_CLASSES.get('dialog_title', 'dialog-title'))
+        main_box.pack_start(title_label, False, False, 10)
         
         # Disk list
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-        scrolled.set_min_content_height(150)
         main_box.pack_start(scrolled, True, True, 0)
         
-        # Disk store: Device, Size, Model
-        self.disks_store = Gtk.ListStore(str, str, str)
+        self.disks_store = Gtk.ListStore(str, str, str)  # Device, Size, Model
         self.disks_view = Gtk.TreeView(model=self.disks_store)
         
         # Columns
@@ -91,95 +61,92 @@ class ChRootWindow(Gtk.Window):
         for title, col_id in columns:
             renderer = Gtk.CellRendererText()
             column = Gtk.TreeViewColumn(title, renderer, text=col_id)
-            column.set_resizable(True)
             self.disks_view.append_column(column)
         
         scrolled.add(self.disks_view)
         
-        # GParted button
-        gparted_btn = Gtk.Button(label=_("Open GParted"))
-        gparted_btn.connect("clicked", self._on_gparted_clicked)
-        gparted_btn.set_tooltip_text(_("Open GParted partition editor"))
-        main_box.pack_start(gparted_btn, False, False, 0)
+        # GParted Button
+        gparted_button = Gtk.Button(label=_("Open GParted"))
+        gparted_button.set_use_underline(True)
+        gparted_button.connect("clicked", self.on_gparted_clicked)
+        main_box.pack_start(gparted_button, False, False, 0)
         
-        # Button row
+        # Bottom buttons
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         main_box.pack_start(button_box, False, False, 0)
         
-        # Close button
-        close_btn = Gtk.Button(label=_("Close"))
-        close_btn.connect("clicked", self._on_close_clicked)
-        button_box.pack_start(close_btn, True, True, 0)
+        close_button = Gtk.Button(label=_("Close"))
+        close_button.set_use_underline(True)
+        close_button.connect("clicked", self.on_close_clicked)
+        button_box.pack_start(close_button, True, True, 0)
         
-        # Next button
-        next_btn = Gtk.Button(label=_("Next"))
-        next_btn.connect("clicked", self._on_next_clicked)
-        next_btn.get_style_context().add_class('suggested-action')
-        button_box.pack_start(next_btn, True, True, 0)
+        next_button = Gtk.Button(label=_("Next"))
+        next_button.set_use_underline(True)
+        next_button.connect("clicked", self.on_next_clicked)
+        next_button.get_style_context().add_class(CSS_CLASSES.get('suggested_action', 'suggested-action'))
+        button_box.pack_start(next_button, True, True, 0)
+        
+        # Load disks
+        self.load_disks()
     
     def load_disks(self):
-        """Load available disks into the list."""
+        """Loads the list of disks"""
         try:
             self.disks_store.clear()
-            disks = self.sys_ops.get_disks()
-            
-            for device, size, model in disks:
+            for device, size, model in self.sys_ops.get_disks():
                 self.disks_store.append([device, size, model])
-            
-            if not disks:
-                self._show_message(
-                    _("No Disks Found"),
-                    _("No disk devices were found on this system."),
-                    Gtk.MessageType.WARNING
-                )
         except Exception as e:
-            self._show_message(
+            self.show_error(
                 _("Error"),
-                _("Error loading disks: {error}").format(error=str(e)),
-                Gtk.MessageType.ERROR
+                _("Error loading disks: {}").format(str(e))
             )
     
-    def _on_gparted_clicked(self, button):
-        """Open GParted."""
+    def on_gparted_clicked(self, button):
+        """Executes GParted"""
         try:
-            subprocess.Popen(['pkexec', '/usr/sbin/gparted'],
+            # Run GParted directly with pkexec
+            subprocess.Popen(['pkexec', '/usr/sbin/gparted'], 
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL)
         except Exception as e:
-            self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
+            self.show_error(_("Error"), str(e))
     
-    def _on_next_clicked(self, button):
-        """Proceed to partition selection."""
+    def on_next_clicked(self, button):
+        """Proceeds to the next step"""
         selection = self.disks_view.get_selection()
         model, iter = selection.get_selected()
         
+        # Error messages
         if iter is None:
-            self._show_message(
-                _("No Selection"),
-                _("Please select a disk to continue."),
-                Gtk.MessageType.WARNING
+            self.show_error(
+                _("Error"),
+                _("Please select a disk to continue.")
             )
             return
         
-        self.selected_disk = model[iter][0]
+        selected_disk = model[iter][0]
+        # print(f"DEBUG: Selected disk: {selected_disk}")
         
         try:
-            partitions = self.sys_ops.get_disk_partitions(self.selected_disk)
-            self.current_partitions = partitions
-            self._show_partitions_dialog(partitions)
+            # Get disk partitions
+            partitions = self.sys_ops.get_disk_partitions(selected_disk)
+            
+            # Show partitions selection dialog
+            self.show_partitions_dialog(partitions)
         except Exception as e:
-            self._show_message(
+            self.show_error(
                 _("Error"),
-                _("Error loading partitions: {error}").format(error=str(e)),
-                Gtk.MessageType.ERROR
+                _("Error loading partitions: {}").format(str(e))
             )
     
-    def _show_partitions_dialog(self, partitions: List[Dict]):
-        """Show dialog for partition selection."""
+    def show_partitions_dialog(self, partitions):
+        """Show dialog for partition selection with btrfs support and filtered options"""
+        self.current_partitions = partitions
+        
         dialog = Gtk.Dialog(
             title=_("Select Partitions"),
             parent=self,
-            flags=Gtk.DialogFlags.MODAL,
+            flags=0,
             buttons=(
                 Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
                 Gtk.STOCK_OK, Gtk.ResponseType.OK
@@ -187,293 +154,372 @@ class ChRootWindow(Gtk.Window):
         )
         dialog.set_default_size(600, 500)
         
+        # Configure Alt+key shortcuts for dialog buttons
+        for button in dialog.get_action_area().get_children():
+            button.set_use_underline(True)
+        
         box = dialog.get_content_area()
         box.set_spacing(10)
         box.set_border_width(10)
         
         if not partitions:
-            label = Gtk.Label(label=_("No mountable partitions found on this disk."))
+            label = Gtk.Label(label=_("No partitions found on this disk."))
             box.pack_start(label, False, False, 0)
             box.show_all()
             dialog.run()
             dialog.destroy()
             return
+            
+        label = Gtk.Label(label=_("Assign mount points to partitions"))
+        label.get_style_context().add_class(CSS_CLASSES.get('features_header', 'features-header'))
+        box.pack_start(label, False, False, 0)
         
-        # Header
-        header_label = Gtk.Label()
-        header_label.set_text(_('Assign mount points to partitions'))
-        header_label.get_style_context().add_class(CSS_CLASSES['features_header'])
-        box.pack_start(header_label, False, False, 0)
-        
-        # Partition grid
+        # Partition list
         grid = Gtk.Grid()
         grid.set_column_spacing(10)
-        grid.set_row_spacing(8)
-        box.pack_start(grid, True, True, 0)
+        grid.set_row_spacing(5)
         
-        # Headers
-        headers = [_("Mount Point"), _("Device"), _("Size"), _("Filesystem")]
+        # Create headers
+        headers = [
+            _("Mount Point"),
+            _("Device"),
+            _("Size"),
+            _("Filesystem")
+        ]
         for i, header in enumerate(headers):
-            label = Gtk.Label()
-            label.set_text(header)
-            label.get_style_context().add_class(CSS_CLASSES['features_header'])
-            label.set_halign(Gtk.Align.START)
+            label = Gtk.Label(label=header)
+            label.set_markup(f"<b>{header}</b>")
             grid.attach(label, i, 0, 1, 1)
         
-        # Mount points
+        # Create partition rows
         mount_points = ['/', '/boot', '/boot/efi', '/home']
         self.partition_combos = {}
         self.btrfs_subvol_combos = {}
-        
-        row = 1
+
+        current_row = 1
         for mount in mount_points:
-            # Mount point label
             mount_label = Gtk.Label(label=mount)
             mount_label.set_halign(Gtk.Align.START)
-            grid.attach(mount_label, 0, row, 1, 1)
-            
-            # Partition combo
+            grid.attach(mount_label, 0, current_row, 1, 1)
+
             combo = Gtk.ComboBoxText()
-            combo.append("none", _("-- Not used --"))
-            
+            combo.append_text(_("Select option"))
+
+            # Filter partitions/subvolumes according to the mount point (Legacy Logic)
             for part in partitions:
-                device = part.get('device', '')
-                size = part.get('size', '')
-                fstype = part.get('fstype', 'unknown')
-                label_text = f"{device} ({size}, {fstype})"
-                combo.append(device, label_text)
-            
+                fstype = (part.get('fstype') or '').lower()
+                label = (part.get('label') or '').lower()
+                suggested = part.get('suggested_mount')
+                is_btrfs = part.get('is_btrfs', False)
+                btrfs_info = part.get('btrfs_subvolumes') if is_btrfs and 'btrfs_subvolumes' in part else None
+
+                show = False
+                if mount == '/':
+                    if fstype in ['ext2', 'ext3', 'ext4', 'xfs', 'btrfs', 'f2fs', 'reiserfs', 'jfs']:
+                        show = True
+                elif mount == '/boot':
+                    if fstype in ['ext2', 'ext3', 'ext4', 'xfs'] and ('boot' in label or suggested == '/boot'):
+                        show = True
+                elif mount == '/boot/efi':
+                    # Legacy aggressive check: Show ALL FAT partitions
+                    if fstype in ['vfat', 'fat32', 'fat16', 'fat']:
+                        show = True
+                elif mount == '/home':
+                    if fstype in ['ext2', 'ext3', 'ext4', 'xfs', 'btrfs', 'f2fs', 'reiserfs', 'jfs']:
+                        # Btrfs subvolume check
+                        if is_btrfs and btrfs_info and btrfs_info.get('has_subvolumes') and 'subvolumes' in btrfs_info:
+                            for subvol in btrfs_info['subvolumes']:
+                                if subvol.get('suggested_mount') == '/home' or 'home' in (subvol.get('path') or '').lower():
+                                    show = True
+                                    break
+                        elif 'home' in label or suggested == '/home' or not is_btrfs:
+                            show = True
+
+                if show:
+                    text = f"{part['device']} ({part['size']} - {part['fstype']})"
+                    combo.append_text(text)
+
             combo.set_active(0)
-            combo.connect("changed", self._on_partition_selected, mount)
-            grid.attach(combo, 1, row, 1, 1)
+            
+            # Automatic selection if there is a suggestion
+            for j, part in enumerate(partitions):
+                if part.get('suggested_mount') == mount:
+                    # Find matching text in combo
+                    combo_text = f"{part['device']} ({part['size']} - {part['fstype']})"
+                    model = combo.get_model()
+                    for i in range(len(model)):
+                        if model[i][0] == combo_text:
+                            combo.set_active(i)
+                            break
+
             self.partition_combos[mount] = combo
-            
-            # Size label (will be updated when partition selected)
-            size_label = Gtk.Label(label="-")
-            size_label.set_halign(Gtk.Align.START)
-            grid.attach(size_label, 2, row, 1, 1)
-            
-            # Filesystem label
-            fs_label = Gtk.Label(label="-")
-            fs_label.set_halign(Gtk.Align.START)
-            grid.attach(fs_label, 3, row, 1, 1)
-            
-            row += 1
+            combo.connect("changed", self.on_partition_combo_changed, mount, partitions, grid)
+            grid.attach(combo, 1, current_row, 3, 1)
+            current_row += 1
+
+        box.pack_start(grid, True, True, 0)
+        box.show_all()
+        response = dialog.run()
+        if response == Gtk.ResponseType.OK:
+            self.process_selected_partitions()
+        dialog.destroy()
+    
+    def on_partition_combo_changed(self, combo, mount_point, partitions, grid):
+        """Handle partition selection change, showing btrfs options if necessary"""
+        selection = combo.get_active_text()
         
-        # Btrfs subvolume section (shown conditionally)
-        self.btrfs_section = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-        self.btrfs_section.set_no_show_all(True)
-        box.pack_start(self.btrfs_section, False, False, 10)
+        # Remove previous subvolume combo if exists
+        if mount_point in self.btrfs_subvol_combos:
+            old_combo = self.btrfs_subvol_combos[mount_point]
+            grid.remove(old_combo)
+            del self.btrfs_subvol_combos[mount_point]
         
-        btrfs_label = Gtk.Label()
-        btrfs_label.set_text(_('Btrfs Subvolumes'))
-        btrfs_label.get_style_context().add_class(CSS_CLASSES['features_header'])
-        self.btrfs_section.pack_start(btrfs_label, False, False, 0)
+        if selection and selection != _("Select option"):
+            device = selection.split()[0]
+            # Find corresponding partition
+            selected_partition = None
+            for part in partitions:
+                if part['device'] == device:
+                    selected_partition = part
+                    break
+            
+            # Show subvolume combo if btrfs with subvolumes
+            if (
+                selected_partition and
+                selected_partition.get('is_btrfs') and
+                'btrfs_subvolumes' in selected_partition and
+                selected_partition['btrfs_subvolumes'] and
+                selected_partition['btrfs_subvolumes'].get('has_subvolumes') and
+                'subvolumes' in selected_partition['btrfs_subvolumes']
+            ):
+                btrfs_info = selected_partition['btrfs_subvolumes']
+                self.show_btrfs_subvolume_combo(mount_point, btrfs_info, grid, combo)
+
+    def show_btrfs_subvolume_combo(self, mount_point, btrfs_info, grid, partition_combo):
+        """Show combo for btrfs subvolume selection"""
+        # Find partition combo row
+        row = None
+        for child in grid.get_children():
+            if child == partition_combo:
+                row = grid.child_get_property(child, "top-attach")
+                break
+        
+        if row is None:
+            return
+        
+        # Create combo for subvolumes
+        subvol_combo = Gtk.ComboBoxText()
+        subvol_combo.append_text(_("Select subvolume"))
+        
+        # Add subvolumes
+        for subvol in btrfs_info['subvolumes']:
+            is_default = " (default)" if subvol.get('is_default') else ""
+            suggested = f" -> {subvol['suggested_mount']}" if subvol.get('suggested_mount') else ""
+            text = f"{subvol['path']} (ID: {subvol['id']}){is_default}{suggested}"
+            subvol_combo.append_text(text)
+        
+        # Auto-select if there's a suggestion
+        for i, subvol in enumerate(btrfs_info['subvolumes'], 1):
+            if subvol.get('suggested_mount') == mount_point or subvol.get('is_default'):
+                subvol_combo.set_active(i)
+                break
+        else:
+            subvol_combo.set_active(0)
+        
+        self.btrfs_subvol_combos[mount_point] = subvol_combo
+        
+        # Insert new row for subvolume combo
+        grid.insert_row(row + 1)
+        
+        # Label for subvolume
+        subvol_label = Gtk.Label()
+        subvol_label.set_markup(f"<i>{_('Select subvolume')}:</i>")
+        subvol_label.set_halign(Gtk.Align.START)
+        grid.attach(subvol_label, 0, row + 1, 1, 1)
+        
+        grid.attach(subvol_combo, 1, row + 1, 3, 1)
+        grid.show_all()
+
+    def process_selected_partitions(self):
+        """Processes the selected partitions and executes chroot"""
+        try:
+            mount_points = {}
+            subvolumes = {}
+            
+            for mount, combo in self.partition_combos.items():
+                device = combo.get_active_text()
+                if device and device != _("Select option"):
+                    device = device.split()[0]  # Get only the device
+                    mount_points[mount] = device
+                    
+                    # Get subvolume if exists
+                    if mount in self.btrfs_subvol_combos:
+                        subvol_combo = self.btrfs_subvol_combos[mount]
+                        subvol_text = subvol_combo.get_active_text()
+                        if subvol_text and subvol_text != _("Select subvolume"):
+                            # Extract the subvolume path (format: "path (ID: X)")
+                            subvol_path = subvol_text.split(' (ID:')[0]
+                            subvolumes[mount] = subvol_path
+
+            # Auto-detect @ and @home subvolumes for the same partition
+            if '/' in mount_points:
+                root_device = mount_points['/']
+                
+                # Auto-detect @ subvolume for root if not manually selected
+                if '/' not in subvolumes:
+                    for partition in self.current_partitions:
+                        if partition['device'] == root_device and partition.get('is_btrfs'):
+                            btrfs_info = partition.get('btrfs_subvolumes')
+                            if btrfs_info and btrfs_info.get('has_subvolumes'):
+                                for subvol in btrfs_info['subvolumes']:
+                                    if subvol['path'] == '@':
+                                        subvolumes['/'] = '@'
+                                        break
+                
+                # Auto-detect @home for /home on the same btrfs partition
+                if '/home' not in mount_points:
+                    for partition in self.current_partitions:
+                        if partition['device'] == root_device and partition.get('is_btrfs'):
+                            btrfs_info = partition.get('btrfs_subvolumes')
+                            if btrfs_info and btrfs_info.get('has_subvolumes'):
+                                for subvol in btrfs_info['subvolumes']:
+                                    if subvol['path'] == '@home':
+                                        mount_points['/home'] = root_device  # Use the same partition
+                                        subvolumes['/home'] = '@home'
+                                        break
+
+            if '/' not in mount_points:
+                self.show_error(
+                    _("Error"),
+                    _("You must select a root partition (/).")
+                )
+                return
+
+            # Show a progress dialog
+            self.show_progress_dialog(mount_points, subvolumes)
+            
+        except Exception as e:
+            self.show_error(
+                _("Error"), 
+                str(e)
+            )
+    
+    def show_progress_dialog(self, mount_points, subvolumes=None):
+        """Shows a progress dialog while mounting and preparing chroot"""
+        if subvolumes is None:
+            subvolumes = {}
+            
+        dialog = Gtk.Dialog(
+            title=_("Mounting system..."),
+            parent=self,
+            flags=0,
+            buttons=(
+                _("Close"), Gtk.ResponseType.CLOSE,
+            )
+        )
+        dialog.set_default_size(400, 100)
+        dialog.set_modal(True)
+        
+        for button in dialog.get_action_area().get_children():
+            button.set_use_underline(True)
+        
+        box = dialog.get_content_area()
+        box.set_spacing(10)
+        box.set_border_width(10)
+        
+        label = Gtk.Label(label=_("Mounting partitions..."))
+        box.pack_start(label, False, False, 0)
+        
+        progress_bar = Gtk.ProgressBar()
+        progress_bar.set_fraction(0.0)
+        box.pack_start(progress_bar, False, False, 5)
+        
+        status_label = Gtk.Label(label="")
+        box.pack_start(status_label, False, False, 0)
         
         box.show_all()
         
-        response = dialog.run()
-        
-        if response == Gtk.ResponseType.OK:
-            self._perform_mount()
-        
-        dialog.destroy()
-    
-    def _on_partition_selected(self, combo, mount_point: str):
-        """Handle partition selection for a mount point."""
-        device_id = combo.get_active_id()
-        
-        if device_id and device_id != "none":
-            # Find partition info
-            for part in self.current_partitions:
-                if part.get('device') == device_id:
-                    # Check if btrfs
-                    if part.get('is_btrfs') or part.get('fstype', '').lower() == 'btrfs':
-                        self._show_btrfs_options(mount_point, part)
-                    break
-    
-    def _show_btrfs_options(self, mount_point: str, partition: Dict):
-        """Show btrfs subvolume options."""
-        self.btrfs_section.show()
-        
-        # Clear previous subvolume combos for this mount
-        # Add subvolume selector
-        subvol_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-        
-        label = Gtk.Label(label=f"{mount_point} {_('subvolume')}:")
-        subvol_box.pack_start(label, False, False, 0)
-        
-        subvol_combo = Gtk.ComboBoxText()
-        subvol_combo.append("default", _("Default"))
-        
-        # Get subvolumes
-        btrfs_info = partition.get('btrfs_subvolumes', {})
-        subvolumes = btrfs_info.get('subvolumes', [])
-        
-        for subvol in subvolumes:
-            name = subvol.get('name', subvol.get('path', 'unknown'))
-            subvol_combo.append(name, name)
-        
-        subvol_combo.set_active(0)
-        subvol_box.pack_start(subvol_combo, True, True, 0)
-        
-        self.btrfs_section.pack_start(subvol_box, False, False, 0)
-        self.btrfs_subvol_combos[mount_point] = subvol_combo
-        
-        self.btrfs_section.show_all()
-    
-    def _perform_mount(self):
-        """Perform the actual mounting of partitions."""
-        mount_config = {}
-        
-        for mount_point, combo in self.partition_combos.items():
-            device_id = combo.get_active_id()
-            if device_id and device_id != "none":
-                mount_config[mount_point] = {
-                    'device': device_id,
-                    'subvolume': None
-                }
+        # Update progress and execute chroot
+        def update_progress():
+            try:
+                # Mock progress sequence matching legacy feel
+                status_label.set_text(_("Mounting partitions..."))
+                progress_bar.set_fraction(0.3)
+                while Gtk.events_pending():
+                    Gtk.main_iteration()
                 
-                # Check for btrfs subvolume
-                if mount_point in self.btrfs_subvol_combos:
-                    subvol_combo = self.btrfs_subvol_combos[mount_point]
-                    subvol = subvol_combo.get_active_id()
-                    if subvol and subvol != "default":
-                        mount_config[mount_point]['subvolume'] = subvol
-        
-        if '/' not in mount_config:
-            self._show_message(
-                _("Error"),
-                _("You must select a partition for the root (/) mount point."),
-                Gtk.MessageType.ERROR
-            )
-            return
-        
-        # Perform mount
-        try:
-            success, message = self.sys_ops.mount_system(mount_config)
-            
-            if success:
-                self._show_chroot_terminal()
-            else:
-                self._show_message(_("Mount Failed"), message, Gtk.MessageType.ERROR)
+                progress_bar.set_fraction(0.5)
+                status_label.set_text(_("Mounting virtual filesystems..."))
+                while Gtk.events_pending():
+                    Gtk.main_iteration()
                 
-        except Exception as e:
-            self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
-    
-    def _show_chroot_terminal(self):
-        """Show option to open terminal in chroot environment."""
-        dialog = Gtk.MessageDialog(
-            transient_for=self,
-            flags=Gtk.DialogFlags.MODAL,
-            message_type=Gtk.MessageType.INFO,
-            buttons=Gtk.ButtonsType.NONE,
-            text=_("System Mounted Successfully")
-        )
-        
-        dialog.format_secondary_text(
-            _("The system has been mounted at {mount_point}.\n\n"
-              "You can now open a terminal to perform repairs.").format(
-                  mount_point=self.sys_ops.mount_point
-              )
-        )
-        
-        dialog.add_button(_("Close"), Gtk.ResponseType.CLOSE)
-        dialog.add_button(_("Open Terminal"), Gtk.ResponseType.YES)
-        dialog.add_button(_("Unmount"), Gtk.ResponseType.NO)
-        
-        response = dialog.run()
-        dialog.destroy()
-        
-        if response == Gtk.ResponseType.YES:
-            self._open_chroot_terminal()
-        elif response == Gtk.ResponseType.NO:
-            self._unmount_system()
-    
-    def _open_chroot_terminal(self):
-        """Open a terminal in the chroot environment."""
-        try:
-            # Try common terminal emulators
-            terminals = [
-                ['xfce4-terminal', '-e'],
-                ['konsole', '-e'],
-                ['gnome-terminal', '--'],
-                ['xterm', '-e']
-            ]
-            
-            chroot_cmd = f"arch-chroot {self.sys_ops.mount_point} /bin/bash"
-            
-            for term_cmd in terminals:
-                try:
-                    full_cmd = ['pkexec'] + term_cmd + [chroot_cmd]
-                    subprocess.Popen(full_cmd,
-                                   stdout=subprocess.DEVNULL,
-                                   stderr=subprocess.DEVNULL)
-                    return
-                except FileNotFoundError:
-                    continue
-            
-            # Fallback message
-            self._show_message(
-                _("Terminal Not Found"),
-                _("Could not find a terminal emulator.\n\n"
-                  "To access the chroot manually, run:\n"
-                  "sudo arch-chroot {mount_point}").format(
-                      mount_point=self.sys_ops.mount_point
-                  ),
-                Gtk.MessageType.INFO
-            )
-            
-        except Exception as e:
-            self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
-    
-    def _unmount_system(self):
-        """Unmount the system."""
-        try:
-            success, message = self.sys_ops.unmount_system()
-            
-            if success:
-                self._show_message(
-                    _("Unmounted"),
-                    _("The system has been unmounted successfully."),
-                    Gtk.MessageType.INFO
+                # Execute blocking mount (identical to legacy logic)
+                self.sys_ops.mount_and_chroot(
+                    root_part=mount_points['/'],
+                    boot_part=mount_points.get('/boot'),
+                    efi_part=mount_points.get('/boot/efi'),
+                    home_part=mount_points.get('/home'),
+                    root_subvol=subvolumes.get('/'),
+                    home_subvol=subvolumes.get('/home')
                 )
-            else:
-                self._show_message(_("Error"), message, Gtk.MessageType.ERROR)
                 
-        except Exception as e:
-            self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
-    
-    def _on_close_clicked(self, button):
-        """Close the window."""
-        # Check if system is mounted and offer to unmount
-        if hasattr(self.sys_ops, 'is_mounted') and self.sys_ops.is_mounted():
-            dialog = Gtk.MessageDialog(
-                transient_for=self,
-                flags=Gtk.DialogFlags.MODAL,
-                message_type=Gtk.MessageType.QUESTION,
-                buttons=Gtk.ButtonsType.YES_NO,
-                text=_("Unmount System?")
-            )
-            dialog.format_secondary_text(_("Do you want to unmount the system before closing?"))
-            
-            response = dialog.run()
-            dialog.destroy()
-            
-            if response == Gtk.ResponseType.YES:
-                self._unmount_system()
+                progress_bar.set_fraction(1.0)
+                status_label.set_text(_("Chroot started successfully in new terminal."))
+                
+                # Automatically close dialog after 2 seconds
+                GLib.timeout_add(2000, dialog.response, Gtk.ResponseType.CLOSE)
+                
+            except Exception as e:
+                progress_bar.set_fraction(0.0)
+                status_label.set_markup(f"<span color='red'>{_('Error')}: {str(e)}</span>")
+                # Show specific error dialog
+                self.show_mount_error(str(e))
+                
+            return False
         
+        # Start the task after showing the dialog
+        GLib.idle_add(update_progress)
+        
+        dialog.run()
+        dialog.destroy()
+    
+    def on_close_clicked(self, button):
+        """Closes the window"""
+        self.clean_pycache()
         self.destroy()
     
-    def _show_message(self, title: str, message: str, msg_type=Gtk.MessageType.INFO):
-        """Show a message dialog."""
+    def show_error(self, title, message):
+        """Shows an error dialog"""
         dialog = Gtk.MessageDialog(
             transient_for=self,
-            flags=Gtk.DialogFlags.MODAL,
-            message_type=msg_type,
+            flags=0,
+            message_type=Gtk.MessageType.ERROR,
             buttons=Gtk.ButtonsType.OK,
             text=title
         )
         dialog.format_secondary_text(message)
         dialog.run()
         dialog.destroy()
+    
+    def show_mount_error(self, error_message):
+        """Shows a specific error dialog for mounting problems"""
+        if any(keyword in error_message.lower() for keyword in ['valid linux', 'linux válido', 'linux valido']):
+            self.show_error(
+                _("Invalid Linux System"),
+                _("The mounted system does not appear to be a valid Linux installation. Essential files (like /bin/bash or /etc/fstab) are missing.")
+            )
+        else:
+            self.show_error(
+                _("Mount Error"),
+                _("An error occurred while mounting the system: {}").format(error_message)
+            )
+    
+    def clean_pycache(self):
+        """Cleans all project __pycache__ files"""
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for root, dirs, files in os.walk(base_dir):
+            if '__pycache__' in dirs:
+                try:
+                    shutil.rmtree(os.path.join(root, '__pycache__'))
+                except:
+                    pass
