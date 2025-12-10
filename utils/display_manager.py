@@ -134,10 +134,20 @@ class DisplayManager:
             
             desktop_file = config_dir / "soplos-resolution.desktop"
             
+            # Default command is just xrandr
+            exec_cmd = f"xrandr --output {output} --mode {mode}"
+            
+            # For XFCE, we need to force wallpaper refresh (xfdesktop) after resolution change
+            if self.desktop == DesktopEnvironment.XFCE:
+                # Use sh -c to chain commands in a .desktop Exec key
+                # XFCE 4.20 issues: --reload might not be enough. Force restart process.
+                # xrandr -> sleep -> quit xfdesktop -> slightly wait -> start xfdesktop background
+                exec_cmd = f"sh -c 'xrandr --output {output} --mode {mode}; sleep 2; xfdesktop --quit; sleep 1; xfdesktop &'"
+            
             content = f"""[Desktop Entry]
 Type=Application
 Name=Restore Resolution
-Exec=xrandr --output {output} --mode {mode}
+Exec={exec_cmd}
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
