@@ -146,8 +146,10 @@ LANG={locale}
 LANGUAGE={locale.split('_')[0]}
 EOF
 
-# 4. Generate locale
-locale-gen {locale} 2>/dev/null || true
+# 4. Generate locale (Only if missing)
+if ! locale -a | grep -i "{locale.replace('.UTF-8', '')}" > /dev/null; then
+    locale-gen {locale} 2>/dev/null || true
+fi
 
 # 5. localectl
 localectl set-locale LANG={locale} 2>/dev/null || true
@@ -280,39 +282,66 @@ echo "System locale configured"
             if new_path.exists():
                 for item in old_path.iterdir():
                     dest = new_path / item.name
-                    if not dest.exists():
+                    if dest.exists():
+                        # Destination exists: Delete source to allow old dir cleanup (Merge)
+                        try:
+                            if item.is_dir():
+                                shutil.rmtree(str(item))
+                            else:
+                                item.unlink()
+                            print(f"Merged (deleted source) {item.name}")
+                        except Exception as e:
+                            print(f"Failed to delete source {item}: {e}")
+                    else:
+                        # Destination safe: Move
                         try:
                             shutil.move(str(item), str(dest))
                             print(f"Moved {item.name} to {dest}")
                         except Exception as e:
                             print(f"Failed to move {item}: {e}")
                 
-                # Setup specific symlink/files for Desktop
-                if key == 'XDG_DESKTOP_DIR':
-                    # List of desktop files to explicitly move if generic move failed or they are special
-                    desktop_files = [
-                        'calamares-install-soplos.desktop',
-                        'home.desktop',
-                        'trash.desktop'
-                    ]
-                    
-                    for desktop_filename in desktop_files:
-                        old_file = old_path / desktop_filename
-                        new_file = new_path / desktop_filename
-                        
-                        if old_file.exists() and not new_file.exists():
-                             try:
-                                 shutil.move(str(old_file), str(new_file))
-                                 print(f"Moved {desktop_filename} to {new_path}")
-                             except Exception as e:
-                                 print(f"Failed to move {desktop_filename}: {e}")
+                
 
-                # Try to remove old dir if empty
-                try:
-                    if not any(old_path.iterdir()):
-                        old_path.rmdir()
-                except:
-                    pass
+            
+            # Setup specific symlink/files for Desktop
+            if key == 'XDG_DESKTOP_DIR':
+                # List of desktop files to explicitly move if generic move failed or they are special
+                desktop_files = [
+                    'calamares-install-soplos.desktop',
+                    'home.desktop',
+                    'trash.desktop'
+                ]
+                
+                for desktop_filename in desktop_files:
+                    old_file = old_path / desktop_filename
+                    new_file = new_path / desktop_filename
+                    
+                    if old_file.exists() and not new_file.exists():
+                            try:
+                                shutil.move(str(old_file), str(new_file))
+                                print(f"Moved {desktop_filename} to {new_path}")
+                            except Exception as e:
+                                print(f"Failed to move {desktop_filename}: {e}")
+
+                # FIX: Restore execution rights and GNOME trust for .desktop files in the NEW location
+                # MOVED: This must run AFTER the specific move block above to ensure Calamares is covered
+                if self.desktop == DesktopEnvironment.GNOME:
+                    print("Restoring GNOME trust for migrated desktop icons...")
+                    try:
+                        for item in new_path.glob("*.desktop"):
+                            # 1. Ensure +x (Executable)
+                            item.chmod(item.stat().st_mode | 0o111)
+                            # 2. Force GNOME Trust (gio)
+                            subprocess.run(['gio', 'set', str(item), 'metadata::trusted', 'true'], check=False)
+                    except Exception as e:
+                        print(f"Failed to restore desktop icon trust: {e}")
+
+            # Try to remove old dir if empty
+            try:
+                if not any(old_path.iterdir()):
+                    old_path.rmdir()
+            except:
+                pass
         
         # Update KDE/Plasma configuration if detected
         if self.desktop == DesktopEnvironment.KDE:
@@ -381,14 +410,36 @@ echo "System locale configured"
         # Try generic alias first (Works on most systemd distros)
         dm_service = 'display-manager.service'
         
-        # If specific override needed (though display-manager should handle it)
-        # We can fallback to detected names if the alias fails?
-        # But for now, let's try the alias as primary.
-        
-        print(f"Restarting {dm_service}...")
+        if self.desktop == DesktopEnvironment.GNOME:
+            print(f"Detected GNOME: Executing session kill strategy...")
+            # CRITICAL: 'systemctl restart gdm3' causes system freeze on this platform (VM/Wayland).
+            # We must use 'pkill -KILL' to force a session exit.
+            # GDM AutoLogin (daemon.conf) will handle the respawn.
+            try:
+                user = os.getenv('USER', 'liveuser')
+                print(f"Killing session for user: {user}")
+                
+                # 1. Sync filesystem to minimize data loss (icon positions, etc)
+                subprocess.run("sync", shell=True)
+                
+                # 2. Force session kill. 
+                # We use Popen because the script (running in session) will die instantly.
+                subprocess.Popen(f"pkill -KILL -u {user}", shell=True)
+            except Exception as e:
+                 print(f"Failed to kill session: {e}")
+                 # Fallback (unlikely to work if hard freeze is the alternative, but good practice)
+                 subprocess.run(['gnome-session-quit', '--force', '--no-prompt'], check=False)
+            
+            # Exit python script immediately
+            sys.exit(0)
+
+        # --- KDE / XFCE: STANDARD RESTART ---
         try:
-            subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True, timeout=30)
-        except subprocess.CalledProcessError:
+            print(f"Restarting display manager: {dm_service}")
+            # For non-broken DEs, synchronous restart is safer
+            subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to restart display manager: {e}")
             # Fallback to hardcoded names if alias fails
             dm_map = {
                 DesktopEnvironment.XFCE: 'lightdm',

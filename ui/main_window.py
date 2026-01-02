@@ -709,11 +709,17 @@ class MainWindow(Gtk.ApplicationWindow):
             if changer.desktop.value in ['gnome', 'xfce']:
                 changer._update_gtk_bookmarks()
             
-            # Step 5: Prepare Restart (Delayed)
+            # Step 5: Restart session IMMEDIATELY
             update_ui(1.0, _("Restarting session..."))
             
-            # Use GLib.timeout_add to separate restart from current stack (Tyson logic)
-            GLib.timeout_add(1500, self._do_restart_session)
+            # Force all pending UI updates to complete NOW
+            while Gtk.events_pending():
+                Gtk.main_iteration()
+            
+            # CRITICAL: Call restart directly, NO GLib.timeout_add
+            # The timeout keeps GTK alive during DM restart, causing deadlock
+            from utils.language_changer import get_language_changer
+            get_language_changer()._restart_display_manager()
             
         except Exception as e:
             print(f"Error changing language: {e}")
@@ -723,14 +729,6 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.install_btn.set_sensitive(True)
             self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
 
-    def _do_restart_session(self):
-        """Execute the restart command."""
-        try:
-            from utils.language_changer import get_language_changer
-            get_language_changer()._restart_display_manager()
-        except:
-            pass
-        return False
     
     def _on_install_clicked(self, button):
         """Handle install button click - launch Calamares (like legacy: sudo, then close window)."""

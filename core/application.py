@@ -8,6 +8,7 @@ import os
 import signal
 from pathlib import Path
 from typing import Optional
+import subprocess
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -84,7 +85,12 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
         self._initialize_environment()
         self._initialize_internationalization()
         self._initialize_theming()
+        self._initialize_theming()
         self._setup_application_properties()
+        
+        # FIX: Ensure desktop icons are trusted immediately on startup (GNOME Only)
+        if self.environment_detector and self.environment_detector.desktop_environment.value == 'gnome':
+            self._ensure_desktop_trust()
         
         print("Application initialization completed")
     
@@ -133,6 +139,45 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
         self.activate()
         return 0
     
+    def _ensure_desktop_trust(self):
+        """
+        Bootstrap method to ensure Desktop icons are trusted and executable 
+        on application entry. Critical for live sessions where icons start 
+        untrusted by default in GNOME.
+        """
+        try:
+            # 1. Detect Desktop path correctly
+            desktop_path = Path.home() / 'Desktop'
+            try:
+                result = subprocess.run(['xdg-user-dir', 'DESKTOP'], capture_output=True, text=True)
+                if result.returncode == 0 and result.stdout.strip():
+                    desktop_path = Path(result.stdout.strip())
+            except Exception:
+                pass # Fallback to ~/Desktop
+
+            if not desktop_path.exists():
+                return
+
+            print(f"Bootstrapping icon trust for: {desktop_path}")
+            
+            # 2. Iterate and Bless
+            # Only do this if we are in GNOME, or generally safe to do always?
+            # Safe to do always as 'gio' is a standard tool.
+            for item in desktop_path.glob("*.desktop"):
+                try:
+                    # Ensure +x
+                    current_mode = item.stat().st_mode
+                    item.chmod(current_mode | 0o111)
+                    
+                    # Ensure gio trust
+                    subprocess.run(['gio', 'set', str(item), 'metadata::trusted', 'true'], 
+                                   check=False, stderr=subprocess.DEVNULL)
+                except Exception as e:
+                    print(f"Failed to trust {item.name}: {e}")
+
+        except Exception as e:
+            print(f"Error in icon trust bootstrap: {e}")
+
     def _initialize_environment(self):
         """Initialize environment detection."""
         try:
