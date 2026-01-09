@@ -1,0 +1,59 @@
+.TH "SOPLOS-WELCOME-LIVE" "1" "2026-01-09" "Soplos Linux" "User Commands"
+.SH NAME
+soplos-welcome-live \- The Live ISO welcome application for Soplos Linux
+.SH SYNOPSIS
+.B soplos-welcome-live
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+.B soplos-welcome-live
+is the welcome application specifically designed for the Soplos Linux Live environment.
+It serves as the main entry point for users testing or installing the system, offering:
+.IP \[bu] 2
+One-click access to the system installer (Calamares).
+.IP \[bu]
+Language selection for the Live session.
+.IP \[bu]
+Advanced system recovery tools (CHROOT).
+.IP \[bu]
+Partition management via GParted.
+.IP \[bu]
+BTRFS subvolume mounting and repair utilities.
+.P
+It supports X11 and Wayland sessions across GNOME, KDE Plasma, and XFCE environments.
+.SH OPTIONS
+Application Options:
+.TP
+.B \-h, \-\-help
+Show help options.
+.TP
+.B \-\-help-all
+Show all help options.
+.TP
+.B \-\-help-gtk
+Show GTK+ Options.
+.P
+GTK+ Options:
+.TP
+.B \-\-display=\fIDISPLAY\fR
+X display to use.
+.SH FILES
+.TP
+.I /mnt/soplos-recovery/
+Default mount point used by the CHROOT recovery system.
+.TP
+.I /usr/share/soplos-welcome-live/
+Application resources directory containing UI files, themes, and translations.
+.TP
+.I /tmp/soplos-unmount.sh
+Temporary script generated for safe unmounting of CHROOT environments.
+.SH AUTHOR
+Written by Sergi Perich <info@soploslinux.com> for the Soplos Linux project.
+.SH COPYRIGHT
+Copyright \(co 2026 Sergi Perich.
+License: GPL-3.0-or-later <https://www.gnu.org/licenses/gpl-3.0.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.SH SEE ALSO
+.BR calamares (8),
+.BR gparted (8)

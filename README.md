@@ -1,7 +1,7 @@
 # Soplos Welcome Live
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.1-green.svg)]()
 
 Welcome application for Soplos Linux Live Environment with advanced system recovery tools.
 
@@ -94,6 +94,9 @@ Contact: info@soploslinux.com
 - [Donate](https://www.paypal.com/paypalme/isubdes)
 
 ## 📦 Version History
+
+### v2.0.1 (2026-01-09)
+- **Documentation**: Added manual page and copyright file.
 
 ### v2.0.0 (2025-12-07)
 - **Architecture Rewrite**: Modular design matching Soplos Welcome 2.0
