@@ -533,7 +533,7 @@ class MainWindow(Gtk.ApplicationWindow):
         status_box.pack_start(status_label, False, False, 0)
         
         # Right: Version
-        version_label = Gtk.Label(label=f"Soplos Welcome Live v{__version__}")
+        version_label = Gtk.Label(label=f"v{__version__}")
         version_label.set_halign(Gtk.Align.END)
         version_label.get_style_context().add_class('dim-label')
         status_box.pack_end(version_label, False, False, 0)
