@@ -643,7 +643,6 @@ echo "{_('Cleanup completed')}"
                     if not shutil.which(term_name):
                         continue
                         
-                    print(f"DEBUG: Attempting to launch {term_name} on {de.value}")
                     subprocess.Popen(cmd, start_new_session=True, env=env,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                     launched = True

@@ -36,7 +36,6 @@ def main():
         # temporarily redirect the OS stderr (fd 2) to /dev/null while the
         # GTK modules initialize. We restore stderr afterwards so other
         # runtime errors continue to appear.
-        import os
         devnull_fd = None
         saved_stderr_fd = None
         try:

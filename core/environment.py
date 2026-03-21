@@ -421,10 +421,6 @@ class EnvironmentDetector:
                 theme_name = 'Breeze-Dark' if self.is_dark_theme else 'Breeze'
                 os.environ['GTK_THEME'] = theme_name
         
-        # Disable accessibility bus if not needed
-        if not os.environ.get('ENABLE_ACCESSIBILITY'):
-            os.environ['NO_AT_BRIDGE'] = '1'
-            os.environ['AT_SPI_BUS'] = '0'
 
 
 # Global instance for easy access

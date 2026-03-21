@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.1-1] - 2026-03-21
+
+### ✨ Added
+- **About dialog**: Press F1 or use the GNOME application menu to open the About dialog with version, author, license and website.
+
+### 🔧 Fixed
+- Duplicate `_initialize_theming()` call on startup eliminated.
+- Inline imports moved to module level: `shutil`, `gettext`, `sys`, `traceback` in `application.py`.
+- Duplicate `import os` inside `main()` function removed.
+- Duplicate accessibility environment variable setup removed from `core/environment.py`.
+- CSS theme priority changed from `PRIORITY_USER` to `PRIORITY_APPLICATION` so the About dialog CSS correctly overrides the application theme.
+- About dialog now correctly styled: uniform dark background across headerbar, content and action area.
+
+### 🧹 Cleanup
+- Removed all `[DEBUG]` and `[DIAG]` print statements from `ui/main_window.py`.
+- Removed `_debug_print_switches` diagnostic method from `ui/main_window.py`.
+- Removed `DEBUG:` print statement from `core/chroot_operations.py`.
+- Removed HeaderBar setup diagnostic prints.
+
 ## [2.0.1] - 2026-01-09
 
 ### 📚 Documentation

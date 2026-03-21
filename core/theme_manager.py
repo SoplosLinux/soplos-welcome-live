@@ -49,7 +49,7 @@ class ThemeManager:
         style_context.add_provider_for_screen(
             screen,
             self.css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_USER
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
     
     def get_available_themes(self) -> List[str]:

@@ -6,6 +6,9 @@ Handles application lifecycle, initialization, and coordination between modules.
 import sys
 import os
 import signal
+import shutil
+import gettext
+import traceback
 from pathlib import Path
 from typing import Optional
 import subprocess
@@ -61,7 +64,6 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
     def _cleanup_garbage(self):
         """Remove __pycache__ and other temporary files."""
         try:
-            import shutil
             root_path = self.app_path
             print(f"Cleaning runtimes from: {root_path}")
             
@@ -84,7 +86,6 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
         # Initialize core systems
         self._initialize_environment()
         self._initialize_internationalization()
-        self._initialize_theming()
         self._initialize_theming()
         self._setup_application_properties()
         
@@ -201,11 +202,10 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
         try:
             current_lang = initialize_i18n(str(self.locale_path))
             self.i18n_manager = get_i18n_manager()
-            
+
             print(f"Language initialized: {current_lang}")
-            
+
             # Set up gettext for the entire application
-            import gettext
             gettext.bindtextdomain('soplos-welcome-live', str(self.locale_path))
             gettext.textdomain('soplos-welcome-live')
             
@@ -220,8 +220,6 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
             # coming from the system theme (e.g. "Junk at end of value for color").
             # We only mute that specific line during theming initialization so
             # the rest of stderr remains visible.
-            import sys
-
             class _StderrFilter:
                 def __init__(self, orig):
                     self._orig = orig
@@ -323,7 +321,6 @@ class SoplosWelcomeLiveApplication(Gtk.Application):
             
         except Exception as e:
             print(f"Error creating main window: {e}")
-            import traceback
             traceback.print_exc()
             self.quit()
     
@@ -466,6 +463,5 @@ def run_application(argv: list = None) -> int:
         return 130
     except Exception as e:
         print(f"Application error: {e}")
-        import traceback
         traceback.print_exc()
         return 1

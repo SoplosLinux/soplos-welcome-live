@@ -91,7 +91,10 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # Window icon
         self._set_window_icon()
-        
+
+        # Key press handler (all desktops)
+        self.connect('key-press-event', self._on_key_press)
+
         # Create UI
         self._create_ui()
     
@@ -108,15 +111,11 @@ class MainWindow(Gtk.ApplicationWindow):
         except:
             pass
             
-        print(f"HeaderBar check: Detected Desktop = {desktop_env}")
-
         # XFCE and KDE/Plasma work best with native window decorations (SSD)
         if desktop_env in ['xfce', 'kde', 'plasma']:
-            print("Using native window decorations (SSD) for compatibility")
             return
 
         # For GNOME and others, use Client-Side Decorations (CSD)
-        print("Creating Client-Side Decorations (CSD)")
         header = Gtk.HeaderBar()
         header.set_show_close_button(True)
         header.set_title(_("Soplos Welcome Live"))
@@ -135,13 +134,10 @@ class MainWindow(Gtk.ApplicationWindow):
 
         # Connect signals
         self.connect('delete-event', self._on_delete_event)
-        self.connect('key-press-event', self._on_key_press)
 
         # Ensure window can take focus immediately
         self.set_can_focus(True)
         self.set_focus_visible(False)
-
-        print("Main window created successfully with HeaderBar")
     
     def _set_window_icon(self):
         """Set the window icon."""
@@ -465,13 +461,6 @@ class MainWindow(Gtk.ApplicationWindow):
             self.autostart_switch.set_valign(Gtk.Align.CENTER)
         except Exception:
             pass
-        # Debug: print style context info for switch
-        try:
-            sc = self.autostart_switch.get_style_context()
-            classes = sc.list_classes()
-            print(f"[DEBUG] autostart_switch name={self.autostart_switch.get_name()} classes={classes}")
-        except Exception:
-            pass
         autostart_box.pack_start(self.autostart_switch, False, False, 0)
         settings_box.pack_start(autostart_box, False, False, 0)
         
@@ -495,20 +484,8 @@ class MainWindow(Gtk.ApplicationWindow):
                 self.numlock_switch.set_valign(Gtk.Align.CENTER)
             except Exception:
                 pass
-            # Debug: print style context info for numlock switch
-            try:
-                sc2 = self.numlock_switch.get_style_context()
-                classes2 = sc2.list_classes()
-                print(f"[DEBUG] numlock_switch name={self.numlock_switch.get_name()} classes={classes2}")
-            except Exception:
-                pass
             numlock_box.pack_start(self.numlock_switch, False, False, 0)
             settings_box.pack_start(numlock_box, False, False, 0)
-        # Schedule a one-time diagnostic print of switch allocations and styles
-        try:
-            GLib.idle_add(self._debug_print_switches)
-        except Exception:
-            pass
     
     def _create_status_bar(self, parent):
         """Create status bar at the bottom."""
@@ -540,58 +517,6 @@ class MainWindow(Gtk.ApplicationWindow):
         
         parent.pack_end(status_box, False, False, 0)
 
-    def _debug_print_switches(self):
-        """Diagnostic: print allocation and style info for switches."""
-        try:
-            def info(widget, name):
-                alloc = widget.get_allocation()
-                sc = widget.get_style_context()
-                classes = sc.list_classes() if sc else []
-                hexpand = widget.get_hexpand() if hasattr(widget, 'get_hexpand') else None
-                vexpand = widget.get_vexpand() if hasattr(widget, 'get_vexpand') else None
-                print(f"[DIAG] {name}: allocation=({alloc.x},{alloc.y},{alloc.width},{alloc.height}) hexpand={hexpand} vexpand={vexpand} classes={classes}")
-
-            try:
-                info(self.autostart_switch, 'autostart_switch')
-            except Exception as e:
-                print(f"[DIAG] autostart_switch missing: {e}")
-
-            try:
-                parent = self.autostart_switch.get_parent()
-                alloc = parent.get_allocation()
-                print(f"[DIAG] autostart_parent: allocation=({alloc.x},{alloc.y},{alloc.width},{alloc.height})")
-            except Exception:
-                pass
-
-            try:
-                info(self.numlock_switch, 'numlock_switch')
-            except Exception as e:
-                print(f"[DIAG] numlock_switch missing: {e}")
-
-            try:
-                parent2 = self.numlock_switch.get_parent()
-                alloc2 = parent2.get_allocation()
-                print(f"[DIAG] numlock_parent: allocation=({alloc2.x},{alloc2.y},{alloc2.width},{alloc2.height})")
-            except Exception:
-                pass
-
-            # Also print settings_box allocation if present
-            try:
-                sb = getattr(self, 'settings_box', None)
-                if sb is None:
-                    # try to find by name - fall back to walking children
-                    print("[DIAG] settings_box not directly available")
-                else:
-                    a = sb.get_allocation()
-                    print(f"[DIAG] settings_box: allocation=({a.x},{a.y},{a.width},{a.height})")
-            except Exception:
-                pass
-
-        except Exception as e:
-            print(f"[DIAG] Error in _debug_print_switches: {e}")
-        return False
-        
-    
     # ==================== Helper Methods ====================
     
     def _is_tyron(self) -> bool:
@@ -780,22 +705,119 @@ class MainWindow(Gtk.ApplicationWindow):
         """Handle window close."""
         return False  # Allow close
     
+    def show_about_dialog(self, *args):
+        """Show About dialog."""
+        from core import __version__
+        dialog = Gtk.AboutDialog()
+        dialog.set_transient_for(self)
+        dialog.set_modal(True)
+        dialog.set_program_name(_("Soplos Welcome Live"))
+        dialog.set_version(__version__)
+        dialog.set_comments(_("Welcome screen for Soplos Linux live sessions."))
+        dialog.set_website("https://soplos.org")
+        dialog.set_website_label("soplos.org")
+        dialog.set_authors(["Sergi Perich <info@soploslinux.com>"])
+        dialog.set_license_type(Gtk.License.GPL_3_0)
+        icon_path = Path(__file__).parent.parent / 'assets' / 'icons' / '64x64' / 'org.soplos.welcomelive.png'
+        if icon_path.exists():
+            dialog.set_logo(GdkPixbuf.Pixbuf.new_from_file_at_scale(str(icon_path), 48, 48, True))
+        _about_css = Gtk.CssProvider()
+        _about_css.load_from_data(b"""
+            dialog, messagedialog {
+                background-color: #2b2b2b;
+                color: #ffffff;
+            }
+            dialog .background, messagedialog .background {
+                background-color: #2b2b2b;
+                color: #ffffff;
+            }
+            dialog > box, messagedialog > box {
+                background-color: #2b2b2b;
+            }
+            dialog label, messagedialog label {
+                color: #ffffff;
+            }
+            dialog button, messagedialog button {
+                background-image: none;
+                background-color: #333333;
+                color: #ffffff;
+                border: 1px solid #3c3c3c;
+                border-radius: 4px;
+                padding: 6px 14px;
+                min-height: 0;
+                box-shadow: none;
+            }
+            dialog button:hover, messagedialog button:hover {
+                background-color: #444444;
+                border-color: #ff8800;
+            }
+            dialog stackswitcher button {
+                border-radius: 100px;
+                background-color: #2b2b2b;
+                background-image: none;
+                border: 1px solid #3c3c3c;
+                font-weight: normal;
+                padding: 4px 16px;
+                min-height: 0;
+                box-shadow: none;
+                color: #ffffff;
+            }
+            dialog stackswitcher button:hover {
+                background-color: #444444;
+                border-color: #ff8800;
+            }
+            dialog stackswitcher button:checked {
+                background-color: #444444;
+                color: #ffffff;
+            }
+            dialog scrolledwindow,
+            dialog scrolledwindow viewport {
+                background-color: #2b2b2b;
+                border-radius: 0;
+            }
+            dialog scrolledwindow textview,
+            dialog scrolledwindow textview text {
+                background-color: #2b2b2b;
+                color: #ffffff;
+            }
+            dialog headerbar, dialog .titlebar {
+                background-color: #2b2b2b;
+                border-bottom: 1px solid #3c3c3c;
+                box-shadow: none;
+            }
+            dialog .dialog-action-area {
+                background-color: #2b2b2b;
+                border-top: 1px solid #3c3c3c;
+            }
+        """)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(), _about_css,
+            Gtk.STYLE_PROVIDER_PRIORITY_USER
+        )
+        dialog.run()
+        dialog.destroy()
+
     def _on_key_press(self, widget, event):
         """Handle key press events."""
         keyval = event.keyval
         state = event.state
-        
+
+        # F1 - About dialog
+        if keyval == Gdk.KEY_F1:
+            self.show_about_dialog()
+            return True
+
         # Check for Ctrl+Q to quit
         if state & Gdk.ModifierType.CONTROL_MASK:
             if keyval == Gdk.KEY_q or keyval == Gdk.KEY_Q:
                 self.close()
                 return True
-        
+
         # Escape to close
         if keyval == Gdk.KEY_Escape:
             self.close()
             return True
-        
+
         return False
     
     def _show_message(self, title: str, message: str, msg_type=Gtk.MessageType.INFO):

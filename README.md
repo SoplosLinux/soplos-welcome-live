@@ -1,7 +1,7 @@
 # Soplos Welcome Live
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.1-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.1--1-green.svg)]()
 
 Welcome application for Soplos Linux Live Environment with advanced system recovery tools.
 
@@ -94,6 +94,12 @@ Contact: info@soploslinux.com
 - [Donate](https://www.paypal.com/paypalme/isubdes)
 
 ## 📦 Version History
+
+### v2.0.1-1 (2026-03-21)
+- **About dialog**: F1 shortcut and GNOME menu action open the About dialog.
+- **Code cleanup**: Removed all debug/diagnostic print statements from production code.
+- **Bug fixes**: Eliminated duplicate `_initialize_theming()` call, duplicate imports and duplicate accessibility env setup.
+- **CSS fix**: About dialog now renders with uniform dark background across all sections.
 
 ### v2.0.1 (2026-01-09)
 - **Documentation**: Added manual page and copyright file.
