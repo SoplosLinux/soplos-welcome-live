@@ -428,3 +428,194 @@ msgstr ""
 #, python-brace-format
 msgid "Could not open System Rescue: {error}"
 msgstr "Nu s-a putut deschide Recuperarea de Sistem: {error}"
+
+#: ui/main_window.py (F-02)
+msgid "Checking internet connection..."
+msgstr "Se verifică conexiunea la internet..."
+
+msgid "Internet connection available"
+msgstr "Conexiune la internet disponibilă"
+
+msgid "No internet connection"
+msgstr "Fără conexiune la internet"
+
+#: ui/main_window.py (E-05 tooltips - features)
+msgid "Launch the Calamares installer to install Soplos Linux on your hard drive."
+msgstr "Pornește instalatorul Calamares pentru a instala Soplos Linux pe hard disk."
+
+msgid "Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader."
+msgstr "Montează și accesează prin chroot o instalare Linux existentă pentru a o repara, reseta parolele sau repara bootloader-ul."
+
+msgid "Change the system language and keyboard layout. The session will restart automatically to apply the changes."
+msgstr "Schimbă limba sistemului și aspectul tastaturii. Sesiunea va reporni automat pentru a aplica modificările."
+
+msgid "Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad."
+msgstr "Activează sau dezactivează NumLock pe sistemul instalat. Recomandat să fie dezactivat pe laptopuri fără tastatură numerică."
+
+#: ui/main_window.py (E-05 tooltips - buttons)
+msgid "Open GParted to manage disk partitions before installing."
+msgstr "Deschide GParted pentru a gestiona partițiile discului înainte de instalare."
+
+msgid "GParted"
+msgstr "GParted"
+
+msgid "Hardware Info"
+msgstr "Informații hardware"
+
+msgid "Show information about this system's hardware."
+msgstr "Afișează informații despre hardware-ul acestui sistem."
+
+msgid "Select the system language and keyboard layout."
+msgstr "Selectează limba sistemului și aspectul tastaturii."
+
+msgid "Change the screen resolution for this live session."
+msgstr "Schimbă rezoluția ecranului pentru această sesiune live."
+
+msgid "Show this welcome screen automatically when the live session starts."
+msgstr "Afișează automat acest ecran de bun venit când pornește sesiunea live."
+
+#: ui/main_window.py (E-05 tooltips - links)
+msgid "Visit the official Soplos Linux website."
+msgstr "Vizitați site-ul oficial Soplos Linux."
+
+msgid "Get help and connect with the Soplos community on the forums."
+msgstr "Obțineți ajutor și conectați-vă cu comunitatea Soplos pe forumuri."
+
+msgid "Browse the Soplos Linux documentation and guides."
+msgstr "Parcurgeți documentația și ghidurile Soplos Linux."
+
+msgid "Support the development of Soplos Linux with a donation."
+msgstr "Sprijiniți dezvoltarea Soplos Linux cu o donație."
+
+#: ui/main_window.py (F-01)
+msgid "Unknown"
+msgstr "Necunoscut"
+
+msgid "Hardware Information"
+msgstr "Informații hardware"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "RAM"
+msgstr "RAM"
+
+msgid "Storage"
+msgstr "Stocare"
+
+#, python-brace-format
+msgid "Could not open GParted: {error}"
+msgstr "Nu s-a putut deschide GParted: {error}"
+
+#: ui/chroot_window.py
+msgid "Cancel"
+msgstr "Anulare"
+
+msgid "Accept"
+msgstr "Acceptare"
+
+msgid "System mounted successfully."
+msgstr "Sistem montat cu succes."
+
+msgid "Select the disk that contains the installation you want to rescue."
+msgstr "Selectați discul care conține instalarea pe care doriți să o recuperați."
+
+msgid "Close this window and return to the main screen."
+msgstr "Închideți această fereastră și reveniți la ecranul principal."
+
+msgid "Continue to partition selection for the chosen disk."
+msgstr "Continuați la selecția partițiilor pentru discul ales."
+
+#: core/chroot_operations.py
+#, python-brace-format
+msgid "Password changed successfully for user: {user}"
+msgstr "Parola schimbată cu succes pentru utilizatorul: {user}"
+
+msgid "GRUB repaired successfully."
+msgstr "GRUB reparat cu succes."
+
+msgid "GRUB updated successfully."
+msgstr "GRUB actualizat cu succes."
+
+msgid "Initramfs regenerated successfully."
+msgstr "Initramfs regenerat cu succes."
+
+#: ui/rescue_window.py
+msgid "Rescue Operations"
+msgstr "Operațiuni de recuperare"
+
+msgid "Select an operation to perform on the mounted system."
+msgstr "Selectați o operațiune de efectuat pe sistemul montat."
+
+msgid "Reset Password"
+msgstr "Resetare parolă"
+
+msgid "Change a user's password."
+msgstr "Schimbă parola unui utilizator."
+
+msgid "Repair GRUB"
+msgstr "Reparare GRUB"
+
+msgid "Reinstall and update GRUB bootloader."
+msgstr "Reinstalează și actualizează bootloader-ul GRUB."
+
+msgid "Update GRUB"
+msgstr "Actualizare GRUB"
+
+msgid "Run update-grub to refresh boot entries."
+msgstr "Rulează update-grub pentru a actualiza intrările de pornire."
+
+msgid "Regenerate initramfs"
+msgstr "Regenerare initramfs"
+
+msgid "Rebuild initramfs with dracut."
+msgstr "Reconstruiește initramfs cu dracut."
+
+msgid "Output"
+msgstr "Rezultat"
+
+msgid "Open Terminal"
+msgstr "Deschide terminal"
+
+msgid "Open a bash shell inside the chroot environment."
+msgstr "Deschide un shell bash în mediul chroot."
+
+msgid "Close & Unmount"
+msgstr "Închide și demontează"
+
+msgid "Unmount all partitions and close this window."
+msgstr "Demontează toate partițiile și închide această fereastră."
+
+msgid "Running..."
+msgstr "Se execută..."
+
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Eroare: {error}"
+
+msgid "Reset User Password"
+msgstr "Resetare parolă utilizator"
+
+msgid "Username:"
+msgstr "Utilizator:"
+
+msgid "New password:"
+msgstr "Parolă nouă:"
+
+msgid "Confirm:"
+msgstr "Confirmare:"
+
+msgid "Apply"
+msgstr "Aplicare"
+
+msgid "Error: Username cannot be empty."
+msgstr "Eroare: Numele de utilizator nu poate fi gol."
+
+msgid "Error: Password cannot be empty."
+msgstr "Eroare: Parola nu poate fi goală."
+
+msgid "Error: Passwords do not match."
+msgstr "Eroare: Parolele nu se potrivesc."
+
+msgid "Terminal opened. Operations are disabled while the terminal is active.\nClick 'Close & Unmount' when you are done."
+msgstr "Terminal deschis. Operațiunile sunt dezactivate cât timp terminalul este activ.\nFaceți clic pe 'Închide și demontează' când ați terminat."

@@ -13,6 +13,7 @@ from gi.repository import Gtk, Gdk, GLib
 from core.chroot_operations import SystemOperations
 from core.i18n_manager import _
 from ui import CSS_CLASSES
+from ui.rescue_window import RescueWindow
 
 # Disable accessibility warnings
 os.environ['NO_AT_BRIDGE'] = '1'
@@ -50,6 +51,7 @@ class ChRootWindow(Gtk.Window):
         
         self.disks_store = Gtk.ListStore(str, str, str)  # Device, Size, Model
         self.disks_view = Gtk.TreeView(model=self.disks_store)
+        self.disks_view.set_tooltip_text(_("Select the disk that contains the installation you want to rescue."))
         
         # Columns
         columns = [
@@ -65,23 +67,19 @@ class ChRootWindow(Gtk.Window):
         
         scrolled.add(self.disks_view)
         
-        # GParted Button
-        gparted_button = Gtk.Button(label=_("Open GParted"))
-        gparted_button.set_use_underline(True)
-        gparted_button.connect("clicked", self.on_gparted_clicked)
-        main_box.pack_start(gparted_button, False, False, 0)
-        
         # Bottom buttons
         button_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         main_box.pack_start(button_box, False, False, 0)
         
         close_button = Gtk.Button(label=_("Close"))
         close_button.set_use_underline(True)
+        close_button.set_tooltip_text(_("Close this window and return to the main screen."))
         close_button.connect("clicked", self.on_close_clicked)
         button_box.pack_start(close_button, True, True, 0)
         
         next_button = Gtk.Button(label=_("Next"))
         next_button.set_use_underline(True)
+        next_button.set_tooltip_text(_("Continue to partition selection for the chosen disk."))
         next_button.connect("clicked", self.on_next_clicked)
         next_button.get_style_context().add_class(CSS_CLASSES.get('suggested_action', 'suggested-action'))
         button_box.pack_start(next_button, True, True, 0)
@@ -100,16 +98,6 @@ class ChRootWindow(Gtk.Window):
                 _("Error"),
                 _("Error loading disks: {}").format(str(e))
             )
-    
-    def on_gparted_clicked(self, button):
-        """Executes GParted"""
-        try:
-            # Run GParted directly with pkexec
-            subprocess.Popen(['pkexec', '/usr/sbin/gparted'], 
-                           stdout=subprocess.DEVNULL,
-                           stderr=subprocess.DEVNULL)
-        except Exception as e:
-            self.show_error(_("Error"), str(e))
     
     def on_next_clicked(self, button):
         """Proceeds to the next step"""
@@ -146,22 +134,14 @@ class ChRootWindow(Gtk.Window):
         dialog = Gtk.Dialog(
             title=_("Select Partitions"),
             parent=self,
-            flags=0,
-            buttons=(
-                Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OK, Gtk.ResponseType.OK
-            )
+            flags=0
         )
-        dialog.set_default_size(600, 500)
-        
-        # Configure Alt+key shortcuts for dialog buttons
-        for button in dialog.get_action_area().get_children():
-            button.set_use_underline(True)
-        
+        dialog.set_default_size(450, 300)
+
         box = dialog.get_content_area()
         box.set_spacing(10)
         box.set_border_width(10)
-        
+
         if not partitions:
             label = Gtk.Label(label=_("No partitions found on this disk."))
             box.pack_start(label, False, False, 0)
@@ -169,34 +149,22 @@ class ChRootWindow(Gtk.Window):
             dialog.run()
             dialog.destroy()
             return
-            
+
         label = Gtk.Label(label=_("Assign mount points to partitions"))
         label.get_style_context().add_class(CSS_CLASSES.get('features_header', 'features-header'))
         box.pack_start(label, False, False, 0)
-        
+
         # Partition list
         grid = Gtk.Grid()
         grid.set_column_spacing(10)
         grid.set_row_spacing(5)
-        
-        # Create headers
-        headers = [
-            _("Mount Point"),
-            _("Device"),
-            _("Size"),
-            _("Filesystem")
-        ]
-        for i, header in enumerate(headers):
-            label = Gtk.Label(label=header)
-            label.set_markup(f"<b>{header}</b>")
-            grid.attach(label, i, 0, 1, 1)
-        
+
         # Create partition rows
         mount_points = ['/', '/boot', '/boot/efi', '/home']
         self.partition_combos = {}
         self.btrfs_subvol_combos = {}
 
-        current_row = 1
+        current_row = 0
         for mount in mount_points:
             mount_label = Gtk.Label(label=mount)
             mount_label.set_halign(Gtk.Align.START)
@@ -240,15 +208,14 @@ class ChRootWindow(Gtk.Window):
                     combo.append_text(text)
 
             combo.set_active(0)
-            
+
             # Automatic selection if there is a suggestion
             for j, part in enumerate(partitions):
                 if part.get('suggested_mount') == mount:
-                    # Find matching text in combo
                     combo_text = f"{part['device']} ({part['size']} - {part['fstype']})"
-                    model = combo.get_model()
-                    for i in range(len(model)):
-                        if model[i][0] == combo_text:
+                    combo_model = combo.get_model()
+                    for i in range(len(combo_model)):
+                        if combo_model[i][0] == combo_text:
                             combo.set_active(i)
                             break
 
@@ -258,6 +225,23 @@ class ChRootWindow(Gtk.Window):
             current_row += 1
 
         box.pack_start(grid, True, True, 0)
+
+        # Manual button row inside content area (avoids action_area dark strip)
+        btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        btn_box.set_halign(Gtk.Align.END)
+        btn_box.set_margin_top(5)
+
+        cancel_btn = Gtk.Button(label=_("Cancel"))
+        cancel_btn.connect("clicked", lambda w: dialog.response(Gtk.ResponseType.CANCEL))
+        btn_box.pack_start(cancel_btn, False, False, 0)
+
+        accept_btn = Gtk.Button(label=_("Accept"))
+        accept_btn.get_style_context().add_class('suggested-action')
+        accept_btn.connect("clicked", lambda w: dialog.response(Gtk.ResponseType.OK))
+        btn_box.pack_start(accept_btn, False, False, 0)
+
+        box.pack_start(btn_box, False, False, 0)
+
         box.show_all()
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
@@ -462,12 +446,13 @@ class ChRootWindow(Gtk.Window):
                     root_subvol=subvolumes.get('/'),
                     home_subvol=subvolumes.get('/home')
                 )
-                
+
                 progress_bar.set_fraction(1.0)
-                status_label.set_text(_("Chroot started successfully in new terminal."))
-                
-                # Automatically close dialog after 2 seconds
-                GLib.timeout_add(2000, dialog.response, Gtk.ResponseType.CLOSE)
+                status_label.set_text(_("System mounted successfully."))
+
+                # Close progress dialog and open rescue operations window
+                GLib.idle_add(dialog.response, Gtk.ResponseType.CLOSE)
+                GLib.idle_add(self._open_rescue_window, mount_points['/'])
                 
             except Exception as e:
                 progress_bar.set_fraction(0.0)
@@ -483,6 +468,12 @@ class ChRootWindow(Gtk.Window):
         dialog.run()
         dialog.destroy()
     
+    def _open_rescue_window(self, root_partition):
+        """Open the rescue operations window after successful mount."""
+        rescue = RescueWindow(self, self.sys_ops, root_partition)
+        rescue.show()
+        return False  # GLib.idle_add callback
+
     def on_close_clicked(self, button):
         """Closes the window"""
         self.clean_pycache()

@@ -426,3 +426,194 @@ msgstr ""
 #, python-brace-format
 msgid "Could not open System Rescue: {error}"
 msgstr "Could not open System Rescue: {error}"
+
+#: ui/main_window.py (F-02)
+msgid "Checking internet connection..."
+msgstr "Checking internet connection..."
+
+msgid "Internet connection available"
+msgstr "Internet connection available"
+
+msgid "No internet connection"
+msgstr "No internet connection"
+
+#: ui/main_window.py (E-05 tooltips - features)
+msgid "Launch the Calamares installer to install Soplos Linux on your hard drive."
+msgstr "Launch the Calamares installer to install Soplos Linux on your hard drive."
+
+msgid "Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader."
+msgstr "Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader."
+
+msgid "Change the system language and keyboard layout. The session will restart automatically to apply the changes."
+msgstr "Change the system language and keyboard layout. The session will restart automatically to apply the changes."
+
+msgid "Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad."
+msgstr "Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad."
+
+#: ui/main_window.py (E-05 tooltips - buttons)
+msgid "Open GParted to manage disk partitions before installing."
+msgstr "Open GParted to manage disk partitions before installing."
+
+msgid "GParted"
+msgstr "GParted"
+
+msgid "Hardware Info"
+msgstr "Hardware Info"
+
+msgid "Show information about this system's hardware."
+msgstr "Show information about this system's hardware."
+
+msgid "Select the system language and keyboard layout."
+msgstr "Select the system language and keyboard layout."
+
+msgid "Change the screen resolution for this live session."
+msgstr "Change the screen resolution for this live session."
+
+msgid "Show this welcome screen automatically when the live session starts."
+msgstr "Show this welcome screen automatically when the live session starts."
+
+#: ui/main_window.py (E-05 tooltips - links)
+msgid "Visit the official Soplos Linux website."
+msgstr "Visit the official Soplos Linux website."
+
+msgid "Get help and connect with the Soplos community on the forums."
+msgstr "Get help and connect with the Soplos community on the forums."
+
+msgid "Browse the Soplos Linux documentation and guides."
+msgstr "Browse the Soplos Linux documentation and guides."
+
+msgid "Support the development of Soplos Linux with a donation."
+msgstr "Support the development of Soplos Linux with a donation."
+
+#: ui/main_window.py (F-01)
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Hardware Information"
+msgstr "Hardware Information"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "RAM"
+msgstr "RAM"
+
+msgid "Storage"
+msgstr "Storage"
+
+#, python-brace-format
+msgid "Could not open GParted: {error}"
+msgstr "Could not open GParted: {error}"
+
+#: ui/chroot_window.py
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Accept"
+msgstr "Accept"
+
+msgid "System mounted successfully."
+msgstr "System mounted successfully."
+
+msgid "Select the disk that contains the installation you want to rescue."
+msgstr "Select the disk that contains the installation you want to rescue."
+
+msgid "Close this window and return to the main screen."
+msgstr "Close this window and return to the main screen."
+
+msgid "Continue to partition selection for the chosen disk."
+msgstr "Continue to partition selection for the chosen disk."
+
+#: core/chroot_operations.py
+#, python-brace-format
+msgid "Password changed successfully for user: {user}"
+msgstr "Password changed successfully for user: {user}"
+
+msgid "GRUB repaired successfully."
+msgstr "GRUB repaired successfully."
+
+msgid "GRUB updated successfully."
+msgstr "GRUB updated successfully."
+
+msgid "Initramfs regenerated successfully."
+msgstr "Initramfs regenerated successfully."
+
+#: ui/rescue_window.py
+msgid "Rescue Operations"
+msgstr "Rescue Operations"
+
+msgid "Select an operation to perform on the mounted system."
+msgstr "Select an operation to perform on the mounted system."
+
+msgid "Reset Password"
+msgstr "Reset Password"
+
+msgid "Change a user's password."
+msgstr "Change a user's password."
+
+msgid "Repair GRUB"
+msgstr "Repair GRUB"
+
+msgid "Reinstall and update GRUB bootloader."
+msgstr "Reinstall and update GRUB bootloader."
+
+msgid "Update GRUB"
+msgstr "Update GRUB"
+
+msgid "Run update-grub to refresh boot entries."
+msgstr "Run update-grub to refresh boot entries."
+
+msgid "Regenerate initramfs"
+msgstr "Regenerate initramfs"
+
+msgid "Rebuild initramfs with dracut."
+msgstr "Rebuild initramfs with dracut."
+
+msgid "Output"
+msgstr "Output"
+
+msgid "Open Terminal"
+msgstr "Open Terminal"
+
+msgid "Open a bash shell inside the chroot environment."
+msgstr "Open a bash shell inside the chroot environment."
+
+msgid "Close & Unmount"
+msgstr "Close & Unmount"
+
+msgid "Unmount all partitions and close this window."
+msgstr "Unmount all partitions and close this window."
+
+msgid "Running..."
+msgstr "Running..."
+
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Error: {error}"
+
+msgid "Reset User Password"
+msgstr "Reset User Password"
+
+msgid "Username:"
+msgstr "Username:"
+
+msgid "New password:"
+msgstr "New password:"
+
+msgid "Confirm:"
+msgstr "Confirm:"
+
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Error: Username cannot be empty."
+msgstr "Error: Username cannot be empty."
+
+msgid "Error: Password cannot be empty."
+msgstr "Error: Password cannot be empty."
+
+msgid "Error: Passwords do not match."
+msgstr "Error: Passwords do not match."
+
+msgid "Terminal opened. Operations are disabled while the terminal is active.\nClick 'Close & Unmount' when you are done."
+msgstr "Terminal opened. Operations are disabled while the terminal is active.\nClick 'Close & Unmount' when you are done."

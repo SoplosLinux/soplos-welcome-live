@@ -374,10 +374,9 @@ X-GNOME-Autostart-enabled=true
                         scale = 1
                     width = int(geometry.width * scale)
                     height = int(geometry.height * scale)
-                    print(f"[DEBUG] GDK reports actual resolution: {width}x{height}")
                     return f"{width}x{height}"
         except Exception as e:
-            print(f"[DEBUG] GDK detection failed: {e}")
+            pass
 
         # FALLBACK: DBus parsing (existing logic)
         try:
@@ -462,19 +461,16 @@ X-GNOME-Autostart-enabled=true
                                 if len(mode) > 2:
                                     width = int(mode[1])
                                     height = int(mode[2])
-                                    print(f"[DEBUG] Found current resolution by mode ID: {width}x{height}")
                                     return f"{width}x{height}"
                         except Exception:
                             continue
 
                     # 2) Fallback: preferred mode
-                    print(f"[DEBUG] Mode ID '{current_mode_id}' not found, trying preferred/first mode")
                     for mode in modes:
                         try:
                             if len(mode) > 4 and mode[4]:
                                 width = int(mode[1])
                                 height = int(mode[2])
-                                print(f"[DEBUG] Using preferred mode: {width}x{height}")
                                 return f"{width}x{height}"
                         except Exception:
                             continue
@@ -486,19 +482,16 @@ X-GNOME-Autostart-enabled=true
                             if len(first_mode) > 2:
                                 width = int(first_mode[1])
                                 height = int(first_mode[2])
-                                print(f"[DEBUG] Using first available mode: {width}x{height}")
                                 return f"{width}x{height}"
                         except Exception:
                             pass
 
-                except (IndexError, TypeError) as e:
-                    print(f"[DEBUG] Error parsing logical monitor: {e}")
+                except (IndexError, TypeError):
+                    continue
                     continue
 
-        except Exception as e:
-            print(f"[DEBUG] GNOME current resolution detection (DBus) failed: {e}")
-            import traceback
-            traceback.print_exc()
+        except Exception:
+            pass
 
         return None
 

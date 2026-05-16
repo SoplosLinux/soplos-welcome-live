@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.2] - 2026-03-31
+
+### ✨ Added
+- **Fade-in animation**: Smooth window opacity transition on startup.
+- **Tooltips**: Descriptive tooltips on all interactive elements (feature switches, action buttons, links, settings).
+- **Internet connectivity indicator**: Live green/red dot in the status bar, checked every 15 seconds in a background thread.
+- **Hardware Info button**: New button in the action bar opens a dialog showing CPU model, total RAM and connected storage devices.
+- **GParted button**: Direct access to GParted from the main window action bar.
+- **Guided Rescue Operations window**: After mounting the system in CHROOT, a new window provides guided operations:
+  - Reset user password (via `chpasswd`).
+  - Repair GRUB (auto-detects UEFI/BIOS, runs `grub-install` + `update-grub`).
+  - Update GRUB (`update-grub`).
+  - Regenerate initramfs (`dracut --regenerate-all --force`).
+  - Terminal button to open an interactive shell (disables all other operations once clicked).
+  - Output panel showing operation results in real time.
+
+### 🔧 Fixed
+- Removed incorrect positional partition auto-assignment fallback in the CHROOT partition detector; unidentified partitions now show "Select option" instead of a wrong automatic assignment.
+- Fixed dark strip at the bottom of the partition selection dialog by replacing `action_area` buttons with a manual button box inside `content_area`.
+- Removed misleading column headers from the partition assignment grid.
+
+### 🌍 Translations
+- All 8 languages (ES, EN, FR, DE, PT, IT, RO, RU) updated with new strings for all the above features.
+- All `.po` files compiled to `.mo`.
+
 ## [2.0.1-1] - 2026-03-21
 
 ### ✨ Added
@@ -87,64 +112,186 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [1.1.2] - 2025-11-29
+## [1.1.6] - 2025-11-29 _(Tyson only)_
 
 ### ✨ Changed
-- Universal disk detection in CHROOT: removed restrictive lsblk filter
-- Now detects all disk types on any hardware and VM
-- Fixed indentation errors in core/chroot_operations.py
-- Added debug message showing detected disks
+- Removed restrictive `lsblk` filter so all disk types are detected (MMC, NVMe, USB, loop, etc.).
+- Partition parsing switched to JSON (`lsblk -J`) with a robust text fallback for older systems.
+- Improved BTRFS subvolume detection and added debug output for troubleshooting.
+- Ported fixes from the Tyron tree and cleaned up indentation and error handling.
 
-## [1.1.1] - 2025-09-08
-
-### ✨ Changed
-- Updated links in the welcome tab buttons
-
-## [1.1.0] - 2025-08-02
+## [1.1.5] - 2025-09-08 _(Tyson only)_
 
 ### ✨ Changed
-- Complete internationalization refactor: dictionaries split into 8 files
-- Fixed all BTRFS partition mounting and subvolume selection issues
+- Welcome tab URLs updated to soplos.org.
 
-## [1.0.9] - 2025-07-27
+## [1.1.4] - 2025-08-02 _(Tyson only)_
+
+### 🔧 Fixed
+- Dictionary issues fixed and full i18n completed across all 8 languages.
+- CHROOT function improved for systems with BTRFS subvolumes.
+
+## [1.1.3] - 2025-08-02 _(Tyson only)_
 
 ### ✨ Changed
-- New program icon for better Soplos Linux branding integration
+- Program icon updated to new design.
+- Maintainer changed to Sergi Perich.
 
-## [1.0.8] - 2025-07-27
+## [1.1.2] - 2025-11-29 _(Tyron only)_
+
+### ✨ Changed
+- Universal disk detection in CHROOT: removed restrictive `lsblk` filter; now detects all disk types on any hardware and VM (MMC, NVMe, USB, loop, etc.).
+- Fixed indentation errors in `core/chroot_operations.py`.
+- Added debug message showing detected disks for troubleshooting.
+
+## [1.1.2] - 2025-07-27 _(Tyson only)_
 
 ### ✨ Added
-- Advanced partition and BTRFS subvolume detection
-- Full /home mounting support (partition or subvolume)
-- Improved recovery flow robustness
-- Multiple terminal compatibility
+- Advanced partition and BTRFS subvolume detection in the CHROOT environment.
+- Full `/home` mounting support as a partition or BTRFS subvolume.
+- Improved recovery flow robustness and compatibility with multiple terminals.
 
-## [1.0.6] - 2025-07-18
+## [1.1.1] - 2025-09-08 _(Tyron only)_
+
+### ✨ Changed
+- Welcome tab URLs updated to soplos.org.
+
+## [1.1.1] - 2025-07-18 _(Tyson only)_
+
+### 🔧 Fixed
+- Language detection and startup robustness improvements. Minor translation fixes.
+
+## [1.1.0] - 2025-08-03 _(Tyron only)_
+
+### ✨ Changed
+- Complete i18n refactor: translation dictionaries split into 8 separate files for easier maintenance and language addition.
+- BTRFS partition mounting and subvolume selection in CHROOT: all known issues and errors fixed.
+
+## [1.1.0] - 2025-07-18 _(Tyson only)_
+
+### ✨ Added
+- Metainfo finalized to AppStream/DEP-11 standard.
+- Program icons added in 48×48, 64×64 and 128×128 px.
+
+## [1.0.9] - 2025-08-02 _(Tyron only)_
+
+### ✨ Changed
+- Program icon updated to new design for better Soplos Linux branding integration.
+
+## [1.0.9] - 2025-07-15 _(Tyson only)_
+
+### 🔧 Fixed
+- Metainfo corrections for proper appearance in software centers (AppStream/Discover).
+
+## [1.0.8] - 2025-05-08 _(Tyron only)_
+
+### ✨ Added
+- Advanced partition and BTRFS subvolume detection in the CHROOT environment.
+- Full `/home` mounting support as a partition or BTRFS subvolume.
+- Improved recovery flow robustness and compatibility with multiple terminals.
+- Maintainer updated to Sergi Perich.
+
+## [1.0.8] - 2025-07-13 _(Tyson only)_
+
+### 🔧 Fixed
+- Metainfo file fixed for proper visualization in Discover/AppStream.
+
+## [1.0.7] - 2025-05-08 _(Tyron only)_
+
+### ✨ Added
+- Advanced partition and BTRFS subvolume detection in the CHROOT environment.
+- Full `/home` mounting support as a partition or BTRFS subvolume.
+
+_(Version bump on same day as 1.0.8 — content identical, immediately superseded.)_
+
+## [1.0.7] - 2025-07-13 _(Tyson only)_
+
+### ✨ Added
+- Full BTRFS subvolume support in CHROOT recovery.
+- Dictionary string corrections and review across all languages.
+- NumLockX completely removed (not applicable to KDE Plasma).
+
+## [1.0.6] - 2025-05-08 _(Tyron only)_
 
 ### 🛠️ Improved
-- Metainfo update for AppStream/DEP-11 compliance
+- Metainfo updated for AppStream/DEP-11 compliance. Full validation for software centers. No functional changes.
 
-## [1.0.5] - 2025-07-10
+## [1.0.6] - 2025-06-24 _(Tyson only)_
+
+### ✨ Added
+- AppStream integration: Application now visible in KDE Discover.
+
+## [1.0.5] - 2025-05-07 _(Tyron only)_
+
+### ✨ Added
+- Full BTRFS subvolume support in CHROOT recovery.
+- Complete i18n in 8 languages with keyboard mnemonics.
+- Dictionary string corrections and review across all languages.
+
+## [1.0.5] - 2025-06-20 _(Tyson only)_
 
 ### 🌍 Added
-- Full BTRFS subvolume support in CHROOT recovery
-- Complete internationalization in 8 languages with mnemonics
+- Complete program internationalization. Label refinement to English for consistency.
+- Minor bug fixes and general stability improvements.
+- User interface optimizations and performance improvements.
 
-## [1.0.4] - 2024-01-28
+## [1.0.4] - 2025-05-07 _(Tyron only)_
 
-### ✨ New
-- Advanced CHROOT functionality with intelligent partition detection
-- NumLock management integration
-- Automatic XDG folder migration
-- Real-time Python cache cleanup
-- GParted integration
+### ✨ Added
+- Intelligent partition detection in CHROOT environment.
+- NumLock management integration and automatic XDG folder migration on language change.
+- Real-time Python cache cleanup and memory optimization.
+- GParted integration and robust filesystem validation.
+- Complete i18n in 8 languages.
 
-## [1.0.0] - 2024-01-27
+## [1.0.3] - 2025-05-06 _(Tyron only)_
 
-### 🎉 Initial Release
-- Basic welcome interface
-- CHROOT functionality
-- Multi-language support
+### 🛠️ Improved
+- Locale configuration fixes and interface optimizations.
+
+## [1.0.3] - 2025-06-14 _(Tyson only)_
+
+### 🎉 Initial Release (Tyson)
+- Basic welcome interface with Calamares integration, locale/keyboard configuration.
+- CHROOT recovery tools and GParted integration.
+- Multi-language support (8 languages) and hardware detection.
+- NumLock activation toggle.
+
+## [1.0.2] - 2025-05-05 _(Tyron only)_
+
+### 🔧 Fixed
+- CHROOT operation fixes and general stability improvements.
+- Hardware detection improvements.
+
+## [1.0.2] - 2025-06-09 _(Tyson only)_
+
+### 🔧 Fixed
+- Minor bug fixes and stability improvements.
+
+## [1.0.1] - 2025-05-16 _(Tyron only)_
+
+### 🔧 Fixed
+- User interface improvements and configuration optimizations.
+
+## [1.0.1] - 2025-05-28 _(Tyson only)_
+
+### 🔧 Fixed
+- Minor interface fixes and stability improvements.
+
+## [1.0.0] - 2025-05-09 _(Tyron only)_
+
+### 🎉 Initial Release (Tyron)
+- Basic welcome interface for Soplos Linux Live.
+- Basic CHROOT functionality for system recovery.
+- Initial multi-language support.
+
+## [1.0.0] - 2025-05-16 _(Tyson only)_
+
+### 🎉 Initial Release (Tyson)
+- Basic welcome interface with Calamares integration, locale/keyboard configuration.
+- CHROOT recovery tools and GParted integration.
+- Multi-language support (8 languages) and hardware detection.
+- NumLock activation toggle.
 
 ---
 

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="soplos-welcome-live",
-    version="2.0.1-1",
+    version="2.0.2",
     packages=find_packages(),
     include_package_data=True,
     package_data={
@@ -10,7 +10,6 @@ setup(
     },
     install_requires=[
         'PyGObject>=3.40.0',
-        'psutil>=5.8.0',
     ],
     entry_points={
         'console_scripts': [

@@ -426,3 +426,194 @@ msgstr ""
 #, python-brace-format
 msgid "Could not open System Rescue: {error}"
 msgstr "No se ha podido abrir la recuperación del sistema: {error}"
+
+#: ui/main_window.py (F-02)
+msgid "Checking internet connection..."
+msgstr "Comprobando conexión a internet..."
+
+msgid "Internet connection available"
+msgstr "Conexión a internet disponible"
+
+msgid "No internet connection"
+msgstr "Sin conexión a internet"
+
+#: ui/main_window.py (E-05 tooltips - features)
+msgid "Launch the Calamares installer to install Soplos Linux on your hard drive."
+msgstr "Inicia el instalador Calamares para instalar Soplos Linux en tu disco duro."
+
+msgid "Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader."
+msgstr "Monta y accede mediante chroot a una instalación Linux existente para repararla, restablecer contraseñas o arreglar el gestor de arranque."
+
+msgid "Change the system language and keyboard layout. The session will restart automatically to apply the changes."
+msgstr "Cambia el idioma del sistema y la distribución del teclado. La sesión se reiniciará automáticamente para aplicar los cambios."
+
+msgid "Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad."
+msgstr "Activa o desactiva la activación de Bloq Num en el sistema instalado. Recomendado desactivarlo en portátiles sin teclado numérico."
+
+#: ui/main_window.py (E-05 tooltips - buttons)
+msgid "Open GParted to manage disk partitions before installing."
+msgstr "Abre GParted para gestionar las particiones del disco antes de instalar."
+
+msgid "GParted"
+msgstr "GParted"
+
+msgid "Hardware Info"
+msgstr "Información de hardware"
+
+msgid "Show information about this system's hardware."
+msgstr "Muestra información sobre el hardware de este equipo."
+
+msgid "Select the system language and keyboard layout."
+msgstr "Selecciona el idioma del sistema y la distribución del teclado."
+
+msgid "Change the screen resolution for this live session."
+msgstr "Cambia la resolución de pantalla para esta sesión live."
+
+msgid "Show this welcome screen automatically when the live session starts."
+msgstr "Muestra esta pantalla de bienvenida automáticamente cuando se inicia la sesión live."
+
+#: ui/main_window.py (E-05 tooltips - links)
+msgid "Visit the official Soplos Linux website."
+msgstr "Visita el sitio web oficial de Soplos Linux."
+
+msgid "Get help and connect with the Soplos community on the forums."
+msgstr "Obtén ayuda y conéctate con la comunidad de Soplos en los foros."
+
+msgid "Browse the Soplos Linux documentation and guides."
+msgstr "Navega por la documentación y guías de Soplos Linux."
+
+msgid "Support the development of Soplos Linux with a donation."
+msgstr "Apoya el desarrollo de Soplos Linux con una donación."
+
+#: ui/main_window.py (F-01)
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Hardware Information"
+msgstr "Información de hardware"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "RAM"
+msgstr "RAM"
+
+msgid "Storage"
+msgstr "Almacenamiento"
+
+#, python-brace-format
+msgid "Could not open GParted: {error}"
+msgstr "No se ha podido abrir GParted: {error}"
+
+#: ui/chroot_window.py
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Accept"
+msgstr "Aceptar"
+
+msgid "System mounted successfully."
+msgstr "Sistema montado correctamente."
+
+msgid "Select the disk that contains the installation you want to rescue."
+msgstr "Selecciona el disco que contiene la instalación que deseas recuperar."
+
+msgid "Close this window and return to the main screen."
+msgstr "Cierra esta ventana y vuelve a la pantalla principal."
+
+msgid "Continue to partition selection for the chosen disk."
+msgstr "Continúa con la selección de particiones del disco elegido."
+
+#: core/chroot_operations.py
+#, python-brace-format
+msgid "Password changed successfully for user: {user}"
+msgstr "Contraseña cambiada correctamente para el usuario: {user}"
+
+msgid "GRUB repaired successfully."
+msgstr "GRUB reparado correctamente."
+
+msgid "GRUB updated successfully."
+msgstr "GRUB actualizado correctamente."
+
+msgid "Initramfs regenerated successfully."
+msgstr "Initramfs regenerado correctamente."
+
+#: ui/rescue_window.py
+msgid "Rescue Operations"
+msgstr "Operaciones de rescate"
+
+msgid "Select an operation to perform on the mounted system."
+msgstr "Selecciona una operación para realizar en el sistema montado."
+
+msgid "Reset Password"
+msgstr "Restablecer contraseña"
+
+msgid "Change a user's password."
+msgstr "Cambia la contraseña de un usuario."
+
+msgid "Repair GRUB"
+msgstr "Reparar GRUB"
+
+msgid "Reinstall and update GRUB bootloader."
+msgstr "Reinstala y actualiza el gestor de arranque GRUB."
+
+msgid "Update GRUB"
+msgstr "Actualizar GRUB"
+
+msgid "Run update-grub to refresh boot entries."
+msgstr "Ejecuta update-grub para actualizar las entradas de arranque."
+
+msgid "Regenerate initramfs"
+msgstr "Regenerar initramfs"
+
+msgid "Rebuild initramfs with dracut."
+msgstr "Reconstruye el initramfs con dracut."
+
+msgid "Output"
+msgstr "Salida"
+
+msgid "Open Terminal"
+msgstr "Abrir terminal"
+
+msgid "Open a bash shell inside the chroot environment."
+msgstr "Abre una shell bash dentro del entorno chroot."
+
+msgid "Close & Unmount"
+msgstr "Cerrar y desmontar"
+
+msgid "Unmount all partitions and close this window."
+msgstr "Desmonta todas las particiones y cierra esta ventana."
+
+msgid "Running..."
+msgstr "Ejecutando..."
+
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Error: {error}"
+
+msgid "Reset User Password"
+msgstr "Restablecer contraseña de usuario"
+
+msgid "Username:"
+msgstr "Usuario:"
+
+msgid "New password:"
+msgstr "Nueva contraseña:"
+
+msgid "Confirm:"
+msgstr "Confirmar:"
+
+msgid "Apply"
+msgstr "Aplicar"
+
+msgid "Error: Username cannot be empty."
+msgstr "Error: El usuario no puede estar vacío."
+
+msgid "Error: Password cannot be empty."
+msgstr "Error: La contraseña no puede estar vacía."
+
+msgid "Error: Passwords do not match."
+msgstr "Error: Las contraseñas no coinciden."
+
+msgid "Terminal opened. Operations are disabled while the terminal is active.\nClick 'Close & Unmount' when you are done."
+msgstr "Terminal abierta. Las operaciones están desactivadas mientras la terminal está activa.\nHaz clic en 'Cerrar y desmontar' cuando hayas terminado."

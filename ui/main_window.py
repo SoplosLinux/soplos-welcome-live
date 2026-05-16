@@ -12,6 +12,8 @@ import os
 import subprocess
 import webbrowser
 import time
+import threading
+import socket
 
 
 from pathlib import Path
@@ -97,7 +99,57 @@ class MainWindow(Gtk.ApplicationWindow):
 
         # Create UI
         self._create_ui()
+
+        # Fade-in animation on startup
+        self.set_opacity(0.0)
+        self._fade_step = 0
+        GLib.timeout_add(30, self._fade_in)
+
+        # Internet connectivity indicator
+        self._start_connectivity_check()
     
+    def _fade_in(self):
+        """Animate window fade-in on startup."""
+        self._fade_step += 1
+        self.set_opacity(min(self._fade_step / 8.0, 1.0))
+        if self._fade_step < 8:
+            return True  # Continue
+        return False  # Stop
+
+    def _start_connectivity_check(self):
+        """Start background internet connectivity checks, repeated every 15 s."""
+        self._check_connectivity_async()
+        GLib.timeout_add_seconds(15, self._schedule_connectivity_check)
+
+    def _schedule_connectivity_check(self):
+        """Called by GLib timer to trigger a new connectivity check."""
+        self._check_connectivity_async()
+        return True  # Keep repeating
+
+    def _check_connectivity_async(self):
+        """Launch a daemon thread to test connectivity without blocking the UI."""
+        def check():
+            try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s.settimeout(3)
+                s.connect(("8.8.8.8", 53))
+                s.close()
+                connected = True
+            except Exception:
+                connected = False
+            GLib.idle_add(self._update_net_indicator, connected)
+        threading.Thread(target=check, daemon=True).start()
+
+    def _update_net_indicator(self, connected):
+        """Update the network indicator label in the UI thread."""
+        if connected:
+            self.net_indicator.set_markup('<span foreground="#4CAF50">●</span>')
+            self.net_indicator.set_tooltip_text(_("Internet connection available"))
+        else:
+            self.net_indicator.set_markup('<span foreground="#F44336">●</span>')
+            self.net_indicator.set_tooltip_text(_("No internet connection"))
+        return False  # Remove from GLib.idle_add queue
+
     def _create_header_bar(self):
         """
         Create HeaderBar (CSD) for GNOME, but use native decorations (SSD) 
@@ -303,26 +355,32 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # Features
         features = [
-            ("system-software-install", _("Install Soplos Linux on your computer")),
-            ("drive-harddisk", _("Rescue an existing installation via CHROOT")),
-            ("preferences-desktop-locale", _("Change system language on the fly")),
+            ("system-software-install", _("Install Soplos Linux on your computer"),
+             _("Launch the Calamares installer to install Soplos Linux on your hard drive.")),
+            ("drive-harddisk", _("Rescue an existing installation via CHROOT"),
+             _("Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader.")),
+            ("preferences-desktop-locale", _("Change system language on the fly"),
+             _("Change the system language and keyboard layout. The session will restart automatically to apply the changes.")),
         ]
-        
+
         # Add NumLock feature for Tyron
         if self._is_tyron():
-            features.append(("input-keyboard", _("Toggle NumLock for keyboards")))
-        
-        for i, (icon_name, text) in enumerate(features):
+            features.append(("input-keyboard", _("Toggle NumLock for keyboards"),
+                             _("Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad.")))
+
+        for i, (icon_name, text, tooltip) in enumerate(features):
             # Icon
             icon = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.LARGE_TOOLBAR)
             icon.set_halign(Gtk.Align.CENTER)
             icon.set_valign(Gtk.Align.CENTER)
+            icon.set_tooltip_text(tooltip)
             grid.attach(icon, 0, i, 1, 1)
-            
+
             # Label
             label = Gtk.Label(label=f"• {text}")
             label.set_halign(Gtk.Align.START)
             label.set_valign(Gtk.Align.CENTER)
+            label.set_tooltip_text(tooltip)
             grid.attach(label, 1, i, 1, 1)
     
     def _create_action_buttons(self, parent):
@@ -342,8 +400,9 @@ class MainWindow(Gtk.ApplicationWindow):
         install_btn.add(install_box)
         install_btn.get_style_context().add_class(CSS_CLASSES['button_install'])
         install_btn.get_style_context().add_class('suggested-action')
+        install_btn.set_tooltip_text(_("Launch the Calamares installer to install Soplos Linux on your hard drive."))
         install_btn.connect("clicked", self._on_install_clicked)
-        install_btn.set_size_request(200, 45)
+        install_btn.set_size_request(180, 45)
         button_box.pack_start(install_btn, False, False, 0)
         self.install_btn = install_btn
         
@@ -360,7 +419,35 @@ class MainWindow(Gtk.ApplicationWindow):
         rescue_btn.connect("clicked", self._on_chroot_clicked)
         rescue_btn.set_size_request(180, 45)
         button_box.pack_start(rescue_btn, False, False, 0)
-    
+
+        # GParted button
+        gparted_btn = Gtk.Button()
+        gparted_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        gparted_icon = Gtk.Image.new_from_icon_name('drive-harddisk-ieee1394', Gtk.IconSize.BUTTON)
+        gparted_label = Gtk.Label(label=_("GParted"))
+        gparted_box.pack_start(gparted_icon, False, False, 0)
+        gparted_box.pack_start(gparted_label, False, False, 0)
+        gparted_btn.add(gparted_box)
+        gparted_btn.get_style_context().add_class(CSS_CLASSES['button_secondary'])
+        gparted_btn.set_tooltip_text(_("Open GParted to manage disk partitions before installing."))
+        gparted_btn.connect("clicked", self._on_gparted_clicked)
+        gparted_btn.set_size_request(180, 45)
+        button_box.pack_start(gparted_btn, False, False, 0)
+
+        # Hardware info button
+        hwinfo_btn = Gtk.Button()
+        hwinfo_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        hwinfo_icon = Gtk.Image.new_from_icon_name('computer', Gtk.IconSize.BUTTON)
+        hwinfo_label = Gtk.Label(label=_("Hardware Info"))
+        hwinfo_box.pack_start(hwinfo_icon, False, False, 0)
+        hwinfo_box.pack_start(hwinfo_label, False, False, 0)
+        hwinfo_btn.add(hwinfo_box)
+        hwinfo_btn.get_style_context().add_class(CSS_CLASSES['button_secondary'])
+        hwinfo_btn.set_tooltip_text(_("Show information about this system's hardware."))
+        hwinfo_btn.connect("clicked", self._on_hwinfo_clicked)
+        hwinfo_btn.set_size_request(180, 45)
+        button_box.pack_start(hwinfo_btn, False, False, 0)
+
     def _create_link_buttons(self, parent):
         """Create link buttons row with icons like Welcome 2.0."""
         links_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -369,13 +456,17 @@ class MainWindow(Gtk.ApplicationWindow):
         parent.pack_start(links_box, False, False, 0)
         
         links = [
-            ("web-browser", _("Web"), "https://soplos.org"),
-            ("internet-group-chat", _("Forums"), "https://soplos.org/forums/"),
-            ("help-browser", _("Wiki"), "https://soplos.org/wiki/"),
-            ("emblem-favorite", _("Donate"), "https://www.paypal.com/paypalme/isubdes")
+            ("web-browser", _("Web"), "https://soplos.org",
+             _("Visit the official Soplos Linux website.")),
+            ("internet-group-chat", _("Forums"), "https://soplos.org/forums/",
+             _("Get help and connect with the Soplos community on the forums.")),
+            ("help-browser", _("Wiki"), "https://soplos.org/wiki/",
+             _("Browse the Soplos Linux documentation and guides.")),
+            ("emblem-favorite", _("Donate"), "https://www.paypal.com/paypalme/isubdes",
+             _("Support the development of Soplos Linux with a donation."))
         ]
-        
-        for icon_name, label, url in links:
+
+        for icon_name, label, url, tooltip in links:
             btn = Gtk.Button()
             btn_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
             btn_box.set_halign(Gtk.Align.CENTER)
@@ -385,6 +476,7 @@ class MainWindow(Gtk.ApplicationWindow):
             btn_box.pack_start(text, False, False, 0)
             btn.add(btn_box)
             btn.get_style_context().add_class(CSS_CLASSES['link_button'])
+            btn.set_tooltip_text(tooltip)
             btn.connect("clicked", lambda x, u=url: webbrowser.open(u))
             btn.set_size_request(95, 40)  # Uniform width
             links_box.pack_start(btn, True, True, 0)  # Expand to fill
@@ -399,8 +491,9 @@ class MainWindow(Gtk.ApplicationWindow):
         # Language selector
         lang_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         lang_icon = Gtk.Image.new_from_icon_name('preferences-desktop-locale', Gtk.IconSize.BUTTON)
+        lang_icon.set_tooltip_text(_("Select the system language and keyboard layout."))
         lang_box.pack_start(lang_icon, False, False, 0)
-        
+
         self.lang_combo = Gtk.ComboBoxText()
         current_index = 0
         for i, (lang_name, config) in enumerate(self.LANGUAGES.items()):
@@ -408,6 +501,7 @@ class MainWindow(Gtk.ApplicationWindow):
             if config['code'] == self.current_lang:
                 current_index = i
         self.lang_combo.set_active(current_index)
+        self.lang_combo.set_tooltip_text(_("Select the system language and keyboard layout."))
         self.lang_combo.connect("changed", self._on_language_changed)
         lang_box.pack_start(self.lang_combo, False, False, 0)
         settings_box.pack_start(lang_box, False, False, 0)
@@ -419,6 +513,7 @@ class MainWindow(Gtk.ApplicationWindow):
         # Resolution selector
         res_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         res_icon = Gtk.Image.new_from_icon_name('video-display', Gtk.IconSize.BUTTON)
+        res_icon.set_tooltip_text(_("Change the screen resolution for this live session."))
         res_box.pack_start(res_icon, False, False, 0)
 
         self.res_combo = Gtk.ComboBoxText()
@@ -439,6 +534,7 @@ class MainWindow(Gtk.ApplicationWindow):
             
             self.res_combo.set_active(default_index)
             
+        self.res_combo.set_tooltip_text(_("Change the screen resolution for this live session."))
         self.res_combo.connect("changed", self._on_resolution_changed)
         res_box.pack_start(self.res_combo, False, False, 0)
         settings_box.pack_start(res_box, False, False, 0)
@@ -450,10 +546,12 @@ class MainWindow(Gtk.ApplicationWindow):
         # Autostart switch
         autostart_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         autostart_label = Gtk.Label(label=_("Show at startup"))
+        autostart_label.set_tooltip_text(_("Show this welcome screen automatically when the live session starts."))
         autostart_box.pack_start(autostart_label, False, False, 0)
-        
+
         self.autostart_switch = Gtk.Switch()
         self.autostart_switch.set_active(self.autostart_manager.is_enabled())
+        self.autostart_switch.set_tooltip_text(_("Show this welcome screen automatically when the live session starts."))
         self.autostart_switch.connect("notify::active", self._on_autostart_toggled)
         # Force a compact size and center alignment to avoid vertical stretching
         try:
@@ -466,8 +564,8 @@ class MainWindow(Gtk.ApplicationWindow):
         
         # NumLock switch - ONLY for Tyron (XFCE)
         if self._is_tyron():
-            sep2 = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
-            settings_box.pack_start(sep2, False, False, 0)
+            sep3 = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
+            settings_box.pack_start(sep3, False, False, 0)
             
             numlock_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
             numlock_label = Gtk.Label(label=_("NumLock on install"))
@@ -500,10 +598,7 @@ class MainWindow(Gtk.ApplicationWindow):
         desktop_name = env_info['desktop_environment'].upper()
         protocol_name = env_info['display_protocol'].upper()
         
-        status_text = _("Ready - {desktop} on {protocol}").format(
-            desktop=desktop_name,
-            protocol=protocol_name
-        )
+        status_text = f"{desktop_name}  ·  {protocol_name}"
         status_label = Gtk.Label(label=status_text)
         status_label.set_halign(Gtk.Align.START)
         status_label.get_style_context().add_class(CSS_CLASSES['status_label'])
@@ -514,7 +609,13 @@ class MainWindow(Gtk.ApplicationWindow):
         version_label.set_halign(Gtk.Align.END)
         version_label.get_style_context().add_class('dim-label')
         status_box.pack_end(version_label, False, False, 0)
-        
+
+        # Right: Internet indicator (left of version)
+        self.net_indicator = Gtk.Label()
+        self.net_indicator.set_markup('<span foreground="#888888">●</span>')
+        self.net_indicator.set_tooltip_text(_("Checking internet connection..."))
+        status_box.pack_end(self.net_indicator, False, False, 0)
+
         parent.pack_end(status_box, False, False, 0)
 
     # ==================== Helper Methods ====================
@@ -601,7 +702,7 @@ class MainWindow(Gtk.ApplicationWindow):
         while time.time() - start_time < 0.35:
             while Gtk.events_pending():
                 Gtk.main_iteration()
-            
+
         try:
             from utils.language_changer import get_language_changer
             changer = get_language_changer()
@@ -655,6 +756,71 @@ class MainWindow(Gtk.ApplicationWindow):
             self._show_message(_("Error"), str(e), Gtk.MessageType.ERROR)
 
     
+    def _on_gparted_clicked(self, button):
+        """Handle GParted button click - launch GParted partition editor."""
+        try:
+            subprocess.Popen(['pkexec', '/usr/sbin/gparted'],
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL)
+        except Exception as e:
+            self._show_message(
+                _("Error"),
+                _("Could not open GParted: {error}").format(error=str(e)),
+                Gtk.MessageType.ERROR
+            )
+
+    def _on_hwinfo_clicked(self, button):
+        """Show a dialog with basic hardware information."""
+        cpu = _("Unknown")
+        ram = _("Unknown")
+        disk = _("Unknown")
+
+        try:
+            with open('/proc/cpuinfo', 'r') as f:
+                for line in f:
+                    if line.startswith('model name'):
+                        cpu = line.split(':', 1)[1].strip()
+                        break
+        except Exception:
+            pass
+
+        try:
+            with open('/proc/meminfo', 'r') as f:
+                for line in f:
+                    if line.startswith('MemTotal'):
+                        kb = int(line.split()[1])
+                        ram = f"{kb / (1024 * 1024):.1f} GB"
+                        break
+        except Exception:
+            pass
+
+        try:
+            result = subprocess.run(
+                ['lsblk', '-d', '-o', 'NAME,SIZE,MODEL', '--noheadings'],
+                capture_output=True, text=True, timeout=5
+            )
+            if result.returncode == 0:
+                lines = [l.strip() for l in result.stdout.strip().splitlines()
+                         if l and not any(x in l for x in ['loop', 'sr', 'rom'])]
+                disk = '\n'.join(lines) if lines else _("Unknown")
+        except Exception:
+            pass
+
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            modal=True,
+            message_type=Gtk.MessageType.INFO,
+            buttons=Gtk.ButtonsType.CLOSE,
+            text=_("Hardware Information")
+        )
+        dialog.format_secondary_markup(
+            f"<b>{_('CPU')}:</b> {cpu}\n"
+            f"<b>{_('RAM')}:</b> {ram}\n\n"
+            f"<b>{_('Storage')}:</b>\n{disk}"
+        )
+        dialog.run()
+        dialog.destroy()
+
     def _on_install_clicked(self, button):
         """Handle install button click - launch Calamares (like legacy: sudo, then close window)."""
         try:

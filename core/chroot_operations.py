@@ -389,13 +389,7 @@ class SystemOperations:
                 if '/boot' not in used_suggestions:
                     return '/boot'
             
-            # Priority assignment
-            elif '/' not in used_suggestions:
-                return '/'
-            elif '/boot' not in used_suggestions and fstype in ['ext2', 'ext3', 'ext4']:
-                return '/boot'
-            elif '/home' not in used_suggestions:
-                return '/home'
+            # No label or mountpoint hint — leave unassigned for manual selection
 
         return None
 
@@ -539,16 +533,86 @@ echo "{_('Unmount completed')}"
                 raise Exception(_("The mounted system does not appear to be a valid Linux - essential files not found"))
             
             self._is_mounted = True
-            
-            # Open terminal
-            self._open_chroot_terminal()
-            
+
         except Exception as e:
             self.logger.error(f"Error in mount_and_chroot: {e}")
             self.unmount_all()
             raise e
 
-    def _open_chroot_terminal(self):
+    def _get_parent_disk(self, partition: str) -> str:
+        """Get parent disk device from a partition path (e.g. /dev/sda4 -> /dev/sda)."""
+        import re
+        match = re.match(r'(/dev/(?:nvme\d+n\d+|[a-z]+))', partition)
+        if match:
+            return match.group(1)
+        return partition
+
+    def reset_user_password(self, username: str, new_password: str) -> str:
+        """Reset a user's password inside the chroot environment."""
+        result = subprocess.run(
+            ['sudo', 'chroot', self.mount_point, 'chpasswd'],
+            input=f"{username}:{new_password}\n",
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            raise Exception(result.stderr or result.stdout)
+        return _("Password changed successfully for user: {user}").format(user=username)
+
+    def repair_grub(self, root_partition: str) -> str:
+        """Run grub-install and update-grub inside the chroot environment."""
+        lines = []
+        is_uefi = os.path.ismount(os.path.join(self.mount_point, 'boot', 'efi'))
+
+        if is_uefi:
+            r = subprocess.run(
+                ['sudo', 'chroot', self.mount_point,
+                 'grub-install', '--target=x86_64-efi',
+                 '--efi-directory=/boot/efi', '--recheck'],
+                capture_output=True, text=True
+            )
+        else:
+            disk = self._get_parent_disk(root_partition)
+            r = subprocess.run(
+                ['sudo', 'chroot', self.mount_point, 'grub-install', disk],
+                capture_output=True, text=True
+            )
+
+        lines.append(r.stdout)
+        if r.returncode != 0:
+            raise Exception(r.stderr or r.stdout)
+
+        r2 = subprocess.run(
+            ['sudo', 'chroot', self.mount_point, 'update-grub'],
+            capture_output=True, text=True
+        )
+        lines.append(r2.stdout)
+        if r2.returncode != 0:
+            raise Exception(r2.stderr or r2.stdout)
+
+        return '\n'.join(lines).strip() or _("GRUB repaired successfully.")
+
+    def update_grub(self) -> str:
+        """Run update-grub inside the chroot environment."""
+        r = subprocess.run(
+            ['sudo', 'chroot', self.mount_point, 'update-grub'],
+            capture_output=True, text=True
+        )
+        if r.returncode != 0:
+            raise Exception(r.stderr or r.stdout)
+        return r.stdout.strip() or _("GRUB updated successfully.")
+
+    def regenerate_initramfs(self) -> str:
+        """Regenerate initramfs using dracut inside the chroot environment."""
+        r = subprocess.run(
+            ['sudo', 'chroot', self.mount_point,
+             'dracut', '--regenerate-all', '--force'],
+            capture_output=True, text=True
+        )
+        if r.returncode != 0:
+            raise Exception(r.stderr or r.stdout)
+        return r.stdout.strip() or _("Initramfs regenerated successfully.")
+
+    def open_chroot_terminal(self):
         """Opens chroot terminal with DE-specific priorities."""
         from core.environment import get_environment_detector, DesktopEnvironment
         

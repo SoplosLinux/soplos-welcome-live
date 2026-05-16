@@ -427,3 +427,194 @@ msgstr ""
 #, python-brace-format
 msgid "Could not open System Rescue: {error}"
 msgstr "Не удалось открыть Восстановление: {error}"
+
+#: ui/main_window.py (F-02)
+msgid "Checking internet connection..."
+msgstr "Проверка подключения к интернету..."
+
+msgid "Internet connection available"
+msgstr "Подключение к интернету доступно"
+
+msgid "No internet connection"
+msgstr "Нет подключения к интернету"
+
+#: ui/main_window.py (E-05 tooltips - features)
+msgid "Launch the Calamares installer to install Soplos Linux on your hard drive."
+msgstr "Запускает установщик Calamares для установки Soplos Linux на жёсткий диск."
+
+msgid "Mount and chroot into an existing Linux installation to repair it, reset passwords or fix the bootloader."
+msgstr "Монтирует и входит через chroot в существующую установку Linux для её восстановления, сброса паролей или исправления загрузчика."
+
+msgid "Change the system language and keyboard layout. The session will restart automatically to apply the changes."
+msgstr "Изменяет язык системы и раскладку клавиатуры. Сеанс автоматически перезапустится для применения изменений."
+
+msgid "Enable or disable NumLock activation on the installed system. Recommended to disable on laptops without a numeric keypad."
+msgstr "Включает или отключает NumLock в установленной системе. Рекомендуется отключить на ноутбуках без цифровой клавиатуры."
+
+#: ui/main_window.py (E-05 tooltips - buttons)
+msgid "Open GParted to manage disk partitions before installing."
+msgstr "Открывает GParted для управления разделами диска перед установкой."
+
+msgid "GParted"
+msgstr "GParted"
+
+msgid "Hardware Info"
+msgstr "Сведения об оборудовании"
+
+msgid "Show information about this system's hardware."
+msgstr "Показывает информацию об оборудовании системы."
+
+msgid "Select the system language and keyboard layout."
+msgstr "Выберите язык системы и раскладку клавиатуры."
+
+msgid "Change the screen resolution for this live session."
+msgstr "Изменяет разрешение экрана для текущего сеанса live."
+
+msgid "Show this welcome screen automatically when the live session starts."
+msgstr "Автоматически показывать этот экран приветствия при запуске сеанса live."
+
+#: ui/main_window.py (E-05 tooltips - links)
+msgid "Visit the official Soplos Linux website."
+msgstr "Посетите официальный сайт Soplos Linux."
+
+msgid "Get help and connect with the Soplos community on the forums."
+msgstr "Получите помощь и общайтесь с сообществом Soplos на форумах."
+
+msgid "Browse the Soplos Linux documentation and guides."
+msgstr "Просматривайте документацию и руководства Soplos Linux."
+
+msgid "Support the development of Soplos Linux with a donation."
+msgstr "Поддержите разработку Soplos Linux пожертвованием."
+
+#: ui/main_window.py (F-01)
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Hardware Information"
+msgstr "Сведения об оборудовании"
+
+msgid "CPU"
+msgstr "CPU"
+
+msgid "RAM"
+msgstr "RAM"
+
+msgid "Storage"
+msgstr "Хранилище"
+
+#, python-brace-format
+msgid "Could not open GParted: {error}"
+msgstr "Не удалось открыть GParted: {error}"
+
+#: ui/chroot_window.py
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Accept"
+msgstr "Принять"
+
+msgid "System mounted successfully."
+msgstr "Система успешно смонтирована."
+
+msgid "Select the disk that contains the installation you want to rescue."
+msgstr "Выберите диск, содержащий установку, которую нужно восстановить."
+
+msgid "Close this window and return to the main screen."
+msgstr "Закрывает это окно и возвращает на главный экран."
+
+msgid "Continue to partition selection for the chosen disk."
+msgstr "Продолжить к выбору разделов для выбранного диска."
+
+#: core/chroot_operations.py
+#, python-brace-format
+msgid "Password changed successfully for user: {user}"
+msgstr "Пароль для пользователя {user} успешно изменён."
+
+msgid "GRUB repaired successfully."
+msgstr "GRUB успешно восстановлен."
+
+msgid "GRUB updated successfully."
+msgstr "GRUB успешно обновлён."
+
+msgid "Initramfs regenerated successfully."
+msgstr "Initramfs успешно пересоздан."
+
+#: ui/rescue_window.py
+msgid "Rescue Operations"
+msgstr "Операции восстановления"
+
+msgid "Select an operation to perform on the mounted system."
+msgstr "Выберите операцию для выполнения на смонтированной системе."
+
+msgid "Reset Password"
+msgstr "Сбросить пароль"
+
+msgid "Change a user's password."
+msgstr "Изменить пароль пользователя."
+
+msgid "Repair GRUB"
+msgstr "Восстановить GRUB"
+
+msgid "Reinstall and update GRUB bootloader."
+msgstr "Переустанавливает и обновляет загрузчик GRUB."
+
+msgid "Update GRUB"
+msgstr "Обновить GRUB"
+
+msgid "Run update-grub to refresh boot entries."
+msgstr "Запускает update-grub для обновления записей загрузки."
+
+msgid "Regenerate initramfs"
+msgstr "Пересоздать initramfs"
+
+msgid "Rebuild initramfs with dracut."
+msgstr "Пересоздаёт initramfs с помощью dracut."
+
+msgid "Output"
+msgstr "Вывод"
+
+msgid "Open Terminal"
+msgstr "Открыть терминал"
+
+msgid "Open a bash shell inside the chroot environment."
+msgstr "Открывает bash-оболочку в среде chroot."
+
+msgid "Close & Unmount"
+msgstr "Закрыть и размонтировать"
+
+msgid "Unmount all partitions and close this window."
+msgstr "Размонтирует все разделы и закрывает это окно."
+
+msgid "Running..."
+msgstr "Выполняется..."
+
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Ошибка: {error}"
+
+msgid "Reset User Password"
+msgstr "Сброс пароля пользователя"
+
+msgid "Username:"
+msgstr "Пользователь:"
+
+msgid "New password:"
+msgstr "Новый пароль:"
+
+msgid "Confirm:"
+msgstr "Подтвердить:"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Error: Username cannot be empty."
+msgstr "Ошибка: имя пользователя не может быть пустым."
+
+msgid "Error: Password cannot be empty."
+msgstr "Ошибка: пароль не может быть пустым."
+
+msgid "Error: Passwords do not match."
+msgstr "Ошибка: пароли не совпадают."
+
+msgid "Terminal opened. Operations are disabled while the terminal is active.\nClick 'Close & Unmount' when you are done."
+msgstr "Терминал открыт. Операции отключены, пока терминал активен.\nНажмите «Закрыть и размонтировать», когда закончите."
