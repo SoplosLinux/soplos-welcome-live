@@ -440,25 +440,32 @@ echo "System locale configured"
             subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Failed to restart display manager: {e}")
-            # Fallback to hardcoded names if alias fails
-            dm_map = {
-                DesktopEnvironment.XFCE: 'lightdm',
-                DesktopEnvironment.KDE: 'sddm',
-                DesktopEnvironment.GNOME: 'gdm3', # Try gdm3 first
-            }
-            dm = dm_map.get(self.desktop, 'gdm3')
-            
-            # Double check for GNOME: gdm vs gdm3
-            if self.desktop == DesktopEnvironment.GNOME:
-                # Check if gdm exists
+            # Fallback to hardcoded names if alias fails.
+            # For KDE: try plasmalogin first (Tyson RC1+), then sddm (beta users).
+            if self.desktop == DesktopEnvironment.KDE:
+                for kde_dm in ('plasmalogin', 'sddm'):
+                    try:
+                        print(f"Fallback restart: {kde_dm}...")
+                        subprocess.run(['sudo', 'systemctl', 'restart', kde_dm],
+                                       check=True, timeout=30)
+                        break
+                    except subprocess.CalledProcessError:
+                        continue
+            elif self.desktop == DesktopEnvironment.GNOME:
+                dm = 'gdm3'
                 try:
-                    subprocess.run(['systemctl', 'status', 'gdm'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                    subprocess.run(['systemctl', 'status', 'gdm'],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                     dm = 'gdm'
-                except:
-                    dm = 'gdm3'
-            
-            print(f"Fallback restart: {dm}...")
-            subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
+                except Exception:
+                    pass
+                print(f"Fallback restart: {dm}...")
+                subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
+            else:
+                dm_map = {DesktopEnvironment.XFCE: 'lightdm'}
+                dm = dm_map.get(self.desktop, 'lightdm')
+                print(f"Fallback restart: {dm}...")
+                subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
     
     def get_current_language_code(self) -> str:
         locale = os.environ.get('LANG', 'en_US.UTF-8')

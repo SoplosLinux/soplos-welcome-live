@@ -1,7 +1,7 @@
 # Soplos Welcome Live
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--2-green.svg)]()
 
 Welcome application for Soplos Linux Live Environment with advanced system recovery tools.
 
@@ -97,6 +97,9 @@ Contact: info@soploslinux.com
 - [Donate](https://www.paypal.com/paypalme/isubdes)
 
 ## 📦 Version History
+
+### v2.0.2-2 (2026-06-22)
+- **Fix**: Language changer on KDE now tries `plasmalogin` first, then `sddm` as fallback, supporting both Tyson RC1 and beta users.
 
 ### v2.0.2 (2026-03-31)
 - **Fade-in animation**: Smooth opacity transition on startup.
