@@ -672,6 +672,7 @@ echo "{_('Cleanup completed')}"
         # Terminal Definitions (binary -> command list)
         # Note: 'bash script' must be passed as a single arg to -e for some terminals
         terms_db = {
+            'ghostty': ['ghostty', f'--title={chroot_title}', '-e', 'bash', script_path],
             'kitty': ['kitty', '--title', chroot_title, 'bash', script_path],
             'xfce4-terminal': ['xfce4-terminal', f'--title={chroot_title}', '-e', f'bash {script_path}'],
             'konsole': ['konsole', '--title', chroot_title, '-e', f'bash {script_path}'],
@@ -685,17 +686,17 @@ echo "{_('Cleanup completed')}"
         # Priority Lists based on User Request
         priorities = []
         if de == DesktopEnvironment.XFCE:
-            # Xfce: kitty, xfce4-terminal, xterm, uterm...
-            priorities = ['kitty', 'xfce4-terminal', 'xterm', 'uterm', 'alacritty', 'gnome-terminal']
+            # Xfce: ghostty, kitty, xfce4-terminal, xterm, uterm...
+            priorities = ['ghostty', 'kitty', 'xfce4-terminal', 'xterm', 'uterm', 'alacritty', 'gnome-terminal']
         elif de == DesktopEnvironment.KDE:
-            # Plasma: Konsole, alacritty, Xterm, uterm...
-            priorities = ['konsole', 'alacritty', 'xterm', 'uterm', 'kitty']
+            # Plasma: ghostty, konsole, alacritty, xterm, uterm...
+            priorities = ['ghostty', 'konsole', 'alacritty', 'xterm', 'uterm', 'kitty']
         elif de == DesktopEnvironment.GNOME:
-            # Gnome: gnome-terminal, ptyxis, alacrity, xterm, uterm...
-            priorities = ['gnome-terminal', 'ptyxis', 'alacritty', 'xterm', 'uterm']
+            # Gnome: ghostty, gnome-terminal, ptyxis, alacritty, xterm, uterm...
+            priorities = ['ghostty', 'gnome-terminal', 'ptyxis', 'alacritty', 'xterm', 'uterm']
         else:
             # Fallback generic list
-            priorities = ['kitty', 'xfce4-terminal', 'konsole', 'gnome-terminal', 'ptyxis', 'xterm']
+            priorities = ['ghostty', 'kitty', 'xfce4-terminal', 'konsole', 'gnome-terminal', 'ptyxis', 'xterm']
 
         # Try to launch one
         launched = False
@@ -716,4 +717,4 @@ echo "{_('Cleanup completed')}"
                     continue
         
         if not launched:
-             raise Exception(_("No available terminal found. Please install kitty, xfce4-terminal, konsole, gnome-terminal or ptyxis."))
+             raise Exception(_("No available terminal found. Please install ghostty, kitty, xfce4-terminal, konsole, gnome-terminal or ptyxis."))

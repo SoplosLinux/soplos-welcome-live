@@ -9,7 +9,7 @@ Build-Depends: debhelper-compat (= 13),
                python3-gi
 
 Package: soplos-welcome-live
-Version: 2.0.2-2
+Version: 2.0.2-3
 Architecture: all
 Depends: ${python3:Depends},
          ${misc:Depends},
@@ -21,7 +21,7 @@ Depends: ${python3:Depends},
          x11-xkb-utils
 Recommends: gparted,
             calamares,
-            ptyxis | gnome-terminal | xfce4-terminal,
+            ghostty | ptyxis | gnome-terminal | xfce4-terminal,
             numlockx,
             xdg-user-dirs
 Suggests: soplos-drivers,

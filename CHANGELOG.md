@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.2-3] - 2026-06-23
+
+### Fixed
+- Ghostty is now the first-priority terminal in the CHROOT recovery terminal launcher for all three desktop environments (XFCE/Tyron, KDE/Tyson, GNOME/Boro), reflecting its role as the default terminal across all three distros.
+- All 8 locale files updated to reflect the new terminal hint in the "no terminal found" error message.
+
 ## [2.0.2-2] - 2026-06-22
 
 ### Fixed

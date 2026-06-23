@@ -150,11 +150,11 @@ msgstr "Bereinigung abgeschlossen"
 
 #: core/chroot_operations.py:656
 msgid ""
-"No available terminal found. Please install kitty, xfce4-terminal, konsole, "
-"gnome-terminal or ptyxis."
+"No available terminal found. Please install ghostty, kitty, xfce4-terminal, "
+"konsole, gnome-terminal or ptyxis."
 msgstr ""
-"Kein verfügbares Terminal gefunden. Bitte installieren Sie kitty, xfce4-"
-"terminal, konsole, gnome-terminal oder ptyxis."
+"Kein verfügbares Terminal gefunden. Bitte installieren Sie ghostty, kitty, "
+"xfce4-terminal, konsole, gnome-terminal oder ptyxis."
 
 #: scripts/update-gtk-bookmarks.sh:21
 msgid "XFCE detected. Skipping GTK bookmark update."
