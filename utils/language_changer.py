@@ -401,15 +401,30 @@ echo "System locale configured"
         except:
             pass
     
+    def _detect_active_dm(self) -> str:
+        """Returns the name of the active display manager service."""
+        candidates = {
+            DesktopEnvironment.KDE:  ['plasmalogin', 'sddm'],
+            DesktopEnvironment.XFCE: ['lightdm'],
+            DesktopEnvironment.GNOME: ['gdm3', 'gdm'],
+        }.get(self.desktop, [])
+
+        for dm in candidates:
+            result = subprocess.run(
+                ['systemctl', 'is-active', dm],
+                capture_output=True, text=True
+            )
+            if result.stdout.strip() == 'active':
+                return dm
+
+        return 'display-manager.service'
+
     def _restart_display_manager(self):
         """Restart the display manager safely."""
         # Force sync to disk to prevent config read errors
         subprocess.run(['sync'], check=False)
         time.sleep(1)
-        
-        # Try generic alias first (Works on most systemd distros)
-        dm_service = 'display-manager.service'
-        
+
         if self.desktop == DesktopEnvironment.GNOME:
             print(f"Detected GNOME: Executing session kill strategy...")
             # CRITICAL: 'systemctl restart gdm3' causes system freeze on this platform (VM/Wayland).
@@ -418,54 +433,17 @@ echo "System locale configured"
             try:
                 user = os.getenv('USER', 'liveuser')
                 print(f"Killing session for user: {user}")
-                
-                # 1. Sync filesystem to minimize data loss (icon positions, etc)
                 subprocess.run("sync", shell=True)
-                
-                # 2. Force session kill. 
-                # We use Popen because the script (running in session) will die instantly.
                 subprocess.Popen(f"pkill -KILL -u {user}", shell=True)
             except Exception as e:
-                 print(f"Failed to kill session: {e}")
-                 # Fallback (unlikely to work if hard freeze is the alternative, but good practice)
-                 subprocess.run(['gnome-session-quit', '--force', '--no-prompt'], check=False)
-            
-            # Exit python script immediately
+                print(f"Failed to kill session: {e}")
+                subprocess.run(['gnome-session-quit', '--force', '--no-prompt'], check=False)
             sys.exit(0)
 
-        # --- KDE / XFCE: STANDARD RESTART ---
-        try:
-            print(f"Restarting display manager: {dm_service}")
-            # For non-broken DEs, synchronous restart is safer
-            subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True)
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to restart display manager: {e}")
-            # Fallback to hardcoded names if alias fails.
-            # For KDE: try plasmalogin first (Tyson RC1+), then sddm (beta users).
-            if self.desktop == DesktopEnvironment.KDE:
-                for kde_dm in ('plasmalogin', 'sddm'):
-                    try:
-                        print(f"Fallback restart: {kde_dm}...")
-                        subprocess.run(['sudo', 'systemctl', 'restart', kde_dm],
-                                       check=True, timeout=30)
-                        break
-                    except subprocess.CalledProcessError:
-                        continue
-            elif self.desktop == DesktopEnvironment.GNOME:
-                dm = 'gdm3'
-                try:
-                    subprocess.run(['systemctl', 'status', 'gdm'],
-                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    dm = 'gdm'
-                except Exception:
-                    pass
-                print(f"Fallback restart: {dm}...")
-                subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
-            else:
-                dm_map = {DesktopEnvironment.XFCE: 'lightdm'}
-                dm = dm_map.get(self.desktop, 'lightdm')
-                print(f"Fallback restart: {dm}...")
-                subprocess.run(['sudo', 'systemctl', 'restart', dm], check=True, timeout=30)
+        # --- KDE / XFCE: detect active DM and restart it directly ---
+        dm_service = self._detect_active_dm()
+        print(f"Restarting display manager: {dm_service}")
+        subprocess.run(['sudo', 'systemctl', 'restart', dm_service], check=True, timeout=30)
     
     def get_current_language_code(self) -> str:
         locale = os.environ.get('LANG', 'en_US.UTF-8')

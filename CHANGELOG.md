@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.2-4] - 2026-06-24
+
+### Fixed
+- Language changer now detects the active display manager with `systemctl is-active` before restarting it, instead of always using the generic `display-manager.service` alias. On Tyson RC1 it restarts `plasmalogin` directly; on beta ISOs still on SDDM it restarts `sddm`; the generic alias is only used as a last resort. This resolves a bug on VirtualBox where the hot restart after language change caused plasmalogin to show the Breeze wallpaper instead of the Soplos one and triggered a ksplashqml crash cascade on login.
+
 ## [2.0.2-3] - 2026-06-23
 
 ### Fixed
