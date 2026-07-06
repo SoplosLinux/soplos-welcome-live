@@ -838,7 +838,7 @@ class MainWindow(Gtk.ApplicationWindow):
             
             if calamares_cmd:
                 # Use sudo (not pkexec) like legacy - no authentication dialog needed
-                subprocess.Popen(['sudo', calamares_cmd],
+                subprocess.Popen(['sudo', 'env', 'QT_STYLE_OVERRIDE=fusion', calamares_cmd],
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL)
                 print("Calamares installer launched")
