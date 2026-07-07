@@ -4,7 +4,7 @@ Contains all GTK-based UI components, windows, and dialogs.
 """
 
 # UI module information
-__version__ = "2.0.2-5"
+__version__ = "2.0.2-6"
 __author__ = "Sergi Perich"
 
 # Re-export main components when available

@@ -1,7 +1,7 @@
 # Soplos Welcome Live
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--5-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--6-green.svg)]()
 
 Welcome application for Soplos Linux Live Environment with advanced system recovery tools.
 
@@ -97,6 +97,9 @@ Contact: info@soploslinux.com
 - [Donate](https://www.paypal.com/paypalme/isubdes)
 
 ## 📦 Version History
+
+### v2.0.2-6 (2026-07-07)
+- **Build**: Build dependency `python3-all` replaced with `python3`.
 
 ### v2.0.2-5 (2026-07-06)
 - **Fix**: Calamares is now launched with `QT_STYLE_OVERRIDE=fusion` on KDE Plasma to ensure correct rendering.
