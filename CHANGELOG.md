@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.2-7] - 2026-07-08
+
+### Fixed
+- All `qdbus` calls replaced with `qdbus6` following Qt5 removal from base system. Affects language changer (keyboard layout reset, Plasma shell refresh) and session manager (KDE logout script).
+
 ## [2.0.2-6] - 2026-07-07
 
 ### Changed

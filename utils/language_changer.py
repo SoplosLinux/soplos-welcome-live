@@ -204,7 +204,7 @@ echo "System locale configured"
                           '--key', 'LayoutList', layout], check=False)
             subprocess.run([kwrite, '--file', 'kxkbrc', '--group', 'Layout',
                           '--key', 'Use', 'true'], check=False)
-            subprocess.run(['qdbus', 'org.kde.keyboard', '/Layouts', 'reset'], check=False)
+            subprocess.run(['qdbus6', 'org.kde.keyboard', '/Layouts', 'reset'], check=False)
             
         elif self.desktop == DesktopEnvironment.GNOME:
             # GNOME user settings
@@ -384,8 +384,8 @@ echo "System locale configured"
                     pass
                 
                 # Force refresh of Plasma Shell
-                subprocess.run(['qdbus', 'org.kde.plasmashell', '/PlasmaShell', 
-                               'org.kde.PlasmaShell.evaluateScript', 
+                subprocess.run(['qdbus6', 'org.kde.plasmashell', '/PlasmaShell',
+                               'org.kde.PlasmaShell.evaluateScript',
                                'refreshCurrentShell()'], check=False)
             except Exception as e:
                 print(f"Error updating KDE references: {e}")

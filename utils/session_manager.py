@@ -118,18 +118,18 @@ class SessionManager:
     def _logout_kde(self, save_session: bool = False) -> Tuple[bool, str]:
         """Logout from KDE Plasma session."""
         try:
-            # Try qdbus for Plasma
-            cmd = ['qdbus', 'org.kde.ksmserver', '/KSMServer', 'logout', 
+            # Try qdbus6 for Plasma 6
+            cmd = ['qdbus6', 'org.kde.ksmserver', '/KSMServer', 'logout',
                    '0',  # Confirm immediately
                    '0',  # Logout (not shutdown)
                    '0']  # Default
-            
+
             result = subprocess.run(cmd, capture_output=True, timeout=10)
             if result.returncode == 0:
                 return (True, "Logging out of KDE Plasma session...")
-            
-            # Try qdbus6 for Plasma 6
-            cmd[0] = 'qdbus6'
+
+            # Fallback to qdbus for legacy Plasma 5
+            cmd[0] = 'qdbus'
             result = subprocess.run(cmd, capture_output=True, timeout=10)
             if result.returncode == 0:
                 return (True, "Logging out of KDE Plasma session...")
@@ -256,7 +256,7 @@ sleep {delay_seconds}
             if self.desktop == DesktopEnvironment.XFCE:
                 script_content += "xfce4-session-logout --logout --fast\n"
             elif self.desktop == DesktopEnvironment.KDE:
-                script_content += "qdbus org.kde.ksmserver /KSMServer logout 0 0 0\n"
+                script_content += "qdbus6 org.kde.ksmserver /KSMServer logout 0 0 0\n"
             elif self.desktop == DesktopEnvironment.GNOME:
                 script_content += "gnome-session-quit --logout --no-prompt\n"
             

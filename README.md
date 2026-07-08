@@ -1,7 +1,7 @@
 # Soplos Welcome Live
 
 [![License: GPL-3.0+](https://img.shields.io/badge/License-GPL--3.0%2B-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-2.0.2--6-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0.2--7-green.svg)]()
 
 Welcome application for Soplos Linux Live Environment with advanced system recovery tools.
 
@@ -97,6 +97,9 @@ Contact: info@soploslinux.com
 - [Donate](https://www.paypal.com/paypalme/isubdes)
 
 ## 📦 Version History
+
+### v2.0.2-7 (2026-07-08)
+- **Fix**: All `qdbus` calls replaced with `qdbus6` following Qt5 removal from base system.
 
 ### v2.0.2-6 (2026-07-07)
 - **Build**: Build dependency `python3-all` replaced with `python3`.
